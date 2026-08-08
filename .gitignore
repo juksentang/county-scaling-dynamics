@@ -1,0 +1,28 @@
+# Primary data — licensed or non-redistributable (see DATA_SOURCES.md)
+data
+data/
+data_clean
+data_clean/
+*.parquet
+*.xlsx
+*.xls
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.sbn
+*.sbx
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Scratch
+*.tmp
+*.log
+.DS_Store
+*Zone.Identifier

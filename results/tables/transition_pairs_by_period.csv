@@ -1,0 +1,13 @@
+input_panel,saai_spec,period,n_pairs,n_counties
+panel_scaling,multi,pre,5860,1272
+panel_scaling,multi,during,1734,472
+panel_scaling,multi,post,91,71
+panel_scaling,single,pre,8696,1502
+panel_scaling,single,during,4506,1193
+panel_scaling,single,post,1331,701
+panel_full (audit only),multi,pre,6272,1273
+panel_full (audit only),multi,during,1932,534
+panel_full (audit only),multi,post,91,71
+panel_full (audit only),single,pre,9453,1504
+panel_full (audit only),single,during,4874,1271
+panel_full (audit only),single,post,1331,701

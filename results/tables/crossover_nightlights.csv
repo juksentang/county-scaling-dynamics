@@ -1,0 +1,7 @@
+space,sector,beta_lo,beta_hi,k,u_star,R2,dAIC_sig_minus_lin
+raw,Tertiary,0.548,1.256,10.2,-0.1,0.886,-10.9
+raw,Secondary,0.577,1.181,22.6,-0.1,0.748,-0.1
+raw,NonAgri,0.543,1.194,10.0,-0.1,0.818,-3.7
+qmapped,Tertiary,0.548,1.25,12.6,1.007,0.921,-29.7
+qmapped,Secondary,0.576,1.167,9.9,1.025,0.833,-15.2
+qmapped,NonAgri,0.543,1.184,10.6,1.071,0.872,-20.7
