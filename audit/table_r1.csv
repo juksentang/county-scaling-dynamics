@@ -1,51 +1,50 @@
 id,location,submitted_value,corrected_value,cause,note
-E008,abstract.tex:17,278,2.8 y (binned KM; MLE 1.9 y),corrected estimator/definition (pipeline rebuild),corrected Gardiner MFPT: pre 2.8y -> during 11.7y ('roughly quadruples'); old 278y/'effectively infinite' void (the analysis plan S0 G3)
+E008,abstract.tex:17,278,2.8 y (binned KM; MLE 1.9 y),implementation error corrected,corrected Gardiner MFPT: pre 2.8y -> during 11.7y ('roughly quadruples'); old 278y/'effectively infinite' void (REVISION_PLAN S0 the escape-pipeline rebuild)
 E011,abstract.tex:23,0.587,0.659,legacy draft transcription,"the audit corrected Delta h (multi, 2010) = 0.6593; old 0.587 not the corrected truth"
 E012,abstract.tex:23,3.02,3.58,corrected estimator/definition (pipeline rebuild),"the audit corrected z vs surrogates (multi, 2010)"
 E013,abstract.tex:23,0.005,0.004,corrected estimator/definition (pipeline rebuild),"the audit corrected surrogate p (multi, 2010)"
 E175,conclusion.tex:20,278,2.8 y (during 11.7 y),legacy draft transcription,old 278/'effectively infinite' void
 E178,conclusion.tex:27,3.02,3.58,legacy draft transcription,z corrected
 E177,conclusion.tex:27,0.59,0.659,legacy draft transcription,Delta h corrected
-E159,discussion.tex:32,13.6,2.29,corrected estimator/definition (pipeline rebuild),Gamma during corrected; old 13.6 void
-E158,discussion.tex:32,5.6,0.25,corrected estimator/definition (pipeline rebuild),Gamma pre corrected; old 5.6 void
+E159,discussion.tex:32,13.6,2.29,implementation error corrected,Gamma during corrected; old 13.6 void
+E158,discussion.tex:32,5.6,0.25,implementation error corrected,Gamma pre corrected; old 5.6 void
 E160,discussion.tex:33,~1e3 (three orders of magnitude),~4x,legacy draft transcription,old 'three orders of magnitude' void
 E161,discussion.tex:35,0.11,not identified,legacy draft transcription,post Delta V unidentified; 0.11 void
-E164,discussion.tex:69,278,2.8 y,corrected estimator/definition (pipeline rebuild),MFPT-caveat sentence built on old 278; corrected value 2.8y changes the caveat's content
-E165,discussion.tex:71,5.6,0.25,corrected estimator/definition (pipeline rebuild),corrected Gamma pre; 'Gamma~5.6 places the system in the exponential regime' no longer holds at Gamma=0.25
+E164,discussion.tex:69,278,2.8 y,implementation error corrected,MFPT-caveat sentence built on old 278; corrected value 2.8y changes the caveat's content
+E165,discussion.tex:71,5.6,0.25,implementation error corrected,corrected Gamma pre; 'Gamma~5.6 places the system in the exponential regime' no longer holds at Gamma=0.25
 E019,introduction.tex:47,0.59,0.659,legacy draft transcription,the audit corrected Delta h; 0.59 stale
 E182,methods.tex:16,832,755 in panel_full (832 = national list size),legacy draft transcription,"known Step-2 discrepancy: 'Of these, 832 carry the designation' conflates list size with panel coverage"
-E185,methods.tex:19,98%,no denominator reproduces ~98%,regenerated table (no reproducible provenance),"candidates: rows/full 53.8%, counties 84.7%, rows/GOV>0 87.1%, PopNum coverage 91.4% (no_provenance.csv; the analysis plan S0 item 3)"
+E185,methods.tex:19,98%,no denominator reproduces ~98%,regenerated table (no reproducible provenance),"candidates: rows/full 53.8%, counties 84.7%, rows/GOV>0 87.1%, PopNum coverage 91.4% (no_provenance.csv; REVISION_PLAN S0 item 3)"
 E190,methods.tex:416,-3,no -3 truncation in code; KM support clipped at 1st-99th percentile of xi (src/fokker_planck.py:105-106),regenerated table (no reproducible provenance),"NEW: MFPT integral runs over data-driven bin-center grid, never a fixed xi=-3; only the Langevin sim xi0_range=(-3,3) uses -3"
 E089,results.tex:221,2,"K=2 in 2000,2002-2005; K=3 in 2001 (and K=2 again in 2010)",legacy draft transcription,known Step-2 discrepancy: 'K=2 in 2000-2005' false for 2001
 E024,results.tex:25,<0.001,only sec-vs-ter Wald exists: z=6.63 p=3.3e-11,regenerated table (no reproducible provenance),NEW: no pipeline output tests ALL pairwise differences; under pooled specs ter-vs-nonagri gap (1.0063 vs 1.0315) is unlikely p<0.001 and is untested; claim has no provenance
 E093,results.tex:256,+0.3,no supporting output,regenerated table (no reproducible provenance),no pipeline output places a shoulder at +0.3; GMM early mu2=+0.03..+0.12; corrected potential's barrier sits near -0.007 - claim unverified and predates corrected estimator
-E101,results.tex:324,0.62,0.023 (binned KM; MLE 0.005),corrected estimator/definition (pipeline rebuild),corrected Delta V pre; old 0.62 void (buggy Gardiner V_FP/B exponent)
-E103,results.tex:324,5.6,0.25,corrected estimator/definition (pipeline rebuild),corrected Gamma pre; old 5.6 void
+E101,results.tex:324,0.62,0.023 (binned KM; MLE 0.005),implementation error corrected,corrected Delta V pre; old 0.62 void (buggy Gardiner V_FP/B exponent)
+E103,results.tex:324,5.6,0.25,implementation error corrected,corrected Gamma pre; old 5.6 void
 E102,results.tex:324,0.22,0.188,legacy draft transcription,corrected mean diffusion pre
 E104,results.tex:325,1.43,0.154 (binned KM; MLE 0.084),legacy draft transcription,corrected Delta V during
-E106,results.tex:325,13.6,2.29 (binned KM; MLE 1.05),corrected estimator/definition (pipeline rebuild),corrected Gamma during
+E106,results.tex:325,13.6,2.29 (binned KM; MLE 1.05),implementation error corrected,corrected Gamma during
 E105,results.tex:325,0.21,0.135,legacy draft transcription,corrected mean diffusion during
 E107,results.tex:327,0.11,not identified (0 reliable bins post),legacy draft transcription,post-period Delta V unidentified; also panel-attrition artifact contaminates post KM
 E108,results.tex:328,2.4,"~9.2x in Gamma point estimates (0.25->2.29); MLE paired diff +1.02 [0.35,2.11]",legacy draft transcription,old '~2.4-fold' void
 E025,results.tex:33,24,23 of 24 years,legacy draft transcription,ordering pri<ter<sec violated in 2008 (Primary 0.9875 > Tertiary 0.9852); 'all 24 years' false
 E109,results.tex:334,<1e-40,6.13e-40 (GDP 3-sector KW),legacy draft transcription,NEW (minor): strict claim p<1e-40 fails (p=6.1e-40; p<1e-39 correct); Agri 4-sector KW p=2.4e-48 would satisfy it; sentence pairs GDP-HHI tests with Agri-HHI means
-E118,results.tex:368,278,"2.8 y [1.3,13.8]",corrected estimator/definition (pipeline rebuild),corrected MFPT pre; old 278 void
-E116,results.tex:368,0.62,"0.023 [-0.002,0.077]",corrected estimator/definition (pipeline rebuild),corrected Delta V pre (G3)
+E118,results.tex:368,278,"2.8 y [1.3,13.8]",implementation error corrected,corrected MFPT pre; old 278 void
+E116,results.tex:368,0.62,"0.023 [-0.002,0.077]",implementation error corrected,corrected Delta V pre
 E117,results.tex:368,0.22,0.188,legacy draft transcription,corrected D-bar pre
 E120,results.tex:369,1.43,"0.154 [-0.004,0.285]",legacy draft transcription,corrected Delta V during
 E121,results.tex:369,0.21,0.135,legacy draft transcription,corrected D-bar during
-E122,results.tex:370,6.65e5,"11.7 y [6.3,29.1]",corrected estimator/definition (pipeline rebuild),corrected MFPT during; old 6.65e5 void
+E122,results.tex:370,6.65e5,"11.7 y [6.3,29.1]",implementation error corrected,corrected MFPT during; old 6.65e5 void
 E123,results.tex:371,0.11,not identified (0/25 reliable bins),legacy draft transcription,post row must read 'not identified'; 0.11 void
-E124,results.tex:378,278,2.8 y,corrected estimator/definition (pipeline rebuild),corrected MFPT pre
-E126,results.tex:383,6.65e5,11.7 y,corrected estimator/definition (pipeline rebuild),corrected MFPT during; 'effectively infinite' void
-E127,results.tex:384,"2,400","~4.2x (11.7/2.8); MLE ratio 4.04x [1.45,45.3]",corrected estimator/definition (pipeline rebuild),old '~2400-fold' void; narrative is 'escape time roughly quadruples'
+E124,results.tex:378,278,2.8 y,implementation error corrected,corrected MFPT pre
+E126,results.tex:383,6.65e5,11.7 y,implementation error corrected,corrected MFPT during; 'effectively infinite' void
+E127,results.tex:384,"2,400","~4.2x (11.7/2.8); MLE ratio 4.04x [1.45,45.3]",implementation error corrected,old '~2400-fold' void; narrative is 'escape time roughly quadruples'
 E128,results.tex:386,0.11,not identified,legacy draft transcription,post Delta V unidentified
-E130,results.tex:401,13.6,2.29,corrected estimator/definition (pipeline rebuild),Gamma during corrected
-E129,results.tex:401,5.6,0.25,corrected estimator/definition (pipeline rebuild),Gamma pre corrected
+E130,results.tex:401,13.6,2.29,implementation error corrected,Gamma during corrected
+E129,results.tex:401,5.6,0.25,implementation error corrected,Gamma pre corrected
 E131,results.tex:402,~1e3 (three orders of magnitude),~4x (well under one order of magnitude),legacy draft transcription,old 'three orders of magnitude' void
-E132,results.tex:404,0.11,not identified,corrected estimator/definition (pipeline rebuild),long-run barrier-compression figure 0.11 void; post unidentified
-E133,results.tex:434,-0.19,no truth record,regenerated table (no reproducible provenance),urbanization-grouped FP attractors (SI fig si_fp_grouped) have no entry in the truth library and predate the corrected KM estimator
-E134,results.tex:434,+0.42,no truth record,regenerated table (no reproducible provenance),same as E133
+E132,results.tex:404,0.11,not identified,implementation error corrected,long-run barrier-compression figure 0.11 void; post unidentified
+E134,results.tex:434,+0.42,withdrawn (not identified),claim withdrawn (not identified),"Medium post: 59 pairs, 0 reliable bins under the 30-pairs rule; no attractor position is now quoted in text, SI Text S11 or the figure caption"
 E027,results.tex:45,24,23 of 24 years,legacy draft transcription,same as E025 (2008 violation)
 E143,results.tex:475,0.59,0.659,legacy draft transcription,the audit corrected Delta h (multi 2010) = 0.6593
 E145,results.tex:478,0.205,0.2447,corrected estimator/definition (pipeline rebuild),the audit corrected surrogate mean (multi 2010)
@@ -97,9 +96,9 @@ E252,si.tex:358,54,,regenerated table (no reproducible provenance),Table S1 desc
 E251,si.tex:358,"248,740",,regenerated table (no reproducible provenance),"Table S1 descriptive: no generating code (no_provenance.csv); recomputed 689,870.8 from descriptive_stats_panel_full.csv"
 E250,si.tex:358,"156,830",,regenerated table (no reproducible provenance),"Table S1 descriptive: no generating code (no_provenance.csv); recomputed 322,236.3 from descriptive_stats_panel_full.csv"
 E249,si.tex:358,95%,,regenerated table (no reproducible provenance),Table S1 descriptive: no generating code (no_provenance.csv); recomputed 87.7% from descriptive_stats_panel_full.csv
-E195,si.tex:36,98%,,regenerated table (no reproducible provenance),"no_provenance.csv: no denominator yields ~98%; closest 91.4% (PopNum coverage); rows/full=53.8%, GOV-rows=87.1% (the analysis plan par.0 item 3)"
+E195,si.tex:36,98%,87%,regenerated table (no reproducible provenance),"single-factor SAAI coverage of county-years with agricultural output (20,619 county-years, 1,945 counties); no denominator yields ~98%"
 E259,si.tex:360,"52,380",,regenerated table (no reproducible provenance),"Table S1 descriptive: no generating code (no_provenance.csv); recomputed 92,121.3 from descriptive_stats_panel_full.csv"
-E258,si.tex:360,89,,regenerated table (no reproducible provenance),Table S1 descriptive: no generating code (no_provenance.csv); recomputed 411.8 from descriptive_stats_panel_full.csv
+E258,si.tex:360,89,variable not retained in the rebuilt table,regenerated table (no reproducible provenance),Table S1 descriptive: no generating code (no_provenance.csv); recomputed 411.8 from descriptive_stats_panel_full.csv
 E260,si.tex:360,"2,680,000",,regenerated table (no reproducible provenance),"Table S1 descriptive: no generating code (no_provenance.csv); recomputed 10,366,186.2 from descriptive_stats_panel_full.csv"
 E256,si.tex:360,"108,620",,regenerated table (no reproducible provenance),"Table S1 descriptive: no generating code (no_provenance.csv); recomputed 239,377.0 from descriptive_stats_panel_full.csv"
 E255,si.tex:360,94%,,regenerated table (no reproducible provenance),Table S1 descriptive: no generating code (no_provenance.csv); recomputed 85.4% from descriptive_stats_panel_full.csv
@@ -116,7 +115,7 @@ E270,si.tex:364,180,,regenerated table (no reproducible provenance),Table S1 des
 E267,si.tex:364,62%,,regenerated table (no reproducible provenance),Table S1 descriptive: no generating code (no_provenance.csv); recomputed 47.7% from descriptive_stats_panel_full.csv
 E268,si.tex:364,"56,930",,regenerated table (no reproducible provenance),"Table S1 descriptive: no generating code (no_provenance.csv); recomputed 63,626.8 from descriptive_stats_panel_full.csv"
 E269,si.tex:364,"48,710",,regenerated table (no reproducible provenance),"Table S1 descriptive: no generating code (no_provenance.csv); recomputed 55,074.9 from descriptive_stats_panel_full.csv"
-E273,si.tex:366,78%,,regenerated table (no reproducible provenance),Table S1 descriptive: no generating code (no_provenance.csv); recomputed 86.0% from descriptive_stats_panel_full.csv (the analysis plan par.0 item 3: true coverage 85.9%)
+E273,si.tex:366,78%,,regenerated table (no reproducible provenance),Table S1 descriptive: no generating code (no_provenance.csv); recomputed 86.0% from descriptive_stats_panel_full.csv (REVISION_PLAN par.0 item 3: true coverage 85.9%)
 E274,si.tex:366,"192,400",,regenerated table (no reproducible provenance),"Table S1 descriptive: no generating code (no_provenance.csv); recomputed 205,361.9 from descriptive_stats_panel_full.csv"
 E275,si.tex:366,"178,600",,regenerated table (no reproducible provenance),"Table S1 descriptive: no generating code (no_provenance.csv); recomputed 278,322.1 from descriptive_stats_panel_full.csv"
 E276,si.tex:366,85,,regenerated table (no reproducible provenance),Table S1 descriptive: no generating code (no_provenance.csv); recomputed 0.0 from descriptive_stats_panel_full.csv
@@ -143,4 +142,10 @@ E498,si.tex:463,-0.004,0.0056,legacy draft transcription,legacy_truth quadratic-
 E499,si.tex:464,1.310,1.7023,legacy draft transcription,legacy_truth quadratic-control Non-agri (linear beta1)
 E500,si.tex:464,1.308,1.7066,legacy draft transcription,legacy_truth quadratic-control Non-agri (quadratic beta1)
 E501,si.tex:464,-0.002,0.0043,legacy draft transcription,legacy_truth quadratic-control Non-agri (Delta)
-E509,si.tex:563,"1,000",500,legacy draft transcription,"legacy_truth a flagged item: both call sites use n_boot=500 (generate_paper_figures.py:880, notebook 05); caption ""1,000 iterations"" matches nothing; n_boot=1000 CI [0.718,0.927] vs claimed [0.721,0.915]=n_boot 500"
+E509,si.tex:563,"1,000",500,legacy draft transcription,"legacy_truth Flag A: both call sites use n_boot=500 (generate_paper_figures.py:880, notebook 05); caption ""1,000 iterations"" matches nothing; n_boot=1000 CI [0.718,0.927] vs claimed [0.721,0.915]=n_boot 500"
+E020,results.tex:21,0.87,0.93,mixed estimator provenance unified,"the sentence mixed estimators: pri/ter/sec were means of the 24 yearly cross-sections while nonagri (E023) was pooled OLS. All four are now pooled OLS on panel_scaling (results/tables/headline_scaling.csv), with the yearly means reported alongside"
+E021,results.tex:22,0.96,1.01,mixed estimator provenance unified,see E020
+E022,results.tex:23,1.08,1.11,mixed estimator provenance unified,see E020
+E081,results.tex:170,-0.70,-1.26,computed on the wrong panel,"the only interaction regression run on panel_full; panel_scaling is the pinned analysis panel, on which beta1 = -1.2609 (p = 3.7e-225, N = 16,574) -- the value Figure 3(b) already showed"
+E233,si.tex:317,+0.42,withdrawn (not identified),claim withdrawn (not identified),"Medium post: 59 pairs, 0 reliable bins under the 30-pairs rule (see E134); no attractor position is quoted in SI Text S11 or the figure caption, and the post row is no longer drawn in Figure S2"
+E235,si.tex:333,+0.42,withdrawn (not identified),claim withdrawn (not identified),see E233; figure caption

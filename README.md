@@ -136,4 +136,9 @@ dependence is respected.
 Code is MIT-licensed; derived tables and figures are CC BY 4.0 (`LICENSE`).
 Input data retain the licences listed in `DATA_SOURCES.md`.
 
-If you use this code, please cite the paper and the data sources it depends on.
+This repository is archived at <https://doi.org/10.5281/zenodo.21846268>. That
+is a concept DOI: it always resolves to the current version, and citing it is
+preferred over citing a specific version unless you need to pin one.
+
+If you use this code, please cite the paper, this archive, and the data sources
+it depends on.

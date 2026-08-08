@@ -42,7 +42,8 @@ value comes out of the code can look it up here by file and line.
 | `out_of_scope` | Cited from other work, or a qualitative descriptor | 6 |
 | | **Total** | **509** |
 
-**70% of the manuscript's numbers (`clean` + `rounding`) reproduced as printed.**
+**70% of the manuscript's numbers (`clean` + `rounding`) reproduced as printed**
+(359 of 509 after the corrections below were finalised).
 
 The `stale` entries are dominated by two families whose estimators were revised
 during peer review — the escape-time observables and the multifractal surrogate
@@ -58,11 +59,42 @@ rather than transcribed.
 |---|---|
 | `inventory.csv` | The 509 claims: identifier, source file and line, printed value, surrounding context, claim type, attributed source, whether it sits in a table |
 | `verdicts.csv` | One row per claim: verdict, the pipeline's value where one exists, and a note on how it was matched or why it differs |
-| `table_r1.csv` | The **145** claims verdicted `stale` or `broken`, with submitted value, corrected value, cause, and location. This is the correction table submitted with the point-by-point response |
+| `table_r1.csv` | The **150** corrections: submitted value, corrected value, cause, and location. This is the correction table submitted with the point-by-point response |
+| `table_r1_applied_check.csv` | One row per correction, recording whether the revised manuscript carries it. Produced by walking `table_r1.csv` backwards against the manuscript source |
 
-`table_r1.csv` is exactly the subset of `verdicts.csv` with verdict `stale` or
-`broken`; both are generated from the same reconciliation, so the correction
-list is complete by construction rather than by inspection.
+`table_r1.csv` began as exactly the subset of `verdicts.csv` verdicted `stale`
+or `broken`; both come from the same reconciliation, so the correction list is
+complete by construction rather than by inspection. Five entries were added
+after the first release and one removed, for reasons given below.
+
+### Causes
+
+| Cause | Count |
+|---|---|
+| Values in tables with no reproducible provenance, now generated programmatically | 69 |
+| Values transcribed from earlier drafts during successive rounds of restructuring | 53 |
+| Values changed by an error found in the escape-time implementation | 17 |
+| Values changed by a corrected estimator or definition | 4 |
+| Values where one sentence had mixed two estimators, now reported under one | 3 |
+| A quantity computed on the coverage panel rather than the analysis panel | 1 |
+| Claims withdrawn as not identified | 3 |
+
+The implementation errors are kept separate from the estimator corrections
+deliberately. The first are mistakes — a barrier located at the edge of the
+estimation grid instead of on the escape path, and a double integral that mixed
+two conventions for the potential — and filing them under a softer label would
+make this table less useful, not more.
+
+### Checking that the corrections were applied
+
+A correction table is only worth submitting if the manuscript actually carries
+every entry, so the check runs mechanically rather than by inspection: each
+claim is located by the context window recorded in `inventory.csv`, and the
+verdict is read from that window alone. Matching on the value would be useless,
+since bare tokens such as `2`, `24` or `0.59` occur throughout a manuscript.
+Table claims are checked against their own generated table body, cell by cell,
+because a bootstrap bound in one table can otherwise collide with a stale cell
+reported for another. Results are in `table_r1_applied_check.csv`.
 
 ## How to use this record
 

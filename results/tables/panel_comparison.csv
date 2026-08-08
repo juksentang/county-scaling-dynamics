@@ -1,0 +1,29 @@
+family,quantity,panel_full,panel_scaling,delta,se,threshold,exceeds
+land ladder,beta_Pop | CultivateArea,0.8800098208720419,0.8718301432588605,-0.00817967761318139,0.010736217592444109,|delta| > 1 SE,False
+land ladder,beta_Pop | GrainSownArea,0.8385800991396628,0.8425992977549561,0.004019198615293318,0.015071866836404433,|delta| > 1 SE,False
+land ladder,beta_Pop | TotalSownArea,0.6487690813000982,0.6311312427974739,-0.017637838502624348,0.013196141143872747,|delta| > 1 SE,True
+SAAI effect size,Cohen's d | population only,-0.5541804723728214,-0.5873245547152609,-0.033144082342439485,,|delta| > 0.1,False
+SAAI effect size,Cohen's d | + cultivated area,-0.663643166020693,-0.7286580218248376,-0.06501485580414468,,|delta| > 0.1,False
+SAAI effect size,Cohen's d | + sown area,-0.8703746522600571,-0.937493146729786,-0.06711849446972895,,|delta| > 0.1,False
+GMM BestK,BestK 2000,2.0,2.0,0.0,,any change in K,False
+GMM BestK,BestK 2001,3.0,2.0,-1.0,,any change in K,True
+GMM BestK,BestK 2002,2.0,2.0,0.0,,any change in K,False
+GMM BestK,BestK 2003,2.0,2.0,0.0,,any change in K,False
+GMM BestK,BestK 2004,2.0,2.0,0.0,,any change in K,False
+GMM BestK,BestK 2005,2.0,3.0,1.0,,any change in K,True
+GMM BestK,BestK 2006,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2007,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2008,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2009,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2010,2.0,2.0,0.0,,any change in K,False
+GMM BestK,BestK 2011,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2012,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2013,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2014,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2015,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2016,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2017,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2018,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2019,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2020,1.0,1.0,0.0,,any change in K,False
+GMM BestK,BestK 2021,1.0,1.0,0.0,,any change in K,False

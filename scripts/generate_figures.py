@@ -52,6 +52,21 @@ from src.fokker_planck import (
     validate_km_recovery,
 )
 
+# ── Headline values ──
+# Figures print the numbers the analysis reports by reading the file those
+# numbers are generated into, rather than re-estimating them here.
+HEADLINE_CSV = PROJECT_ROOT / "results" / "tables" / "headline_scaling.csv"
+
+
+def headline(quantity: str, estimator: str = "pooled OLS"):
+    """One generated headline value, or None if the file is not built yet."""
+    if not HEADLINE_CSV.exists():
+        return None
+    df = pd.read_csv(HEADLINE_CSV)
+    hit = df[(df["quantity"] == quantity) & (df["estimator"] == estimator)]
+    return None if hit.empty else hit.iloc[0]
+
+
 # ── Output directory ──
 FIG_DIR = PROJECT_ROOT / "results" / "figures"
 FIG_DIR.mkdir(parents=True, exist_ok=True)
@@ -118,9 +133,11 @@ def fig1_spectrum(panel, ts_df):
     setup_style()
     fig, axes = plt.subplots(1, 2, figsize=(14, 5.5))
 
-    # ── Panel (a): Cross-section scatter for 2015 ──
+    # ── Panel (a): Cross-section scatter ──
+    CROSS_SECTION_YEAR = 2015
+    YEAR_LABEL = f"({CROSS_SECTION_YEAR})"
     ax = axes[0]
-    d = panel[panel["Year"] == 2015].copy()
+    d = panel[panel["Year"] == CROSS_SECTION_YEAR].copy()
 
     sector_cfg = [
         ("RegGDP_Primary", "14j", C_PRI, "Primary", "o"),
@@ -150,19 +167,14 @@ def fig1_spectrum(panel, ts_df):
             ci_hi = r.ci_upper["PopNum"]
             a_log10 = r.intercept / np.log(10)
             x_range = np.linspace(log_x.min(), log_x.max(), 100)
-            # Compute pooled β with year FE from full panel for reference
-            try:
-                full_data = panel[(panel["PopNum"] > 0) & (panel[ycol] > 0)].copy()
-                _log_y = np.log(full_data[ycol].values)
-                _log_x = np.log(full_data["PopNum"].values)
-                _yr_dum = pd.get_dummies(full_data["Year"], drop_first=True).values
-                _X = np.column_stack([np.ones(len(full_data)), _log_x, _yr_dum])
-                _res = sm_api.OLS(_log_y, _X).fit(cov_type="HC1")
-                pooled_str = f" (pooled: {_res.params[1]:.2f})"
-            except Exception:
-                pooled_str = ""
+            # The pooled estimate the analysis reports, read from the
+            # generated file rather than re-fitted here; without the year
+            # label the two read as rival values for one quantity.
+            hv = headline(f"beta_{label.lower()}")
+            pooled_str = f" (pooled: {hv['value']:.2f})" if hv is not None else ""
             ax.plot(x_range, a_log10 + b * x_range, "-", color=color, linewidth=2,
-                    label=f"{label}: $\\beta$={b:.2f} [{ci_lo:.2f}, {ci_hi:.2f}]{pooled_str}")
+                    label=f"{label} {YEAR_LABEL}: $\\beta$={b:.2f} "
+                          f"[{ci_lo:.2f}, {ci_hi:.2f}]{pooled_str}")
         except Exception:
             pass
 
@@ -430,8 +442,10 @@ def fig3_land(panel):
         try:
             res_gr = run_interaction_regression(panel, y_col="GrainOutput")
             beta_gr = res_gr["beta0"] + res_gr["beta1"] * u_grid
+            hv = headline("beta1_grain_interaction", "interaction OLS")
+            b1 = res_gr["beta1"] if hv is None else float(hv["value"])
             ax.plot(u_grid, beta_gr, "-", color=C_POVERTY, linewidth=2.5,
-                    label=f'Grain output ($\\beta_1$={res_gr["beta1"]:.2f})')
+                    label=f'Grain output ($\\beta_1$={b1:.2f})')
         except Exception:
             print("    Note: GrainOutput interaction regression failed")
     else:

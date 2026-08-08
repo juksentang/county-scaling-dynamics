@@ -603,13 +603,16 @@ for name in ["Tertiary", "Secondary", "NonAgri"]:
 
 # Grain output is a physical quantity: it should not respond to the
 # urbanization interaction the way nominal sectoral GDP does.
-gr = run_interaction_regression(full, y_col="GrainOutput")
+# panel_scaling, like every other interaction regression above: panel_full is
+# the coverage panel, and using it here gives a slope that disagrees with the
+# figure, which reads the analysis panel.
+gr = run_interaction_regression(panel, y_col="GrainOutput")
 add("interaction OLS GrainOutput: beta1 (placebo)",
     "src.scaling.run_interaction_regression",
     round(gr["beta1"], 4), p_beta1=gr["p_beta1"], beta0=round(gr["beta0"], 4),
     R2=round(gr["R2"], 4), N=gr["N"])
-grain_r = run_scaling_regression(full, y_col="GrainOutput", x_cols=["PopNum"], year="pooled")
-add("pooled beta GrainOutput~PopNum (full)", "src.scaling.run_scaling_regression",
+grain_r = run_scaling_regression(panel, y_col="GrainOutput", x_cols=["PopNum"], year="pooled")
+add("pooled beta GrainOutput~PopNum (analysis panel)", "src.scaling.run_scaling_regression",
     round(grain_r.betas["PopNum"], 4), SE=round(grain_r.se["PopNum"], 4),
     N=int(grain_r.n_obs), R2=round(grain_r.r_squared, 4))
 write_records()

@@ -2,6 +2,7 @@
 #
 #   make numbers          regenerate all analysis tables  -> results/tables/
 #   make figures          regenerate all figures          -> results/figures/
+#   make check            figures carry no withdrawn or superseded value
 #   QUICK=1 make numbers  reduced bootstrap sizes (smoke run)
 #
 # Inputs: the analysis panels in data_clean/ (built by
@@ -13,7 +14,7 @@
 PY := python3
 QUICKFLAG := $(if $(QUICK),--quick,)
 
-.PHONY: all numbers figures \
+.PHONY: all numbers figures check \
         core escape attribution multifractal io urbanisation textables
 
 all: numbers figures
@@ -60,9 +61,24 @@ urbanisation:
 
 # LaTeX table bodies for the manuscript tables (results/tex_tables/*.tex).
 textables:
+	$(PY) scripts/compare_panels.py
+	$(PY) scripts/make_headline_values.py
+	$(PY) scripts/make_grouped_attractors.py
 	$(PY) scripts/make_tex_tables.py
 
+# Ownership is checked before and after. Two generators writing one figure is
+# how a superseded figure survived a rebuild in an earlier version of this
+# archive, so the build now refuses to complete when that happens.
 figures:
+	$(PY) scripts/check_figure_owners.py
+	@date +%s > .figbuild.stamp
 	$(PY) scripts/generate_figures.py
 	$(PY) scripts/make_fig_kramers.py
+	$(PY) scripts/make_si_figures.py
+	$(PY) scripts/check_figure_owners.py --since $$(cat .figbuild.stamp)
+	@rm -f .figbuild.stamp
 	@echo "== figures regenerated in results/figures/ =="
+
+# Figures must not carry a value the analysis has withdrawn or superseded.
+check:
+	$(PY) scripts/audit_figure_text.py
