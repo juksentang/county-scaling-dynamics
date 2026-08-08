@@ -61,6 +61,7 @@ rather than transcribed.
 | `verdicts.csv` | One row per claim: verdict, the pipeline's value where one exists, and a note on how it was matched or why it differs |
 | `table_r1.csv` | The **150** corrections: submitted value, corrected value, cause, and location. This is the correction table submitted with the point-by-point response |
 | `table_r1_applied_check.csv` | One row per correction, recording whether the revised manuscript carries it. Produced by walking `table_r1.csv` backwards against the manuscript source |
+| `claim_assertions.csv` | Conditions over generated files, each paired with a phrase the manuscript may not contain while the condition holds. Checks the direction of a claim, not only its numbers |
 
 `table_r1.csv` began as exactly the subset of `verdicts.csv` verdicted `stale`
 or `broken`; both come from the same reconciliation, so the correction list is
@@ -84,6 +85,22 @@ deliberately. The first are mistakes — a barrier located at the edge of the
 estimation grid instead of on the escape path, and a double integral that mixed
 two conventions for the potential — and filing them under a softer label would
 make this table less useful, not more.
+
+### Checking that claims match the direction of their evidence
+
+The check above walks a list of printed values. Everything it can see is a
+number, and a statement whose *direction* contradicts its evidence passes it
+untouched: a null estimate described as confirming an effect, a robustness
+check cited as confirmed after it had been withdrawn, an attractor said to move
+towards a benchmark it moves away from. `claim_assertions.csv` closes that gap.
+Each row names a generated file, a condition over it, and a phrase the
+manuscript may not contain while that condition holds --- for example, that the
+difference-in-differences estimate is positive with an interval spanning zero,
+so the text may not say the reversal is more pronounced in designated counties.
+Run against the manuscript as it stood before these were fixed, the assertions
+catch three of the four; the fourth was a broken cross-reference, which the
+LaTeX build already catches. An assertion whose premise no longer holds is
+reported as stale rather than skipped.
 
 ### Checking that the corrections were applied
 

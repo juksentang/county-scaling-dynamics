@@ -663,17 +663,22 @@ def compute_escape_observables(km: KMResult,
         return out
 
     # ── trap identification ──
+    # The escape origin is the global minimum of V_FP over the estimated
+    # support. Taking the first stable zero instead makes the escape time
+    # depend on which crossing the binning happened to resolve: the binned
+    # drift can sit within its own standard error of zero across an interval
+    # and cross it several times there, and county-block resampling then moves
+    # the identified location across that whole interval. The parametric
+    # drift, being cubic, yields one stable fixed point per period, for which
+    # the two rules coincide.
     zeros = find_drift_zeros(km)
     stable = [z for z in zeros if z["type"] == "stable"]
     if stable:
-        # first stable zero within the estimated support
         in_dom = [z for z in stable if xi_fp.min() <= z["xi"] <= xi_fp.max()]
-        if in_dom:
-            xi_trap = in_dom[0]["xi"]
-            id_status = "stable_zero"
-        else:
-            xi_trap = stable[0]["xi"]
-            id_status = "stable_zero"
+        candidates = in_dom or stable
+        xi_trap = min(candidates,
+                      key=lambda z: np.interp(z["xi"], xi_fp, V_fp))["xi"]
+        id_status = "stable_zero"
     else:
         rel = km.reliable & ~np.isnan(km.A)
         if not rel.any():

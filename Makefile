@@ -33,6 +33,7 @@ core:
 # estimate.
 escape:
 	$(PY) scripts/run_escape_dynamics.py --steps counts,km,grain,did $(QUICKFLAG)
+	$(PY) scripts/decompose_escape_time.py
 
 # Attribution designs: state-conditioned regressions, pre-period placebo,
 # endogenous break search, event-time coefficients.
