@@ -48,7 +48,6 @@ ax.text(0.03, ax.get_ylim()[1]*0.95, "escape target $\\xi=0$",
         fontsize=9, color="gray", va="top")
 ax.set_xlabel(r"SAAI ($\xi$)")
 ax.set_ylabel(r"$V_{\mathrm{FP}}(\xi) = -\int A/B\,\mathrm{d}\xi'$")
-ax.set_title("Dynamical potential across policy regimes (binned KM)")
 ax.legend(fontsize=9, loc="upper center")
 ax.grid(alpha=0.25)
 fig.tight_layout()

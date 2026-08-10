@@ -326,8 +326,6 @@ def make_regional_figure(km_store, km_note):
         if j == 0:
             ax_a.set_ylabel(r"Drift $A(\xi)$")
             ax_b.set_ylabel(r"Diffusion $B(\xi)$")
-    fig.suptitle("Kramers-Moyal coefficients by macro-region "
-                 "(single-factor SAAI, reliable bins only)", y=0.98)
     fig.tight_layout(rect=(0, 0, 1, 0.96))
     os.makedirs(FIG, exist_ok=True)
     out1 = f"{FIG}/regional_km.png"

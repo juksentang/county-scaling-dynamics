@@ -1,0 +1,22 @@
+{
+  "git": "b697694",
+  "timestamp": "2026-08-10 19:25:06",
+  "input_panel": "panel_scaling",
+  "bins_by_period": {
+    "pre": [
+      25,
+      "equal_width"
+    ],
+    "during": [
+      11,
+      "equal_count"
+    ],
+    "post": [
+      11,
+      "equal_count"
+    ]
+  },
+  "min_pairs": 50,
+  "east_multi_during_pairs": 62,
+  "note": "manual stratification via build_transition_pairs per region subset (estimate_km_by_group does not expose n_bins/binning)"
+}

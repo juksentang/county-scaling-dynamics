@@ -109,7 +109,6 @@ def fig_sigmoid(panel):
         ax.set_title(f"{name} GDP")
         ax.legend(fontsize=8)
         ax.grid(alpha=0.2)
-    fig.suptitle("Effective scaling exponent against urbanization", fontsize=13)
     fig.tight_layout()
     fig.savefig(FIG_DIR / "fig_sigmoid.pdf", bbox_inches="tight")
     fig.savefig(FIG_DIR / "fig_sigmoid.png", dpi=300, bbox_inches="tight")
@@ -150,7 +149,6 @@ def fig_fp_grouped(saai):
             ax.grid(alpha=0.2)
     for ax in axes[-1]:
         ax.set_xlabel(r"SAAI ($\xi$)")
-    fig.suptitle("Urbanization-stratified Fokker--Planck dynamics", fontsize=13)
     fig.tight_layout()
     fig.savefig(FIG_DIR / "fig_fp_grouped.pdf", bbox_inches="tight")
     fig.savefig(FIG_DIR / "fig_fp_grouped.png", dpi=300, bbox_inches="tight")
@@ -213,12 +211,23 @@ def fig_fp_expanded(saai):
         lo.append(pt - b["ci_lo"])
         hi.append(b["ci_hi"] - pt)
     ax.bar([0, 1], vals, width=0.5, color=[C_PRE, C_DUR], alpha=0.85,
-           yerr=[lo, hi], capsize=6)
+           yerr=[lo, hi], capsize=6, zorder=3)
+    ax.set_xlim(-0.5, 2.5)
+    # An empty third slot reads as a bar of height zero. The post-policy barrier
+    # is not zero, it is unestimated: 91 transition pairs, and no bin reaches the
+    # 30-pair minimum. The band fills the slot so the label has an anchor and so
+    # that no height can be read off the place where a bar would stand.
+    ax.axvspan(1.5, 2.5, facecolor="0.95", edgecolor="0.85", hatch="//",
+               linewidth=0, zorder=0)
+    ax.text(2.0, 0.5, "not estimable\n(91 pairs; no bin reaches\n"
+            "the 30-pair minimum)", transform=ax.get_xaxis_transform(),
+            ha="center", va="center", fontsize=8.5, color="0.3",
+            bbox=dict(boxstyle="square,pad=0.45", facecolor="white",
+                      edgecolor="none", alpha=0.85))
     ax.set_xticks([0, 1, 2])
     ax.set_xticklabels(["Pre\n(2000-2012)", "During\n(2013-2019)",
                         "Post\n(2020-2023)"])
-    ax.text(2, max(vals) * 0.5, "not\nidentified", ha="center", fontsize=9,
-            color="gray")
+    ax.get_xticklabels()[2].set_color("0.4")
     ax.set_ylabel(r"$\Delta V$ (path barrier to $\xi = 0$)")
     ax.set_title("(d) Barrier height by period (95% county-block CIs)")
     ax.grid(alpha=0.2)
@@ -270,8 +279,6 @@ def fig_landau(saai):
         ax.axvspan(2013, 2020, alpha=0.05, color="orange")
         ax.set_xlabel("Year")
         ax.grid(alpha=0.2)
-    fig.suptitle("Landau potential parameters (annual static cross-sections)",
-                 fontsize=13)
     fig.tight_layout()
     fig.savefig(FIG_DIR / "fig_landau_params.pdf", bbox_inches="tight")
     fig.savefig(FIG_DIR / "fig_landau_params.png", dpi=300, bbox_inches="tight")
@@ -326,7 +333,6 @@ def fig_dfa(saai):
     ax.set_title(f"(c) Generalized Hurst exponent ({rep_year})")
     ax.grid(alpha=0.2)
 
-    fig.suptitle("Detrended fluctuation analysis of the SAAI field", fontsize=13)
     fig.tight_layout()
     fig.savefig(FIG_DIR / "fig_dfa.pdf", bbox_inches="tight")
     fig.savefig(FIG_DIR / "fig_dfa.png", dpi=300, bbox_inches="tight")
