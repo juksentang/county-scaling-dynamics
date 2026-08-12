@@ -88,10 +88,16 @@ def fig_sigmoid(panel):
                                               sub["SE"].values)
 
     fig, axes = plt.subplots(1, 3, figsize=(16, 5))
-    for ax, (name, res) in zip(axes, results.items()):
+    for idx, (ax, (name, res)) in enumerate(zip(axes, results.items())):
         u, beta = res["u"], res["beta_local"]
-        ax.scatter(u, beta, c=SECTOR_COLORS[name], s=40, zorder=5,
-                   label="20-quantile $\\beta$")
+        # Each marker is one regression on ~939 county-years; the spread across
+        # quantiles only means something against the width of these intervals.
+        se = res.get("beta_se")
+        ax.errorbar(u, beta, yerr=None if se is None else 1.96 * np.asarray(se),
+                    fmt="o", markersize=6, color=SECTOR_COLORS[name],
+                    ecolor=SECTOR_COLORS[name], elinewidth=1.1, capsize=3,
+                    alpha=0.9, zorder=5,
+                    label="20-quantile $\\beta$ (95% CI)")
         grid = np.linspace(u.min(), u.max(), 200)
         lin = res["linear"]
         ax.plot(grid, lin["beta0"] + lin["beta1"] * grid, "k--", alpha=0.5,
@@ -106,7 +112,7 @@ def fig_sigmoid(panel):
         ax.axhline(1, color="gray", linestyle="--", alpha=0.3)
         ax.set_xlabel("Urbanization ratio $u$")
         ax.set_ylabel(r"$\beta_{\mathrm{eff}}(u)$")
-        ax.set_title(f"{name} GDP")
+        ax.set_title(f"({chr(97 + idx)}) {name} GDP")
         ax.legend(fontsize=8)
         ax.grid(alpha=0.2)
     fig.tight_layout()

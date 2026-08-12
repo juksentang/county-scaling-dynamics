@@ -948,6 +948,7 @@ def fit_sigmoid_crossover(u: np.ndarray, beta_local: np.ndarray,
         "n": n,
         "u": u,
         "beta_local": beta_local,
+        "beta_se": beta_se,
     }
 
 
