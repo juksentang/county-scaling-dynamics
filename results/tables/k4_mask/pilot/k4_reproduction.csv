@@ -1,0 +1,5 @@
+system,quantity,committed,rebuilt,abs_diff,pass
+US,xi_trap,-0.2472844211514441,-0.24728442115144414,2.7755575615628914e-17,True
+US,rho1,0.9884486858032706,0.9884486858032706,0.0,True
+US,n_pairs,8022,8022,0.0,True
+US,id_status,stable_zero,stable_zero,0.0,True

@@ -46,24 +46,19 @@ def standardize_county_code(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df["CountyCode"] = pd.to_numeric(df["CountyCode"], errors="coerce").astype("Int64")
 
-    # Validate: should be 6-digit codes (100000 - 999999)
     valid = df["CountyCode"].between(100000, 999999)
     n_invalid = (~valid & df["CountyCode"].notna()).sum()
     if n_invalid > 0:
         print(f"WARNING: {n_invalid} rows with invalid CountyCode (not 6-digit)")
         df.loc[~valid & df["CountyCode"].notna(), "CountyCode"] = pd.NA
 
-    # Extract province code (first 2 digits)
     df["ProvinceCode"] = (df["CountyCode"] // 10000).astype("Int64")
 
     return df
 
 
 def filter_county_type(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Remove municipal districts and prefecture-level entries.
-
-    Chinese admin code: AABBCC (AA=province, BB=prefecture, CC=county type).
+    """Chinese admin code: AABBCC (AA=province, BB=prefecture, CC=county type).
     CC = 01-20: municipal districts → remove
     CC = 21-80: counties / autonomous counties → keep
     CC = 81-99: county-level cities → keep
@@ -119,35 +114,28 @@ def validate_panel(df: pd.DataFrame, name: str = "panel") -> dict:
     """
     info = {"name": name}
 
-    # Basic shape
     info["n_rows"] = len(df)
     info["n_cols"] = len(df.columns)
 
-    # Year range
     if "Year" in df.columns:
         info["year_min"] = int(df["Year"].min())
         info["year_max"] = int(df["Year"].max())
         info["n_years"] = df["Year"].nunique()
 
-    # County count
     if "CountyCode" in df.columns:
         info["n_counties"] = df["CountyCode"].nunique()
 
-    # Balance check
     if "Year" in df.columns and "CountyCode" in df.columns:
         expected = info.get("n_counties", 0) * info.get("n_years", 0)
         info["expected_rows"] = expected
         info["balance_ratio"] = info["n_rows"] / expected if expected > 0 else 0
 
-        # Check duplicates
         dup = df.duplicated(subset=["Year", "CountyCode"], keep=False)
         info["n_duplicates"] = dup.sum()
 
-    # Missing rates
     missing = df.isnull().mean()
     info["missing_rates"] = missing[missing > 0].to_dict()
 
-    # Print summary
     print(f"\n{'='*60}")
     print(f"Panel Validation: {name}")
     print(f"{'='*60}")

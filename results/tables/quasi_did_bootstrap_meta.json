@@ -1,8 +1,0 @@
-{
-  "root_seed": 20260806,
-  "git": "n/a",
-  "timestamp": "2026-08-08 09:15:53",
-  "n_boot": 2000,
-  "seed": 101,
-  "estimator": "binned KM 25 equal-width (Text S5)"
-}

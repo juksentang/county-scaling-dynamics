@@ -1,0 +1,16 @@
+,value
+uf.n_blocks,27
+uf.amc1991_straddling,0
+uf.amc1991_n,4295
+uf.amc2000_straddling,0
+uf.amc2000_n,5475
+intermediate.n_blocks,133
+intermediate.amc1991_straddling,58
+intermediate.amc1991_n,4295
+intermediate.amc2000_straddling,5
+intermediate.amc2000_n,5475
+immediate.n_blocks,510
+immediate.amc1991_straddling,144
+immediate.amc1991_n,4295
+immediate.amc2000_straddling,16
+immediate.amc2000_n,5475

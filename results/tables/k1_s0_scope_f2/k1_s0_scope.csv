@@ -1,0 +1,6 @@
+gate,verdict_role,s0_scope_mle,s0_scope_neural,s0_not_passed_mle,s0_not_passed_neural,s0_scope_ok,precheck_scope,precheck_pass,precheck_all_scopes_pass,unlocked,why
+K1a,gated,ou;cubic,,ou;cubic,,False,K1b,False,False,False,S0 not passed: ou;cubic; precheck: scope K1b: cell 10 iii_mult tau_mfpt contrast: 0.982
+K1b,gated,ou;cubic;cubic_mult,,ou;cubic,,False,K1b,False,False,False,S0 not passed: ou;cubic; precheck: scope K1b: cell 10 iii_mult tau_mfpt contrast: 0.982
+K1c,gated,cubic_shift,,,,True,K1c,True,False,True,
+K2,report-only (amendment 10),cubic_bistable_0;cubic_bistable_1;cubic_bistable_2;cubic_bistable_4,,,,True,K2,False,False,False,precheck: scope K2: cell 15 iv_bistable_0 tau_mfpt contrast: 0.910; cell 17 iv_bistable_1 tau_mfpt contrast: 0.738; cell 19 iv_bistable_2 tau_mfpt contrast: 0.706; cell 21 iv_bistable_4 tau_mfpt contrast: 0.754; cell 17 iv_bistable_1 two_delta_V pre: 0.898; cell 19 iv_bistable_2 two_delta_V pre: 0.898; cell 19 iv_bistable_2 two_delta_V during: 0.894; cell 21 iv_bistable_4 two_delta_V pre: 0.906; cell 21 iv_bistable_4 two_delta_V during: 0.878
+K3,gated,ou;cubic,ou;cubic,ou;cubic,ou;cubic,False,K1b,False,False,False,S0 not passed: ou;cubic;ou (neural);cubic (neural); precheck: scope K1b: cell 10 iii_mult tau_mfpt contrast: 0.982

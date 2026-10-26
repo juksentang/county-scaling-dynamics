@@ -1,0 +1,7 @@
+scope,outcome,period,max_n_E,max_n_L,max_abs_M,max_pair_diff_V0_V1,max_obs_diff_V0_V1,n_transitions,pass
+metro,pi,main,0.0,0.0,0.0,0.0,0.0,21,True
+metro,pi,secondary,0.0,0.0,0.0,0.0,0.0,31,True
+metro,gdp,main,0.0,0.0,0.0,0.0,0.0,21,True
+metro,gdp,secondary,0.0,0.0,0.0,0.0,0.0,23,True
+cbsa_all,pi,main,0.0,0.0,0.0,0.0,0.0,21,True
+cbsa_all,gdp,main,0.0,0.0,0.0,0.0,0.0,21,True

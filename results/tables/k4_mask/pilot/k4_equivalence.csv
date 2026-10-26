@@ -1,0 +1,3 @@
+system,check,max_diff,pass
+US,no-mask V0 pairs == V1 pairs,0.0,True
+US,pairs == registered pipeline's Panel A V0,0.0,True

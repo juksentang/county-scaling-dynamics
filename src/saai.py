@@ -40,7 +40,6 @@ def compute_saai(df: pd.DataFrame,
     all_cols = [y_col] + x_cols + ["Year", "CountyCode"]
     data = df[[c for c in all_cols if c in df.columns]].copy()
 
-    # Keep only positive values
     for col in [y_col] + x_cols:
         if col in data.columns:
             data = data[data[col] > 0]
@@ -78,7 +77,6 @@ def compute_saai(df: pd.DataFrame,
 
     combined = pd.concat(results, ignore_index=True)
 
-    # Pooled sigma: re-normalize using global σ across all years
     if pooled_sigma and "SAAI_residual" in combined.columns:
         pooled_std = combined["SAAI_residual"].std()
         if pooled_std > 0:
@@ -146,13 +144,7 @@ def get_saai_regression_params(df: pd.DataFrame,
 
 def compute_saai_grain(df: pd.DataFrame,
                        x_cols: list[str] | None = None) -> pd.DataFrame:
-    """Physical-quantity SAAI: y = GrainOutput (tons).
-
-    Default x_cols = ["PopNum", "TotalSownArea"] — the flow measure of land
-    input is the natural regressor for physical output; the physical
-    tonnage is immune to price effects and transfer accounting, which is
-    the point of this robustness variant.
-    """
+    """Physical-quantity SAAI: y = GrainOutput (tons)."""
     if x_cols is None:
         x_cols = ["PopNum", "TotalSownArea"]
     return compute_saai(df, y_col="GrainOutput", x_cols=x_cols)
@@ -200,7 +192,6 @@ def compute_order_parameter(saai_df: pd.DataFrame) -> pd.DataFrame:
             "std_nonpoverty": npov.std() if len(npov) > 1 else np.nan,
         }
 
-        # Cohen's d
         if len(pov) > 1 and len(npov) > 1:
             pooled_std = np.sqrt(
                 ((len(pov)-1)*pov.std()**2 + (len(npov)-1)*npov.std()**2)
@@ -213,7 +204,6 @@ def compute_order_parameter(saai_df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(records)
 
 
-# ──────────────────────────── HHI (mechanism verification) ────────────────────
 def compute_hhi(df: pd.DataFrame,
                 sector_cols: list[str],
                 hhi_col: str = "HHI") -> pd.Series:

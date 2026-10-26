@@ -1,0 +1,6 @@
+{
+ "seed": 106,
+ "n_boot": 1000,
+ "mask_rows": 19392,
+ "mask_available": 10278
+}

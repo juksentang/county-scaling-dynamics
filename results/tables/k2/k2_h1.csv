@@ -1,0 +1,17 @@
+scope,outcome,period,panel,link,max_abs_residual,pass
+cbsa_all,gdp,main,A,none,1.594609218331984e-14,True
+cbsa_all,gdp,main,B,code,9.72345034350175e-15,True
+cbsa_all,gdp,main,B,overlap,9.692116900716918e-15,True
+cbsa_all,pi,main,A,none,2.2882688240008348e-14,True
+cbsa_all,pi,main,B,code,1.921461037154848e-14,True
+cbsa_all,pi,main,B,overlap,1.915183506576157e-14,True
+metro,gdp,main,A,none,3.039642417930862e-14,True
+metro,gdp,main,B,code,3.60565378723789e-14,True
+metro,gdp,main,B,overlap,3.60565378723789e-14,True
+metro,gdp,secondary,A,none,3.039642417930862e-14,True
+metro,gdp,secondary,B,overlap,3.60565378723789e-14,True
+metro,pi,main,A,none,5.749037081180686e-14,True
+metro,pi,main,B,code,6.65210576680932e-14,True
+metro,pi,main,B,overlap,6.65210576680932e-14,True
+metro,pi,secondary,A,none,5.749037081180686e-14,True
+metro,pi,secondary,B,overlap,6.65210576680932e-14,True

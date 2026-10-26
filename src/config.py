@@ -4,7 +4,6 @@ Fokker-Planck periods, and analysis constants.
 """
 from pathlib import Path
 
-# ──────────────────────────── Paths ────────────────────────────
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DATA_RAW = PROJECT_ROOT / "data"
 DATA_CLEAN = PROJECT_ROOT / "data_clean"
@@ -12,18 +11,6 @@ RESULTS = PROJECT_ROOT / "results"
 TABLES = RESULTS / "tables"
 FIGURES = RESULTS / "figures"
 
-# ──────────────────────────── File Registry ────────────────────────────
-# Each entry: file, sheet, n_header_rows (rows to skip after English header),
-#             year_col (column name for year), has_year_id (whether year_id col exists)
-#
-# Header convention:
-#   Row 0 = English column names (used as header)
-#   Row 1 = Chinese column names  }  skipped via skiprows=[1,2]
-#   Row 2 = Units                  }
-#   Row 3+ = data
-#
-# For files where the stata sheet has fewer columns, the raw-data sheet
-# (or sheet1) is used instead.
 
 THEMED_FILES = {
     "agri_output": {
@@ -45,7 +32,7 @@ THEMED_FILES = {
         "file": "地区生产总值及指数.xlsx",
         "sheet": "原始数据",
         "skiprows": [1, 2],
-        "year_col": "yuan",          # NOTE: year column named "yuan" in this file
+        "year_col": "yuan",
         "key_cols": ["RegGDPIdx", "RegGDPIdx_Primary", "RegGDPIdx_Secondary",
                      "RegGDPIdx_Tertiary", "RegGDP", "RegGDP_Primary",
                      "RegGDP_Secondary", "RegGDP_Tertiary", "PerRegGDP"],
@@ -121,14 +108,14 @@ THEMED_FILES = {
     "social_insurance": {
         "file": "社会保险与福利.xlsx",
         "sheet": "stata",
-        "skiprows": [1],             # stata sheet: only Chinese row to skip
+        "skiprows": [1],
         "year_col": "year",
         "key_cols": ["WelfAdoptOrgBedNum"],
     },
     "fiscal": {
         "file": "财政收支.xlsx",
         "sheet": "stata",
-        "skiprows": [],              # stata sheet: no extra rows to skip
+        "skiprows": [],
         "year_col": "year",
         "key_cols": ["FinRevenue"],
     },
@@ -148,11 +135,10 @@ THEMED_FILES = {
     },
 }
 
-# ── Long-format files (need pivot) ──
 LONG_FORMAT_FILES = {
     "crop_area": {
         "file": "农作物播种面积.xlsx",
-        "sheet": "Sheet1",           # 2-row header (English/Chinese), no units row
+        "sheet": "Sheet1",
         "skiprows": [1],
         "year_col": "SgnYear",
         "type_col": "CropType",
@@ -164,7 +150,7 @@ LONG_FORMAT_FILES = {
     "grain_area": {
         "file": "农作物播种面积.xlsx",
         "sheet": "粮食作物播种面积",
-        "skiprows": [],              # 1-row English header, data starts row 1
+        "skiprows": [],
         "year_col": "SgnYear",
         "type_col": "CropType1",
         "value_col": "CropSownArea",
@@ -175,7 +161,7 @@ LONG_FORMAT_FILES = {
     "crop_yield": {
         "file": "农产品产量.xlsx",
         "sheet": "stata",
-        "skiprows": [],              # stata: English header + data
+        "skiprows": [],
         "year_col": "SgnYear",
         "type_col": "ProductType",
         "value_col": "粮食产量吨",
@@ -185,7 +171,6 @@ LONG_FORMAT_FILES = {
     },
 }
 
-# ── Poverty county list ──
 POVERTY_FILE = {
     "file": "全国832个国家级贫困县名单、摘帽整理数据.xlsx",
     "sheet": "整理数据",
@@ -200,7 +185,6 @@ POVERTY_FILE = {
     "expected_rows": 832,
 }
 
-# ── Main database 6.0 (backup / cross-validation) ──
 MAIN_DATABASE = {
     "file": "中国县域数据库6.0版_0514090132.xlsx",
     "sheets": {
@@ -224,36 +208,28 @@ MAIN_DATABASE = {
     },
 }
 
-# ──────────────────────────── Standard Column Names ────────────────────────────
-# Mapping from analysis variable names to actual column names in merged panel
 COL = {
-    # Scaling equation variables
-    "Y_agri": "GrossOutputValue",          # Agricultural gross output (Eq 14a dep var)
-    "Y_nonagri": "NonAgriGDP",             # Non-agricultural GDP (Secondary + Tertiary)
-    "N": "PopNum",                         # Population (10,000 persons)
-    "A": "CultivateArea",                  # Cultivated area (hectares)
-    "GDP": "RegGDP",                       # Regional GDP
+    "Y_agri": "GrossOutputValue",
+    "Y_nonagri": "NonAgriGDP",
+    "N": "PopNum",
+    "A": "CultivateArea",
+    "GDP": "RegGDP",
     "GDP_primary": "RegGDP_Primary",
     "GDP_secondary": "RegGDP_Secondary",
     "GDP_tertiary": "RegGDP_Tertiary",
     "PerGDP": "PerRegGDP",
-    # Identifiers
     "year": "Year",
     "county_code": "CountyCode",
     "province": "Province",
     "city": "City",
     "county_name": "CountyName",
-    # Poverty
     "is_poverty": "IsPoverty",
     "exit_year": "ExitYear",
-    # Spatial
     "lng": "CountyLng",
     "lat": "CountyLat",
-    # Region
     "region": "Region",
 }
 
-# ──────────────────────────── Region Classification ────────────────────────────
 EAST_PROVINCES = [
     "北京市", "天津市", "河北省", "辽宁省", "上海市", "江苏省",
     "浙江省", "福建省", "山东省", "广东省", "海南省",
@@ -282,7 +258,6 @@ def get_region(province: str) -> str:
     return _PROVINCE_TO_REGION.get(province, "Unknown")
 
 
-# ── Province code (first 2 digits of CountyCode) → Province name ──
 PROVINCE_CODE_MAP = {
     11: "北京市", 12: "天津市", 13: "河北省", 14: "山西省",
     15: "内蒙古自治区", 21: "辽宁省", 22: "吉林省", 23: "黑龙江省",
@@ -294,26 +269,20 @@ PROVINCE_CODE_MAP = {
     63: "青海省", 64: "宁夏回族自治区", 65: "新疆维吾尔自治区",
 }
 
-# ──────────────────────────── Fokker-Planck Periods ────────────────────────────
 FP_PERIODS = {
-    "pre":    (2000, 2012),   # Before targeted poverty alleviation
-    "during": (2013, 2019),   # During targeted poverty alleviation campaign
-    "post":   (2020, 2023),   # After poverty alleviation (COVID era)
+    "pre":    (2000, 2012),
+    "during": (2013, 2019),
+    "post":   (2020, 2023),
 }
 
-# Crisis years for the crisis-exclusion robustness check (global financial
-# crisis 2008-09 and COVID era 2020-22).  A transition pair (t, t+1) is
-# dropped iff either endpoint falls in this set.
 CRISIS_YEARS = frozenset({2008, 2009, 2020, 2021, 2022})
 
-# ──────────────────────────── Analysis Constants ────────────────────────────
-BASE_YEAR = 2000              # Base year for GDP deflator
-N_BINS_FP = 25                # Number of bins for Kramers-Moyal estimation
-BOOTSTRAP_N = 1000            # Number of bootstrap iterations
-MIN_BIN_COUNT = 30            # Minimum observations per FP bin for reliability
-YEAR_RANGE = (2000, 2023)     # Full panel year range
+BASE_YEAR = 2000
+N_BINS_FP = 25
+BOOTSTRAP_N = 1000
+MIN_BIN_COUNT = 30
+YEAR_RANGE = (2000, 2023)
 
-# ── Variables requiring deflation ──
 DEFLATE_VARS = [
     "GrossOutputValue", "Farming", "Forestry", "AnimalHusbandry",
     "Fishery", "FFAFServices",
@@ -324,7 +293,6 @@ DEFLATE_VARS = [
     "FixAst",
 ]
 
-# ── Scaling equations specification ──
 SCALING_EQUATIONS = {
     "14a": {
         "label": "Non-agricultural GDP ~ Population",

@@ -1,0 +1,5 @@
+version,window,n_draws,n_identified,frac_identified,n_not_identified,frac_not_identified,n_fit_failed,n_multiple_stable_zeros,n_subgrid_path,n_subgrid_and_identified,n_subgrid_and_not_identified,n_nan_convention_nonfinite,n_limit_convention_nonfinite,placeholder_abs_xi_median,placeholder_abs_xi_max,point_root_status,point_n_stable_zeros,point_subgrid_path
+V0,pre,1000,1000,1.0,0,0.0,0,18,19,19,0,19,0,,,stable_zero,1,False
+V0,during,1000,997,0.997,3,0.003,0,0,6,6,0,6,0,1.4817216371710586,2.145547561906059,stable_zero,1,False
+V1,pre,1000,1000,1.0,0,0.0,0,5,31,31,0,31,0,,,stable_zero,1,False
+V1,during,1000,1000,1.0,0,0.0,0,0,30,30,0,30,0,,,stable_zero,1,False

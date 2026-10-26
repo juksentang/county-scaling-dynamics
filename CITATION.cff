@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this archive, please cite the paper and the archive. Code: MIT; result tables and figures: CC-BY-4.0 (LICENSE, LICENSE-data)."
+title: "county-scaling-dynamics: code, result tables and figures for 'Unit turnover and yearly standardization create spurious attractor shifts in Langevin inference on open panels'"
+version: "2.0.0"
+license:
+  - MIT
+  - CC-BY-4.0
+repository-code: "https://github.com/juksentang/county-scaling-dynamics"
+doi: "10.5281/zenodo.21846268"   # Zenodo concept DOI (resolves to the latest version)
+type: software
+authors:
+  - family-names: Tang
+    given-names: Juk-Sen
+    affiliation: "Institute of Data Science and Agricultural Economics, Key Laboratory of Urban Agriculture (North China), Beijing Academy of Agriculture and Forestry Sciences, Ministry of Agriculture and Rural Affairs, Beijing 100097, China; Department of Agricultural Economics, McGill University, Sainte-Anne-de-Bellevue, Québec H9X 3V9, Canada"
+  - family-names: Gong
+    given-names: Jing
+    affiliation: "Institute of Data Science and Agricultural Economics, Key Laboratory of Urban Agriculture (North China), Beijing Academy of Agriculture and Forestry Sciences, Ministry of Agriculture and Rural Affairs, Beijing 100097, China"
+  - family-names: Wu
+    given-names: Lingyi
+    affiliation: "Hunan TK Digital Teaching and Research AI Studio, Education Department of Hunan, Yongzhou No. 1 High School, Yongzhou, Hunan 425000, China"
+  - family-names: Chen
+    given-names: Junhong
+    affiliation: "Institute of Data Science and Agricultural Economics, Key Laboratory of Urban Agriculture (North China), Beijing Academy of Agriculture and Forestry Sciences, Ministry of Agriculture and Rural Affairs, Beijing 100097, China"
+    email: chenjunhong@baafs.net.cn
+preferred-citation:
+  type: article
+  title: "Unit turnover and yearly standardization create spurious attractor shifts in Langevin inference on open panels"
+  authors:
+    - family-names: Tang
+      given-names: Juk-Sen
+    - family-names: Gong
+      given-names: Jing
+    - family-names: Wu
+      given-names: Lingyi
+    - family-names: Chen
+      given-names: Junhong

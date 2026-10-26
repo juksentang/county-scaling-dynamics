@@ -19,11 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-The derived result tables and figures under results/ are released separately
-under the Creative Commons Attribution 4.0 International licence (CC BY 4.0).
-
-Third-party data used as inputs are not covered by these licences; see
-DATA_SOURCES.md for the terms attached to each source.

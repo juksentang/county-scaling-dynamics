@@ -1,0 +1,62 @@
+{
+ "script": "scripts/k2br_coverage.py",
+ "years_with_population": [
+  1991,
+  1992,
+  1993,
+  1994,
+  1995,
+  1997,
+  1998,
+  1999,
+  2000,
+  2001,
+  2002,
+  2003,
+  2004,
+  2005,
+  2006,
+  2007,
+  2008,
+  2009,
+  2010,
+  2011,
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2024,
+  2025,
+  2026
+ ],
+ "years_missing": [
+  1996,
+  2023
+ ],
+ "unit_key": "first 6 digits of the IBGE 7-digit municipality code",
+ "entry_rule": "first year with a published population (IBGE estimates list a municipality from the year after its creation law, which can precede installation by up to a year)",
+ "parent_rule": "genealogy 'desmembrado de' (IBGE 1872-2010) resolved by name within state; post-2010 cases from POST2010_PARENTS",
+ "genealogy_entries_parsed": 5576,
+ "dtb_crosscheck": {
+  "2013": {
+   "dtb_n": 5570,
+   "pop_n": 5570,
+   "dtb_minus_pop": [],
+   "pop_minus_dtb": []
+  },
+  "2025": {
+   "dtb_n": 5571,
+   "pop_n": 5571,
+   "dtb_minus_pop": [],
+   "pop_minus_dtb": []
+  }
+ },
+ "outcome_data_read": "none (no PIB dos Municipios file downloaded or read)"
+}

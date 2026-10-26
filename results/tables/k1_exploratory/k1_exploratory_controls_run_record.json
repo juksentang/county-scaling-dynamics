@@ -1,0 +1,38 @@
+{
+ "cells": {
+  "control_B0": [
+   38,
+   39,
+   40,
+   41
+  ],
+  "control_null_B0": [
+   42,
+   43,
+   44,
+   45
+  ],
+  "sens_no2006_B0": [
+   50,
+   51
+  ],
+  "sens_null_rerun_B0": [
+   35,
+   37
+  ]
+ },
+ "R": 500,
+ "B": "0 (all cells, as registered)",
+ "seeds": "registered stream of the second freeze: SEED_BASE 20261021 + cell*1e4 + r, r = 0..499 (checked per chunk by the aggregator)",
+ "pipelines": [
+  "saai",
+  "direct"
+ ],
+ "failed_replicates": 0,
+ "task_elapsed_seconds_min_max": [
+  47,
+  332
+ ],
+ "core_hours_wall": 48.93,
+ "core_hours_in_replicates": 12.99
+}

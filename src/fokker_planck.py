@@ -17,13 +17,13 @@ class KMResult:
     """Result of Kramers-Moyal estimation for one period."""
     period: str
     bin_centers: np.ndarray
-    A: np.ndarray             # Drift coefficient A(ξ)
-    B: np.ndarray             # Diffusion coefficient B(ξ)
-    A_se: np.ndarray          # Standard error of A
-    B_se: np.ndarray          # Standard error of B
-    n_per_bin: np.ndarray     # Number of observations per bin
+    A: np.ndarray
+    B: np.ndarray
+    A_se: np.ndarray
+    B_se: np.ndarray
+    n_per_bin: np.ndarray
     n_pairs_total: int
-    reliable: np.ndarray      # Boolean mask for bins with sufficient data
+    reliable: np.ndarray
 
 
 def build_transition_pairs(df: pd.DataFrame,
@@ -31,18 +31,7 @@ def build_transition_pairs(df: pd.DataFrame,
                            saai_col: str = "SAAI",
                            window: tuple[int, int] | None = None,
                            exclude_years: frozenset = frozenset()) -> pd.DataFrame:
-    """
-    Build (ξ_t, ξ_{t+1}) transition pairs for ALL counties within a period.
-
-    Parameters
-    ----------
-    df : DataFrame with Year, CountyCode, and saai_col.
-    period : key in FP_PERIODS ('pre', 'during', 'post').
-    window : optional (year_start, year_end) overriding FP_PERIODS[period]
-        (sensitivity variant with the campaign window extended to 2020).
-    exclude_years : set of crisis years E; a pair (t, t+1) is dropped iff
-        t ∈ E or t+1 ∈ E (increment-level filter).  Default empty set
-        applies no exclusion.
+    """Build (ξ_t, ξ_{t+1}) transition pairs for ALL counties within a period.
 
     Returns
     -------
@@ -61,7 +50,6 @@ def build_transition_pairs(df: pd.DataFrame,
         xi_vals = grp[saai_col].values
 
         for i in range(len(years) - 1):
-            # Only consecutive years; drop crisis-contaminated increments
             if (years[i+1] - years[i] == 1
                     and years[i] not in exclude_years
                     and years[i+1] not in exclude_years):
@@ -80,8 +68,7 @@ def estimate_kramers_moyal(pairs_df: pd.DataFrame,
                            n_bins: int = N_BINS_FP,
                            period: str = "",
                            binning: str = "equal_width") -> KMResult:
-    """
-    Estimate Kramers-Moyal coefficients A(ξ) and B(ξ) from transition pairs.
+    """Estimate Kramers-Moyal coefficients A(ξ) and B(ξ) from transition pairs.
 
     A_k = E[Δξ | ξ ∈ bin_k] / Δt
     B_k = E[(Δξ)² | ξ ∈ bin_k] / Δt
@@ -93,10 +80,10 @@ def estimate_kramers_moyal(pairs_df: pd.DataFrame,
     pairs_df : DataFrame with xi_t, xi_t1, delta_xi.
     n_bins : number of bins for conditional moments.
     period : label for the period.
-    binning : 'equal_width' (default) or 'equal_count' (adaptive bins with
-        equal numbers of pairs per bin; appropriate for thin samples).
-        Both modes share the same 1st-99th percentile support clipping so
-        that estimates are comparable across modes.
+    binning : 'equal_width' (default, original behaviour) or 'equal_count'
+        (adaptive bins with equal numbers of pairs per bin, for thin samples).  Both modes share the
+        same 1st-99th percentile support clipping so that estimates are
+        comparable across modes.
 
     Returns
     -------
@@ -105,16 +92,13 @@ def estimate_kramers_moyal(pairs_df: pd.DataFrame,
     xi = pairs_df["xi_t"].values
     delta = pairs_df["delta_xi"].values
 
-    # Define bins using 1st-99th percentile range
     xi_min = np.percentile(xi, 1)
     xi_max = np.percentile(xi, 99)
     if binning == "equal_count":
         clip_mask = (xi >= xi_min) & (xi <= xi_max)
         edges = np.quantile(xi[clip_mask], np.linspace(0, 1, n_bins + 1))
-        bin_edges = np.unique(edges)          # drop duplicate quantiles
-        n_bins = len(bin_edges) - 1           # actual bin count after dedupe
-        # Equal-count bins have uneven widths: use the within-bin median of
-        # xi_t as the bin center (edge midpoints would be systematically off)
+        bin_edges = np.unique(edges)
+        n_bins = len(bin_edges) - 1
         bin_centers = np.array([
             np.median(xi[(xi >= bin_edges[k]) & (xi < bin_edges[k+1])])
             if ((xi >= bin_edges[k]) & (xi < bin_edges[k+1])).any()
@@ -138,8 +122,8 @@ def estimate_kramers_moyal(pairs_df: pd.DataFrame,
 
         if n_k >= 5:
             d_k = delta[mask]
-            A[k] = d_k.mean()           # Δt = 1
-            B[k] = (d_k ** 2).mean()    # Δt = 1
+            A[k] = d_k.mean()
+            B[k] = (d_k ** 2).mean()
             A_se[k] = d_k.std() / np.sqrt(n_k)
             B_se[k] = np.std(d_k ** 2) / np.sqrt(n_k)
 
@@ -162,11 +146,7 @@ def estimate_kramers_moyal_all_periods(df: pd.DataFrame,
                                        saai_col: str = "SAAI",
                                        exclude_years: frozenset = frozenset()
                                        ) -> dict[str, KMResult]:
-    """
-    Estimate KM coefficients for all three FP periods.
-
-    exclude_years is passed through to build_transition_pairs (crisis-year
-    exclusion); the default empty set applies no exclusion.
+    """Estimate KM coefficients for all three FP periods.
 
     Returns dict: period → KMResult.
     """
@@ -198,12 +178,10 @@ def compute_fp_potential(km: KMResult) -> tuple[np.ndarray, np.ndarray]:
     xi = km.bin_centers[mask]
     ratio = km.A[mask] / km.B[mask]
 
-    # Cumulative trapezoidal integration
     V = np.zeros_like(xi)
     for i in range(1, len(xi)):
         V[i] = V[i-1] - integrate.trapezoid(ratio[:i+1], xi[:i+1])
 
-    # Actually integrate from x0 to x
     V_fp = np.zeros_like(xi)
     for i in range(1, len(xi)):
         V_fp[i] = -integrate.trapezoid(ratio[:i+1], xi[:i+1])
@@ -226,7 +204,6 @@ def compute_steady_state(km: KMResult) -> tuple[np.ndarray, np.ndarray]:
     A_vals = km.A[mask]
     B_vals = km.B[mask]
 
-    # Cumulative integral of 2*A/B
     ratio = 2 * A_vals / B_vals
     integral = np.zeros_like(xi)
     for i in range(1, len(xi)):
@@ -234,7 +211,6 @@ def compute_steady_state(km: KMResult) -> tuple[np.ndarray, np.ndarray]:
 
     P_st = (1.0 / B_vals) * np.exp(integral)
 
-    # Normalize
     norm = integrate.trapezoid(P_st, xi)
     if norm > 0:
         P_st = P_st / norm
@@ -258,11 +234,9 @@ def find_drift_zeros(km: KMResult) -> list[dict]:
     zeros = []
     for i in range(len(xi) - 1):
         if A_vals[i] * A_vals[i+1] < 0:
-            # Linear interpolation
             frac = A_vals[i] / (A_vals[i] - A_vals[i+1])
             xi_zero = xi[i] + frac * (xi[i+1] - xi[i])
 
-            # Classify: stable if A goes from + to -, unstable if - to +
             if A_vals[i] > 0 and A_vals[i+1] < 0:
                 eq_type = "stable"
             else:
@@ -334,11 +308,10 @@ def validate_km_recovery(A_func, B_func, n_particles=2000, n_steps=100,
 
     km = estimate_kramers_moyal(pairs, n_bins=n_bins, period="synthetic")
 
-    # Compare on valid bins — rescale by dt
     mask = ~np.isnan(km.A) & ~np.isnan(km.B)
     xi_grid = km.bin_centers[mask]
-    A_hat = km.A[mask] / dt      # rescale to physical drift
-    B_hat = km.B[mask] / dt      # rescale to physical diffusion
+    A_hat = km.A[mask] / dt
+    B_hat = km.B[mask] / dt
 
     A_true = np.array([A_func(x) for x in xi_grid])
     B_true = np.array([B_func(x) for x in xi_grid])
@@ -373,7 +346,6 @@ def estimate_kramers_moyal_kernel(pairs_df, bandwidth="silverman",
     xi = pairs_df["xi_t"].values
     delta = pairs_df["delta_xi"].values
 
-    # Bandwidth selection
     if bandwidth == "silverman":
         n = len(xi)
         sigma = xi.std()
@@ -381,7 +353,6 @@ def estimate_kramers_moyal_kernel(pairs_df, bandwidth="silverman",
     else:
         h = float(bandwidth)
 
-    # Grid
     xi_min = np.percentile(xi, 1)
     xi_max = np.percentile(xi, 99)
     grid = np.linspace(xi_min, xi_max, n_grid)
@@ -400,14 +371,12 @@ def estimate_kramers_moyal_kernel(pairs_df, bandwidth="silverman",
         if w_sum < 1e-10:
             continue
 
-        # Effective sample size
         n_eff[k] = w_sum ** 2 / (w ** 2).sum() if (w ** 2).sum() > 0 else 0
 
         A[k] = np.sum(w * delta) / w_sum
         B[k] = np.sum(w * delta**2) / w_sum - A[k]**2
         B[k] = max(B[k], 1e-10)
 
-        # SE via weighted standard error
         if n_eff[k] > 2:
             resid_a = delta - A[k]
             A_se[k] = np.sqrt(np.sum(w * resid_a**2) / w_sum) / np.sqrt(n_eff[k])
@@ -516,7 +485,6 @@ def compute_kramers_escape_time(km: KMResult,
     dict with tau_arrhenius, tau_mfpt, barrier_height, mean_diffusion,
     xi_target.
     """
-    # Find equilibria
     zeros = find_drift_zeros(km)
     stable = [z for z in zeros if z["type"] == "stable"]
     unstable = [z for z in zeros if z["type"] == "unstable"]
@@ -527,16 +495,13 @@ def compute_kramers_escape_time(km: KMResult,
         else:
             xi_trap = km.bin_centers[km.reliable][np.nanargmin(np.abs(km.A[km.reliable]))]
 
-    # Compute FP potential
     xi_fp, V_fp = compute_fp_potential(km)
     if len(xi_fp) < 3:
         return {"status": "insufficient_data"}
 
-    # Find barrier: highest V_fp between xi_trap and xi_target
     trap_idx = np.argmin(np.abs(xi_fp - xi_trap))
     target_idx = np.argmin(np.abs(xi_fp - xi_target))
 
-    # Ensure we search between trap and target for the barrier
     if target_idx > trap_idx:
         between_mask = (xi_fp > xi_fp[trap_idx]) & (xi_fp <= xi_fp[target_idx])
     else:
@@ -547,7 +512,6 @@ def compute_kramers_escape_time(km: KMResult,
     elif between_mask.any():
         barrier_idx = np.where(between_mask)[0][np.argmax(V_fp[between_mask])]
     else:
-        # Fallback: highest V_fp to the right of xi_trap
         right_mask = xi_fp > xi_trap
         if right_mask.any():
             barrier_idx = np.where(right_mask)[0][np.argmax(V_fp[right_mask])]
@@ -556,19 +520,14 @@ def compute_kramers_escape_time(km: KMResult,
 
     delta_V = V_fp[barrier_idx] - V_fp[trap_idx]
 
-    # Mean diffusion in the trap region
     mask_B = ~np.isnan(km.B) & km.reliable
     xi_B = km.bin_centers[mask_B]
     B_vals = km.B[mask_B]
     trap_region = (xi_B >= xi_trap - 0.5) & (xi_B <= xi_fp[barrier_idx])
     D = np.mean(B_vals[trap_region]) if trap_region.any() else np.mean(B_vals)
 
-    # Arrhenius: tau ~ exp(2 * DeltaV / D)
-    # Leading-order saddle-point approximation of MFPT integral;
-    # valid for any potential with a well and barrier (Gardiner 2009)
     tau_arrhenius = np.exp(2 * delta_V / D) if D > 0 else np.inf
 
-    # Full MFPT via Gardiner double integral (Eq 5.2.117)
     tau_mfpt = np.nan
     try:
         A_interp = np.interp(xi_fp, km.bin_centers[~np.isnan(km.A)], km.A[~np.isnan(km.A)])
@@ -607,8 +566,7 @@ def compute_kramers_escape_time(km: KMResult,
 def compute_escape_observables(km: KMResult,
                                xi_target: float = 0.0,
                                n_grid: int = 400) -> dict:
-    """
-    Escape observables for the trap-to-target first-passage problem.
+    """Escape observables of a Kramers-Moyal fit.
 
     Definitions:
 
@@ -635,7 +593,7 @@ def compute_escape_observables(km: KMResult,
       for ξ* < ξ_target (mirrored otherwise), evaluated on a uniform
       grid with linear interpolation of A and B.  Note that with the
       convention V_FP = −∫A/B the stationary weight is exp(−2 V_FP), so
-      the exponentials carry 2V_FP — not 2V_FP/B.
+      the exponentials carry 2V_FP — *not* 2V_FP/B.
     - tau_arrhenius: leading-order barrier factor exp(2ΔV) under the
       V_FP convention (dimensionless exponent; curvature prefactor
       omitted).  Reported for diagnostic comparison only; τ_MFPT is the
@@ -654,7 +612,6 @@ def compute_escape_observables(km: KMResult,
         "id_status": "failed",
     }
 
-    # ── potential and support ──
     xi_fp, V_fp = compute_fp_potential(km)
     if len(xi_fp) < 4:
         return out
@@ -662,15 +619,6 @@ def compute_escape_observables(km: KMResult,
         out["id_status"] = "target_outside_domain"
         return out
 
-    # ── trap identification ──
-    # The escape origin is the global minimum of V_FP over the estimated
-    # support. Taking the first stable zero instead makes the escape time
-    # depend on which crossing the binning happened to resolve: the binned
-    # drift can sit within its own standard error of zero across an interval
-    # and cross it several times there, and county-block resampling then moves
-    # the identified location across that whole interval. The parametric
-    # drift, being cubic, yields one stable fixed point per period, for which
-    # the two rules coincide.
     zeros = find_drift_zeros(km)
     stable = [z for z in zeros if z["type"] == "stable"]
     if stable:
@@ -686,7 +634,6 @@ def compute_escape_observables(km: KMResult,
         xi_trap = km.bin_centers[rel][np.nanargmin(np.abs(km.A[rel]))]
         id_status = "fallback_argminA"
 
-    # ── uniform fine grid over the estimated support ──
     grid = np.linspace(xi_fp.min(), xi_fp.max(), n_grid)
     V = np.interp(grid, xi_fp, V_fp)
     mask_B = ~np.isnan(km.B) & (km.B > 0)
@@ -699,22 +646,17 @@ def compute_escape_observables(km: KMResult,
         out["id_status"] = "degenerate_path"
         return out
 
-    # ── ΔV on the escape path ──
     V_trap = np.interp(xi_trap, grid, V)
     V_target = np.interp(xi_target, grid, V)
     k_barrier = np.where(path)[0][np.argmax(V[path])]
     delta_V = V[k_barrier] - V_trap
     delta_V_at_target = V_target - V_trap
 
-    # ── D̄ over reliable bins on the path ──
     rel_B = km.reliable & ~np.isnan(km.B)
     xi_rB = km.bin_centers[rel_B]
     on_path = (xi_rB >= lo) & (xi_rB <= hi)
     D_bar = km.B[rel_B][on_path].mean() if on_path.any() else km.B[rel_B].mean()
 
-    # ── Gardiner double-integral MFPT ──
-    # Escape upward (trap below target): reflect at left edge.
-    # Escape downward: mirror the axis and reuse the same formula.
     if xi_trap <= xi_target:
         g, Vg, Bg = grid, V, B
         x0, xb = xi_trap, xi_target
@@ -724,8 +666,7 @@ def compute_escape_observables(km: KMResult,
         Bg = B[::-1]
         x0, xb = -xi_trap, -xi_target
 
-    # inner(y) = ∫_a^y exp(-2V)/B dz   (cumulative trapezoid)
-    f_in = np.exp(-2.0 * (Vg - Vg.min())) / Bg          # shift cancels below
+    f_in = np.exp(-2.0 * (Vg - Vg.min())) / Bg
     inner = np.concatenate([[0.0], np.cumsum(
         0.5 * (f_in[1:] + f_in[:-1]) * np.diff(g))])
     outer_integrand = 2.0 * np.exp(2.0 * (Vg - Vg.min())) * inner
@@ -809,12 +750,10 @@ def validate_fp_consistency(km: KMResult,
     if len(xi_ss) == 0:
         return {"status": "insufficient_data"}
 
-    # Empirical KDE on same grid
     kde = gaussian_kde(empirical_xi[np.isfinite(empirical_xi)])
     P_emp = kde(xi_ss)
     P_emp_norm = P_emp / integrate.trapezoid(P_emp, xi_ss)
 
-    # KL divergence (P_emp || P_ss)
     mask_valid = (P_ss > 1e-10) & (P_emp_norm > 1e-10)
     if mask_valid.sum() > 0:
         kl = integrate.trapezoid(
@@ -824,7 +763,6 @@ def validate_fp_consistency(km: KMResult,
     else:
         kl = np.nan
 
-    # L2 distance
     l2 = np.sqrt(integrate.trapezoid((P_ss - P_emp_norm)**2, xi_ss))
 
     return {

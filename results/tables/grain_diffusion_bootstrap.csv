@@ -1,5 +1,0 @@
-panel,estimator,quantity,median,ci_lo,ci_hi,P_gt0,n_draws
-panel_scaling,binned_KM,B_ratio during-pre,-1.4265017338228994,-2.9739778165547484,0.2202344505361904,0.044,1000
-panel_scaling,MLE,B_ratio_w (during-pre),-1.2649666847462573,-2.011062107646841,-0.5461897669336537,0.0,1000
-panel_full,binned_KM,B_ratio during-pre,-2.9885018254190148,-4.031259815450532,-1.6453858914458634,0.0,999
-panel_full,MLE,B_ratio_w (during-pre),-2.019197426442966,-2.621965853476087,-1.3369504200455304,0.0,1000

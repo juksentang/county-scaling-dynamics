@@ -1,0 +1,17 @@
+{
+ "seed": 20261023,
+ "seed_rule": "rng [SEED, b] per draw b (run_expi_rerun_ci.one_draw order)",
+ "n_boot": 1000,
+ "provinces": {
+  "pre": 21,
+  "during": 9
+ },
+ "counties": {
+  "pre": 1391,
+  "during": 487
+ },
+ "failed_draws": {},
+ "status": "completed",
+ "workers": 8,
+ "seconds": 172.35687828063965
+}

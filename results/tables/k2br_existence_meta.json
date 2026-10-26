@@ -1,0 +1,23 @@
+{
+ "script": "scripts/k2br_pib.py --existence",
+ "mode": "codes and years only (outcome_records); no value field read",
+ "raw_sha256": {
+  "raw/pib/base_de_dados_2002_2009_txt.zip": "4ad3ba30d67f34bfcc00465cdb150d111da7bc068e7516fce61c002465dbda13",
+  "raw/pib/base_de_dados_2010_2023_txt.zip": "1179047b0bcc527a776f5479a534a4b2d99d362491331b0f6b465871f9164090",
+  "raw/pib/base_1999_2012_xlsx.zip": "b191eba79c8d7a28f62ea7fd3aaaff0fb641e9765bd42274a7c48df04e0fe61c"
+ },
+ "vab_agro_not_published": {
+  "ref2010": [
+   2022,
+   2023
+  ]
+ },
+ "n_records": 200236,
+ "n_discrepancies": 20,
+ "n_known_entry_lag": 20,
+ "n_unexplained": 0,
+ "lags_seen": [
+  1
+ ],
+ "kill_rule_3": "not triggered: every difference is D3's known one-year entry lag"
+}

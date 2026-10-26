@@ -1,0 +1,23 @@
+cell_index,process,quantity,period,coverage,R,in_band,band,scope,status
+0,i_ou,xi_trap,contrast,0.934,500,True,"[0.92, 0.98]",K1b,gated
+5,ii_cubic,xi_trap,contrast,0.946,500,True,"[0.92, 0.98]",K1b,gated
+10,iii_mult,xi_trap,contrast,0.96,500,True,"[0.92, 0.98]",K1b,gated
+15,iv_bistable_0,xi_trap,contrast,0.958,500,True,"[0.92, 0.98]",K2,gated
+17,iv_bistable_1,xi_trap,contrast,0.976,500,True,"[0.92, 0.98]",K2,gated
+19,iv_bistable_2,xi_trap,contrast,0.98,500,True,"[0.92, 0.98]",K2,gated
+21,iv_bistable_4,xi_trap,contrast,0.964,500,True,"[0.92, 0.98]",K2,gated
+23,v_posctrl,xi_trap,contrast,0.948,500,True,"[0.92, 0.98]",K1c,gated
+0,i_ou,tau_mfpt,contrast,0.956,500,True,"[0.92, 0.98]",K1b,not evaluable (amendment 7 (S2) item 4)
+5,ii_cubic,tau_mfpt,contrast,0.968,500,True,"[0.92, 0.98]",K1b,gated
+10,iii_mult,tau_mfpt,contrast,0.982,500,False,"[0.92, 0.98]",K1b,gated
+15,iv_bistable_0,tau_mfpt,contrast,0.91,500,False,"[0.92, 0.98]",K2,gated
+17,iv_bistable_1,tau_mfpt,contrast,0.738,500,False,"[0.92, 0.98]",K2,gated
+19,iv_bistable_2,tau_mfpt,contrast,0.706,500,False,"[0.92, 0.98]",K2,gated
+21,iv_bistable_4,tau_mfpt,contrast,0.754,500,False,"[0.92, 0.98]",K2,gated
+23,v_posctrl,tau_mfpt,contrast,0.944,500,True,"[0.92, 0.98]",K1c,gated
+17,iv_bistable_1,two_delta_V,pre,0.898,500,False,"[0.92, 0.98]",K2,gated
+17,iv_bistable_1,two_delta_V,during,0.926,500,True,"[0.92, 0.98]",K2,gated
+19,iv_bistable_2,two_delta_V,pre,0.898,500,False,"[0.92, 0.98]",K2,gated
+19,iv_bistable_2,two_delta_V,during,0.894,500,False,"[0.92, 0.98]",K2,gated
+21,iv_bistable_4,two_delta_V,pre,0.906,500,False,"[0.92, 0.98]",K2,gated
+21,iv_bistable_4,two_delta_V,during,0.878,500,False,"[0.92, 0.98]",K2,gated

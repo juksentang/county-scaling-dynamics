@@ -1,11 +1,11 @@
 """
 Parametric Euler pseudo-likelihood estimation of the SAAI Langevin dynamics.
 
-Compared with binned Kramers-Moyal estimation (Friedrich-Kleinhans
-lineage), which uses only local data per bin (high variance), the
-parametric MLE pools the full sample through smooth coefficient functions,
-and regime change is tested with a likelihood-ratio test on the full
-sample rather than by comparing per-period derived quantities.
+Upgrade path over binned Kramers-Moyal (Friedrich-Kleinhans lineage):
+binned KM uses only local data per bin (high variance); the parametric MLE
+pools the full sample through smooth coefficient functions, and regime
+change is tested with a likelihood-ratio test on the full sample rather
+than by comparing per-period derived quantities.
 
 Model (Δt = 1 year, Euler transition density):
 
@@ -16,7 +16,7 @@ Model (Δt = 1 year, Euler transition density):
                                                poverty-side asymmetry that
                                                the B-ratio measures)
 
-Inference caveat: increments are not independent
+Inference caveat (stated in Methods/SI): increments are not independent
 within counties, so the χ² p-value of the LRT is approximate; the primary
 uncertainty statements are county-block bootstrap CIs of the derived
 quantities and of their period differences, which respect the dependence.
@@ -26,7 +26,7 @@ import numpy as np
 import pandas as pd
 from scipy import optimize, stats
 
-N_PARAMS = 7  # a0..a3, c0..c2
+N_PARAMS = 7
 
 
 def _A(params: np.ndarray, xi: np.ndarray) -> np.ndarray:
@@ -54,7 +54,7 @@ def init_params(xi: np.ndarray, dxi: np.ndarray) -> np.ndarray:
     Xc = np.column_stack([np.ones_like(xi), xi, xi**2])
     c, *_ = np.linalg.lstsq(Xc, np.log(resid2), rcond=None)
     c = c.copy()
-    c[0] += 1.27  # E[log χ²₁] = -1.27; recenters the log-residual regression
+    c[0] += 1.27
     return np.concatenate([a, c])
 
 
@@ -64,7 +64,7 @@ def fit_mle(xi: np.ndarray, dxi: np.ndarray,
     if x0 is None:
         x0 = init_params(xi, dxi)
     res = optimize.minimize(negloglik, x0, args=(xi, dxi), method="L-BFGS-B")
-    if not res.success:  # one retry from the moment start
+    if not res.success:
         res2 = optimize.minimize(negloglik, init_params(xi, dxi),
                                  args=(xi, dxi), method="Nelder-Mead",
                                  options={"maxiter": 5000, "xatol": 1e-8})
@@ -74,18 +74,74 @@ def fit_mle(xi: np.ndarray, dxi: np.ndarray,
             "converged": bool(res.success)}
 
 
+def _limit_observables(params, grid, V, B, xi_data, lo_s, hi_s,
+                       xi_trap, xi_target, out):
+    """degenerate="limit" branch of derived_observables (see its docstring).
+
+    One formula for every path length: ΔV and τ are integrated over the
+    node set {trap, grid nodes strictly inside the path, target}, so the end
+    fractions are kept and a grid node entering the path adds a segment of
+    zero width.  Every observable is therefore continuous in the trap
+    position (up to the data granularity of mean_diffusion), on both sides
+    of the one-grid-step threshold."""
+    lo, hi = min(xi_trap, xi_target), max(xi_trap, xi_target)
+    inside = grid[(grid > lo) & (grid < hi)]
+    p = np.concatenate([[xi_trap], inside if xi_trap <= xi_target
+                        else inside[::-1], [xi_target]])
+    r = _A(params, p) / np.exp(_logB(params, p))
+    v_rel = -np.concatenate([[0.0], np.cumsum(0.5 * (r[1:] + r[:-1]) * np.diff(p))])
+    out["xi_trap"] = float(xi_trap)
+    out["delta_V"] = float(max(0.0, v_rel.max()))
+
+    xi_w = xi_data[(xi_data >= lo_s) & (xi_data <= hi_s)]
+    w_mask = (xi_w >= lo) & (xi_w <= hi)
+    if w_mask.any():
+        out["mean_diffusion"] = float(np.exp(_logB(params, xi_w[w_mask])).mean())
+    elif hi > lo:
+        q = np.concatenate([[lo], inside, [hi]])
+        out["mean_diffusion"] = float(np.trapezoid(np.exp(_logB(params, q)), q)
+                                      / (hi - lo))
+    else:
+        out["mean_diffusion"] = float(np.exp(_logB(params, np.array([lo])))[0])
+    out["gamma"] = 2 * out["delta_V"] / out["mean_diffusion"]
+    neg, pos = xi_w < 0, xi_w >= 0
+    if neg.any() and pos.any():
+        out["B_ratio_w"] = float(np.exp(_logB(params, xi_w[neg])).mean()
+                                 / np.exp(_logB(params, xi_w[pos])).mean())
+
+    if xi_trap <= xi_target:
+        g, Vg, Bg, x0, xb = grid, V, B, xi_trap, xi_target
+    else:
+        g, Vg, Bg = -grid[::-1], V[::-1], B[::-1]
+        x0, xb = -xi_trap, -xi_target
+    f_in = np.exp(-2.0 * (Vg - Vg.min())) / Bg
+    inner = np.concatenate([[0.0], np.cumsum(
+        0.5 * (f_in[1:] + f_in[:-1]) * np.diff(g))])
+    outer = 2.0 * np.exp(2.0 * (Vg - Vg.min())) * inner
+    seg = (g > x0) & (g < xb)
+    q = np.concatenate([[x0], g[seg], [xb]])
+    oq = np.concatenate([[np.interp(x0, g, outer)], outer[seg],
+                         [np.interp(xb, g, outer)]])
+    out["tau_mfpt"] = float(np.trapezoid(oq, q))
+    if (np.count_nonzero((grid >= lo) & (grid <= hi))) < 2:
+        out["id_status"] = "subgrid_path"
+    return out
+
+
 def derived_observables(params: np.ndarray,
                         xi_data: np.ndarray,
                         xi_target: float = 0.0,
                         support: tuple[float, float] | None = None,
-                        n_grid: int = 600) -> dict:
-    """
-    Escape observables from the fitted smooth A, B — same definitions as
+                        n_grid: int = 600,
+                        degenerate: str = "nan") -> dict:
+    """Escape observables from the fitted smooth A, B — same definitions as
     compute_escape_observables (trap = stable zero of A; ΔV = path barrier
     of V = −∫A/B toward ξ_target; Gardiner double-integral MFPT with the
     reflecting boundary at the far support edge), evaluated analytically on
     the fitted functions over the 1–99 percentile support of the data.
     """
+    if degenerate not in ("nan", "limit"):
+        raise ValueError("degenerate must be 'nan' or 'limit'")
     if support is None:
         support = (np.percentile(xi_data, 1), np.percentile(xi_data, 99))
     lo_s, hi_s = support
@@ -97,7 +153,6 @@ def derived_observables(params: np.ndarray,
            "gamma": np.nan, "tau_mfpt": np.nan, "B_ratio_w": np.nan,
            "id_status": "failed"}
 
-    # stable roots of A on the support
     sign_change = np.where(np.diff(np.sign(A)) != 0)[0]
     stable_roots = []
     for i in sign_change:
@@ -111,13 +166,15 @@ def derived_observables(params: np.ndarray,
         xi_trap = grid[np.argmin(np.abs(A))]
         out["id_status"] = "fallback_argminA"
 
-    # potential V = -∫ A/B
     ratio = A / B
     V = -np.concatenate([[0.0], np.cumsum(
         0.5 * (ratio[1:] + ratio[:-1]) * np.diff(grid))])
     V -= V.min()
 
     lo, hi = (xi_trap, xi_target) if xi_trap <= xi_target else (xi_target, xi_trap)
+    if degenerate == "limit":
+        return _limit_observables(params, grid, V, B, xi_data, lo_s, hi_s,
+                                  float(xi_trap), float(xi_target), out)
     path = (grid >= lo) & (grid <= hi)
     if path.sum() < 2:
         out["id_status"] = "degenerate_path"
@@ -126,10 +183,6 @@ def derived_observables(params: np.ndarray,
     out["xi_trap"] = float(xi_trap)
     out["delta_V"] = float(V[path].max() - V_trap)
 
-    # data-density-weighted mean diffusion on the path, and weighted B-ratio.
-    # xi_data is clipped to the fit support first: the quadratic log-B is a
-    # within-support smoother, not an extrapolation device (unclipped tail
-    # points make exp(c2·ξ²) explode).
     xi_w = xi_data[(xi_data >= lo_s) & (xi_data <= hi_s)]
     w_mask = (xi_w >= lo) & (xi_w <= hi)
     if w_mask.any():
@@ -142,7 +195,6 @@ def derived_observables(params: np.ndarray,
         out["B_ratio_w"] = float(np.exp(_logB(params, xi_w[neg])).mean()
                                  / np.exp(_logB(params, xi_w[pos])).mean())
 
-    # Gardiner MFPT (mirror trick for downward escape)
     if xi_trap <= xi_target:
         g, Vg, Bg, x0, xb = grid, V, B, xi_trap, xi_target
     else:
@@ -180,7 +232,6 @@ def lrt_periods(pairs_by_period: dict[str, pd.DataFrame],
 
     f_shared = fit_mle(xi_all, dx_all)
 
-    # shared drift, free diffusion: params = [a(4), c1(3), c2(3)]
     def nll_shared_A(theta):
         pA1 = np.concatenate([theta[:4], theta[4:7]])
         pA2 = np.concatenate([theta[:4], theta[7:10]])
@@ -190,7 +241,6 @@ def lrt_periods(pairs_by_period: dict[str, pd.DataFrame],
                          f1["params"][4:], f2["params"][4:]])
     rA = optimize.minimize(nll_shared_A, x0, method="L-BFGS-B")
 
-    # shared diffusion, free drift: params = [c(3), a1(4), a2(4)]
     def nll_shared_B(theta):
         pB1 = np.concatenate([theta[3:7], theta[:3]])
         pB2 = np.concatenate([theta[7:11], theta[:3]])
@@ -208,8 +258,8 @@ def lrt_periods(pairs_by_period: dict[str, pd.DataFrame],
     return {
         "fit_" + p1: f1, "fit_" + p2: f2, "fit_shared": f_shared,
         "any_change": lr(f_shared["nll"], N_PARAMS),
-        "drift_change": lr(rA.fun, 4),      # shared-A restricted (df = 4)
-        "diffusion_change": lr(rB.fun, 3),  # shared-B restricted (df = 3)
+        "drift_change": lr(rA.fun, 4),
+        "diffusion_change": lr(rB.fun, 3),
         "n_" + p1: len(xi1), "n_" + p2: len(xi2),
     }
 
@@ -219,9 +269,10 @@ def bootstrap_mle_quantities(saai_df: pd.DataFrame,
                              n_boot: int = 1000,
                              seed: int = 106,
                              periods: tuple[str, str] = ("pre", "during"),
-                             xi_target: float = 0.0) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """
-    County-block bootstrap of MLE-derived quantities and their paired
+                             xi_target: float = 0.0,
+                             pairs: dict | None = None,
+                             degenerate: str = "nan") -> tuple[pd.DataFrame, pd.DataFrame]:
+    """County-block bootstrap of MLE-derived quantities and their paired
     period differences (same resampling contract as bootstrap_km_quantities;
     warm-started at the full-sample MLE for speed).
     """
@@ -230,10 +281,13 @@ def bootstrap_mle_quantities(saai_df: pd.DataFrame,
     pairs_by_period, county_pairs = {}, {}
     counties_all: set = set()
     for period in periods:
-        pairs = build_transition_pairs(saai_df, period, saai_col=saai_col)
-        pairs_by_period[period] = pairs
+        if pairs is not None:
+            period_pairs = pairs[period]
+        else:
+            period_pairs = build_transition_pairs(saai_df, period, saai_col=saai_col)
+        pairs_by_period[period] = period_pairs
         grouped = {code: g[["xi_t", "delta_xi"]].to_numpy()
-                   for code, g in pairs.groupby("CountyCode")}
+                   for code, g in period_pairs.groupby("CountyCode")}
         county_pairs[period] = grouped
         counties_all.update(grouped.keys())
     counties = np.array(sorted(counties_all))
@@ -257,7 +311,7 @@ def bootstrap_mle_quantities(saai_df: pd.DataFrame,
             mat = np.concatenate(arrs, axis=0)
             fit = fit_mle(mat[:, 0], mat[:, 1], x0=warm[p])
             obs = derived_observables(fit["params"], mat[:, 0],
-                                      xi_target=xi_target)
+                                      xi_target=xi_target, degenerate=degenerate)
             for k in ("xi_trap", "delta_V", "mean_diffusion", "gamma",
                       "tau_mfpt", "B_ratio_w"):
                 rec[f"{k}_{p}"] = obs[k]

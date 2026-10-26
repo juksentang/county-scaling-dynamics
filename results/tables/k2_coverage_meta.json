@@ -1,0 +1,15 @@
+{
+ "script": "scripts/k2_coverage.py",
+ "series_read": "BEA CAINC1 LineCode 2 (population) only",
+ "in_force_rule": "latest delineation dated on or before 1 July of the data year",
+ "excluded_states": [
+  "09",
+  "72"
+ ],
+ "pre2003_unit": "MSA or CMSA (top-level code), New England replaced by NECMAs",
+ "overlap_link_rule": "next area linked to the previous area sharing the most year-t population, if the shared population exceeds 50% of both",
+ "years": [
+  1993,
+  2024
+ ]
+}

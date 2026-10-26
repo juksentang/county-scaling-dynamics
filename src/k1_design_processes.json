@@ -1,0 +1,200 @@
+{
+ "schema": "src.k1_contract.DESIGN_PROCESS_FILE (contract 8): member -> period -> true_params with exactly TRUE_PROCESS_KEYS (guard keys null when unguarded)",
+ "written_by": "design registration of the simulation study",
+ "design_rule": {
+  "rule": "median of 16 replicate truths at the registered N equals the nominal value (truth() only)",
+  "source": "registered design rule (in force once the simulation rules are signed; design_rule.signed)",
+  "signed": true
+ },
+ "members": {
+  "cubic_bistable_0": {
+   "pre": {
+    "a0": 0.0,
+    "a1": -0.14417908071326746,
+    "a2": 0.0,
+    "a3": -0.009711263739604065,
+    "c0": -1.3183709567757607,
+    "c1": 0.0,
+    "c2": 0.0,
+    "guard_lo": null,
+    "guard_hi": null,
+    "slope_floor": null
+   },
+   "during": {
+    "a0": 0.0,
+    "a1": -0.08735248252005048,
+    "a2": 0.0,
+    "a3": -0.005708859373633143,
+    "c0": -1.789313151832378,
+    "c1": 0.0,
+    "c2": 0.0,
+    "guard_lo": null,
+    "guard_hi": null,
+    "slope_floor": null
+   }
+  },
+  "cubic_bistable_1": {
+   "pre": {
+    "a0": 0.0,
+    "a1": 0.07208954035663373,
+    "a2": 0.0,
+    "a3": -0.010018938815155918,
+    "c0": -1.3183709567757607,
+    "c1": 0.0,
+    "c2": 0.0,
+    "guard_lo": null,
+    "guard_hi": null,
+    "slope_floor": null
+   },
+   "during": {
+    "a0": 0.0,
+    "a1": 0.04367624126002524,
+    "a2": 0.0,
+    "a3": -0.006076971084235952,
+    "c0": -1.789313151832378,
+    "c1": 0.0,
+    "c2": 0.0,
+    "guard_lo": null,
+    "guard_hi": null,
+    "slope_floor": null
+   }
+  },
+  "cubic_bistable_2": {
+   "pre": {
+    "a0": 0.0,
+    "a1": 0.07208954035663373,
+    "a2": 0.0,
+    "a3": -0.0049759307448439295,
+    "c0": -1.3183709567757607,
+    "c1": 0.0,
+    "c2": 0.0,
+    "guard_lo": null,
+    "guard_hi": null,
+    "slope_floor": null
+   },
+   "during": {
+    "a0": 0.0,
+    "a1": 0.04367624126002524,
+    "a2": 0.0,
+    "a3": -0.00300161114542517,
+    "c0": -1.789313151832378,
+    "c1": 0.0,
+    "c2": 0.0,
+    "guard_lo": null,
+    "guard_hi": null,
+    "slope_floor": null
+   }
+  },
+  "cubic_bistable_4": {
+   "pre": {
+    "a0": 0.0,
+    "a1": 0.07208954035663373,
+    "a2": 0.0,
+    "a3": -0.0024818050795374436,
+    "c0": -1.3183709567757607,
+    "c1": 0.0,
+    "c2": 0.0,
+    "guard_lo": null,
+    "guard_hi": null,
+    "slope_floor": null
+   },
+   "during": {
+    "a0": 0.0,
+    "a1": 0.04367624126002524,
+    "a2": 0.0,
+    "a3": -0.0014914818327760933,
+    "c0": -1.789313151832378,
+    "c1": 0.0,
+    "c2": 0.0,
+    "guard_lo": null,
+    "guard_hi": null,
+    "slope_floor": null
+   }
+  },
+  "cubic_shift": {
+   "during": {
+    "a0": 0.0,
+    "a1": -0.018118776437839476,
+    "a2": 0.002620044680019973,
+    "a3": -0.00018943426309308545,
+    "c0": -3.3176593255928557,
+    "c1": 0.0,
+    "c2": 0.0,
+    "guard_lo": null,
+    "guard_hi": null,
+    "slope_floor": null
+   }
+  }
+ },
+ "design_constants": {
+  "cubic_bistable_0": {
+   "rule": "median of 16 replicate truths at the registered N",
+   "alpha_analytic_pre": 0.009711263739604065,
+   "alpha_pre": 0.009711263739604065,
+   "alpha_analytic_during": 0.005708859373633143,
+   "alpha_during": 0.005708859373633143
+  },
+  "cubic_bistable_1": {
+   "rule": "median of 16 replicate truths at the registered N",
+   "alpha_analytic_pre": 0.009711263739604065,
+   "alpha_pre": 0.010018938815155918,
+   "design_truth_2dV_pre": {
+    "median": 1.0000000042243498,
+    "min": 0.9715676375004997,
+    "max": 1.000003585184815
+   },
+   "alpha_analytic_during": 0.005708859373633143,
+   "alpha_during": 0.006076971084235952,
+   "design_truth_2dV_during": {
+    "median": 1.0000000036154448,
+    "min": 0.9844102237407326,
+    "max": 1.000000003615445
+   }
+  },
+  "cubic_bistable_2": {
+   "rule": "median of 16 replicate truths at the registered N",
+   "alpha_analytic_pre": 0.0048556318698020325,
+   "alpha_pre": 0.0049759307448439295,
+   "design_truth_2dV_pre": {
+    "median": 2.0000000122494157,
+    "min": 1.9739285343510953,
+    "max": 2.0014225560121566
+   },
+   "alpha_analytic_during": 0.0028544296868165714,
+   "alpha_during": 0.00300161114542517,
+   "design_truth_2dV_during": {
+    "median": 2.0000000088884864,
+    "min": 1.9460763768711886,
+    "max": 2.0000217707946204
+   }
+  },
+  "cubic_bistable_4": {
+   "rule": "median of 16 replicate truths at the registered N",
+   "alpha_analytic_pre": 0.0024278159349010162,
+   "alpha_pre": 0.0024818050795374436,
+   "design_truth_2dV_pre": {
+    "median": 4.000000023662077,
+    "min": 3.9097084791275027,
+    "max": 4.000576640378435
+   },
+   "alpha_analytic_during": 0.0014272148434082857,
+   "alpha_during": 0.0014914818327760933,
+   "design_truth_2dV_during": {
+    "median": 4.000000020583193,
+    "min": 3.686814824624332,
+    "max": 4.000037268599947
+   }
+  },
+  "cubic_shift": {
+   "lam": 0.018118776437839476,
+   "beta": 0.002620044680019973,
+   "search": "amendment 5 (b): lambda: brentq on (0.003, 0.08); beta: smallest root of shift = -0.31 on (0.0001, 0.05) (first sign change on a 25-node log grid, then brentq xtol 1e-6; the shift is not monotone in beta)",
+   "residual_shift": -1.2667662196985674e-08,
+   "residual_logtau": -1.647313156993846e-07,
+   "rule": "median of 16 replicate truth contrasts at the registered N",
+   "design_truth_pre_xi_trap_median": 0.17192895868603142,
+   "design_truth_pre_tau_median": 2.230689345509922
+  }
+ },
+ "unregistered": {}
+}

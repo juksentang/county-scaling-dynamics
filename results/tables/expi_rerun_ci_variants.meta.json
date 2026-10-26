@@ -1,0 +1,25 @@
+{
+ "seed": 20261023,
+ "seed_rule": "rng [SEED, b] per draw b",
+ "n_boot": 1000,
+ "saai_spec": "multi",
+ "variants": [
+  "V0_baseline",
+  "V1_stayer_restandardised"
+ ],
+ "conventions": [
+  "limit",
+  "nan"
+ ],
+ "provinces": {
+  "pre": 21,
+  "during": 9
+ },
+ "counties": {
+  "pre": 1391,
+  "during": 487
+ },
+ "failed_draws": {},
+ "workers": 8,
+ "seconds": 554.227349281311
+}

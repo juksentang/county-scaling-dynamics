@@ -39,7 +39,6 @@ def build_province_gdp_deflator(gdp_df: pd.DataFrame) -> pd.DataFrame:
     df["RegGDPIdx"] = pd.to_numeric(df["RegGDPIdx"], errors="coerce")
     df = df.dropna(subset=["Year", "Province"])
 
-    # Province-year aggregation
     agg = (
         df.groupby(["Province", "Year"])
         .agg(
@@ -50,7 +49,6 @@ def build_province_gdp_deflator(gdp_df: pd.DataFrame) -> pd.DataFrame:
         .reset_index()
     )
 
-    # Compute average GDP per reporting county (handles changing county counts)
     agg["AvgGDP"] = agg["SumGDP"] / agg["NCountyGDP"]
 
     results = []
@@ -60,17 +58,13 @@ def build_province_gdp_deflator(gdp_df: pd.DataFrame) -> pd.DataFrame:
         avg_gdp = grp["AvgGDP"].values
         idx_vals = grp["MedianIdx"].values
 
-        # Find base year position
         base_pos = np.searchsorted(years, BASE_YEAR)
         if base_pos >= len(years) or years[base_pos] != BASE_YEAR:
-            # Base year not available — use earliest year as base
             base_pos = 0
 
-        # 1. Cumulative real index (from RegGDPIdx)
         cum_real = np.ones(len(years))
         for i in range(base_pos + 1, len(years)):
             rate = idx_vals[i] / 100.0 if not np.isnan(idx_vals[i]) else 1.0
-            # Clamp extreme values
             rate = np.clip(rate, 0.5, 2.0)
             cum_real[i] = cum_real[i-1] * rate
 
@@ -79,16 +73,13 @@ def build_province_gdp_deflator(gdp_df: pd.DataFrame) -> pd.DataFrame:
             rate = np.clip(rate, 0.5, 2.0)
             cum_real[i] = cum_real[i+1] / rate
 
-        # 2. Nominal growth index (using avg GDP per county for robustness)
         base_gdp = avg_gdp[base_pos]
         if np.isnan(base_gdp) or base_gdp <= 0:
             base_gdp = np.nanmedian(avg_gdp)
         nom_idx = avg_gdp / base_gdp
 
-        # 3. Implicit deflator = nominal growth / real growth
         deflator = np.where(cum_real > 0, nom_idx / cum_real, np.nan)
 
-        # Normalize so base year = 1.0
         base_val = deflator[base_pos]
         if not np.isnan(base_val) and base_val > 0:
             deflator = deflator / base_val
@@ -99,7 +90,6 @@ def build_province_gdp_deflator(gdp_df: pd.DataFrame) -> pd.DataFrame:
 
     deflator_df = pd.DataFrame(results)
 
-    # Sanity check: deflator should typically be 1-5x for 2000-2023
     med = deflator_df.groupby("Year")["Deflator"].median()
     print(f"  Deflator median by year (sample): "
           f"{med.iloc[0]:.2f} ({int(med.index[0])}) → "

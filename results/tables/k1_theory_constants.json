@@ -1,0 +1,9 @@
+{
+ "source": "theory freeze record (second freeze)",
+ "theory_version": "k1-theory-14",
+ "guard_constants": {
+  "LOGB_CLIP": 20.0,
+  "EDGE_SD": 10.0,
+  "EDGE_MASS_TOL": 1e-06
+ }
+}

@@ -16,16 +16,16 @@ class ScalingResult:
     equation_label: str
     y_col: str
     x_cols: list[str]
-    year: int | str            # year or "pooled"
+    year: int | str
     n_obs: int
-    betas: dict[str, float]    # coefficient for each x variable
-    se: dict[str, float]       # robust SE for each coefficient
+    betas: dict[str, float]
+    se: dict[str, float]
     pvalue: dict[str, float]
     ci_lower: dict[str, float]
     ci_upper: dict[str, float]
     r_squared: float
     r_squared_adj: float
-    wald_beta_eq_1: dict[str, dict]  # {var: {stat, pvalue}} for H₀: β=1
+    wald_beta_eq_1: dict[str, dict]
     residuals: np.ndarray = field(repr=False)
     intercept: float = 0.0
 
@@ -52,13 +52,11 @@ def run_scaling_regression(df: pd.DataFrame,
     -------
     ScalingResult dataclass.
     """
-    # Filter by year if needed
     if year != "pooled" and "Year" in df.columns:
         data = df[df["Year"] == year].copy()
     else:
         data = df.copy()
 
-    # Drop rows with missing or non-positive values
     all_cols = [y_col] + x_cols
     data = data[all_cols].dropna()
     for col in all_cols:
@@ -67,16 +65,13 @@ def run_scaling_regression(df: pd.DataFrame,
     if len(data) < len(x_cols) + 2:
         raise ValueError(f"Insufficient data: {len(data)} rows for {len(x_cols)+1} parameters")
 
-    # Log transform
     log_y = np.log(data[y_col].values)
     log_X = np.column_stack([np.log(data[c].values) for c in x_cols])
     log_X = sm.add_constant(log_X)
 
-    # OLS with robust SE
     model = sm.OLS(log_y, log_X)
     results = model.fit(cov_type=robust_se)
 
-    # Extract coefficients (skip constant at index 0)
     betas = {}
     se = {}
     pvalue = {}
@@ -87,14 +82,13 @@ def run_scaling_regression(df: pd.DataFrame,
     conf_int = results.conf_int(alpha=0.05)
 
     for i, var in enumerate(x_cols):
-        idx = i + 1  # +1 for constant
+        idx = i + 1
         betas[var] = results.params[idx]
         se[var] = results.bse[idx]
         pvalue[var] = results.pvalues[idx]
         ci_lower[var] = conf_int[idx, 0]
         ci_upper[var] = conf_int[idx, 1]
 
-        # Wald test: H₀: β = 1
         t_stat = (results.params[idx] - 1.0) / results.bse[idx]
         wald_p = 2 * stats.t.sf(abs(t_stat), df=results.df_resid)
         wald_tests[var] = {"t_stat": t_stat, "pvalue": wald_p}
@@ -228,8 +222,6 @@ def universality_test(ts_df: pd.DataFrame) -> pd.DataFrame:
         std_b = betas.std()
         cv = std_b / abs(mean_b) if mean_b != 0 else np.nan
 
-        # Simple stability test: are betas significantly different from their mean?
-        # Using weighted chi-squared: Σ (β_t - β̄)² / SE_t²
         ses = grp["SE"].values
         chi2 = np.sum((betas.values - mean_b)**2 / ses**2)
         dof = len(betas) - 1
@@ -333,7 +325,6 @@ def run_sectoral_decomposition(df: pd.DataFrame,
 
     table = pd.DataFrame(records)
 
-    # Wald test: H₀: β_secondary = β_tertiary
     wald_diff = None
     if "Secondary" in results and "Tertiary" in results:
         wald_diff = wald_test_equal_betas(
@@ -347,19 +338,8 @@ def run_urbanization_stratified_scaling(df: pd.DataFrame,
                                         year: int | str = "pooled",
                                         n_quantiles: int = 3,
                                         u_col: str | None = None) -> dict:
-    """
-    Stratify counties by urbanization proxy (NonAgriGDP/RegGDP) and run
+    """Stratify counties by urbanization proxy (NonAgriGDP/RegGDP) and run
     sectoral scaling (Secondary, Tertiary, NonAgri ~ PopNum) per group.
-
-    Parameters
-    ----------
-    df : DataFrame with RegGDP, NonAgriGDP, RegGDP_Secondary, RegGDP_Tertiary, PopNum.
-    year : year filter or "pooled".
-    n_quantiles : number of urbanization groups (default 3 = terciles).
-    u_col : optional column to use as the urbanization measure instead of
-        NonAgriGDP/RegGDP (e.g. a GDP-independent measure such as the
-        nighttime-lights lit-area share 'u_lit').  Default None uses the
-        NonAgriGDP/RegGDP ratio.
 
     Returns
     -------
@@ -374,7 +354,6 @@ def run_urbanization_stratified_scaling(df: pd.DataFrame,
     else:
         data = df.copy()
 
-    # Compute urbanization proxy
     if u_col is not None:
         data = data[data[u_col].notna()].copy()
         data["urb_ratio"] = data[u_col].astype(float)
@@ -384,27 +363,24 @@ def run_urbanization_stratified_scaling(df: pd.DataFrame,
         data["urb_ratio"] = data["NonAgriGDP"] / data["RegGDP"]
         data["urb_ratio"] = data["urb_ratio"].clip(0, 1.5)
 
-    # Quantile groups
     labels = ["Low", "Medium", "High"] if n_quantiles == 3 else \
              [f"Q{i+1}" for i in range(n_quantiles)]
     data["UrbGroup"] = pd.qcut(data["urb_ratio"], q=n_quantiles,
                                 labels=labels, duplicates="drop")
     cutoffs = data.groupby("UrbGroup")["urb_ratio"].agg(["min", "max"])
 
-    # Group stats
     group_stats = data.groupby("UrbGroup").agg(
         n=("urb_ratio", "size"),
         mean_ratio=("urb_ratio", "mean"),
         median_ratio=("urb_ratio", "median"),
     )
 
-    # Run scaling per group × sector
     sectors = [("Secondary", "RegGDP_Secondary"),
                ("Tertiary", "RegGDP_Tertiary"),
                ("NonAgri", "NonAgriGDP")]
 
     records = []
-    group_results = {}  # {(group, sector): ScalingResult}
+    group_results = {}
     for grp_name, grp_df in data.groupby("UrbGroup", observed=True):
         for sector_name, col in sectors:
             if col not in grp_df.columns:
@@ -430,7 +406,6 @@ def run_urbanization_stratified_scaling(df: pd.DataFrame,
 
     table = pd.DataFrame(records)
 
-    # Wald cross-group tests: β(High) vs β(Low) for each sector
     wald_cross = {}
     low_label = labels[0]
     high_label = labels[-1]
@@ -469,7 +444,6 @@ def run_interaction_regression(df: pd.DataFrame,
     else:
         data = df.copy()
 
-    # Compute urbanization proxy
     if u_col is None:
         data = data[(data["RegGDP"] > 0) & (data["NonAgriGDP"] > 0)].copy()
         data["_u"] = (data["NonAgriGDP"] / data["RegGDP"]).clip(0, 1.5)
@@ -477,7 +451,6 @@ def run_interaction_regression(df: pd.DataFrame,
         data = data[data[u_col] > 0].copy()
         data["_u"] = data[u_col]
 
-    # Filter valid
     data = data[(data[y_col] > 0) & (data[x_pop] > 0)].dropna(subset=[y_col, x_pop, "_u"])
 
     if len(data) < 10:
@@ -487,7 +460,6 @@ def run_interaction_regression(df: pd.DataFrame,
     log_N = np.log(data[x_pop].values)
     u = data["_u"].values
 
-    # Design: [const, ln N, u * ln N]
     X = np.column_stack([np.ones(len(data)), log_N, u * log_N])
     model = sm.OLS(log_y, X)
     fit = model.fit(cov_type="HC1")
@@ -497,7 +469,6 @@ def run_interaction_regression(df: pd.DataFrame,
     se_beta0 = fit.bse[1]
     se_beta1 = fit.bse[2]
 
-    # Crossover: β₀ + β₁·u* = 1 → u* = (1 - β₀) / β₁
     crossover_u = (1 - beta0) / beta1 if abs(beta1) > 1e-10 else np.nan
 
     return {
@@ -536,13 +507,11 @@ def run_province_fe_scaling(df: pd.DataFrame,
     else:
         data = df.copy()
 
-    # Province from county code
     data = data.copy()
     data["_ProvinceCode"] = data["CountyCode"].astype(int) // 10000
     data["_Province"] = data["_ProvinceCode"].map(PROVINCE_CODE_MAP)
     data = data.dropna(subset=["_Province"])
 
-    # Filter valid
     all_cols = [y_col] + x_cols
     data = data.dropna(subset=all_cols)
     for col in all_cols:
@@ -551,17 +520,14 @@ def run_province_fe_scaling(df: pd.DataFrame,
     if len(data) < 50:
         raise ValueError(f"Insufficient data: {len(data)} rows")
 
-    # Log transform
     log_y = np.log(data[y_col].values)
     log_X_list = [np.log(data[c].values) for c in x_cols]
 
-    # Province dummies (drop first)
     prov_dummies = pd.get_dummies(data["_Province"], prefix="prov", drop_first=True)
     X = np.column_stack(log_X_list + [prov_dummies.values])
     X = sm.add_constant(X)
 
     model = sm.OLS(log_y, X)
-    # Cluster SE by province
     groups = data["_Province"].values
     fit = model.fit(cov_type="cluster", cov_kwds={"groups": groups})
 
@@ -591,11 +557,7 @@ def run_province_fe_scaling(df: pd.DataFrame,
 
 def run_panel_fe_scaling(df: pd.DataFrame,
                          eq_key: str) -> dict:
-    """
-    County panel fixed effects (within estimator).
-
-    Demean by county: ln Y_it - mean(ln Y_i) = β(ln N_it - mean(ln N_i)) + ε_it.
-    Cluster SE by county.
+    """County panel fixed effects (within estimator).
 
     Returns dict: betas, se, ci, R2_within, N, n_counties.
     """
@@ -611,7 +573,6 @@ def run_panel_fe_scaling(df: pd.DataFrame,
     for col in [y_col] + x_cols:
         data = data[data[col] > 0]
 
-    # Need at least 2 obs per county for within estimator
     county_counts = data.groupby("CountyCode").size()
     valid_counties = county_counts[county_counts >= 2].index
     data = data[data["CountyCode"].isin(valid_counties)]
@@ -619,22 +580,19 @@ def run_panel_fe_scaling(df: pd.DataFrame,
     if len(data) < 50:
         raise ValueError(f"Insufficient data: {len(data)} rows")
 
-    # Log transform
     data = data.copy()
     data["_log_y"] = np.log(data[y_col])
     for c in x_cols:
         data[f"_log_{c}"] = np.log(data[c])
 
-    # Demean by county
     for col in ["_log_y"] + [f"_log_{c}" for c in x_cols]:
         county_means = data.groupby("CountyCode")[col].transform("mean")
         data[f"{col}_dm"] = data[col] - county_means
 
-    # Regression on demeaned data
     dm_y = data["_log_y_dm"].values
     dm_X = np.column_stack([data[f"_log_{c}_dm"].values for c in x_cols])
 
-    model = sm.OLS(dm_y, dm_X)  # no constant in FE
+    model = sm.OLS(dm_y, dm_X)
     groups = data["CountyCode"].values
     fit = model.fit(cov_type="cluster", cov_kwds={"groups": groups})
 
@@ -649,7 +607,6 @@ def run_panel_fe_scaling(df: pd.DataFrame,
         pvals[var] = fit.pvalues[i]
         ci[var] = (conf[i, 0], conf[i, 1])
 
-    # Within R² (on demeaned data)
     ss_res = np.sum(fit.resid ** 2)
     ss_tot = np.sum((dm_y - dm_y.mean()) ** 2)
     r2_within = 1 - ss_res / ss_tot if ss_tot > 0 else np.nan
@@ -680,7 +637,6 @@ def format_scaling_table(results: dict[str, ScalingResult]) -> pd.DataFrame:
             p = result.pvalue[var]
             wald_p = result.wald_beta_eq_1[var]["pvalue"]
 
-            # Stars
             if p < 0.001:
                 stars = "***"
             elif p < 0.01:
@@ -704,12 +660,7 @@ def run_province_fe_interaction(df: pd.DataFrame,
                                  x_pop: str = "PopNum",
                                  u_col: str = None,
                                  year: int | str = "pooled") -> dict:
-    """
-    Interaction regression with province fixed effects and clustered SE.
-
-    ln Y = α_j + (β₀ + β₁·u) ln N + ε
-    where α_j = province FE (dummies, drop first).
-    Cluster SE by province.
+    """Interaction regression with province fixed effects and clustered SE.
 
     Returns dict: beta0, beta1, se, crossover_u, cov_matrix, R2, N, n_provinces.
     """
@@ -720,12 +671,10 @@ def run_province_fe_interaction(df: pd.DataFrame,
     else:
         data = df.copy()
 
-    # Province from county code
     data["_ProvinceCode"] = data["CountyCode"].astype(int) // 10000
     data["_Province"] = data["_ProvinceCode"].map(PROVINCE_CODE_MAP)
     data = data.dropna(subset=["_Province"])
 
-    # Compute urbanization proxy
     if u_col is None:
         data = data[(data["RegGDP"] > 0) & (data["NonAgriGDP"] > 0)].copy()
         data["_u"] = (data["NonAgriGDP"] / data["RegGDP"]).clip(0, 1.5)
@@ -743,10 +692,8 @@ def run_province_fe_interaction(df: pd.DataFrame,
     log_N = np.log(data[x_pop].values)
     u = data["_u"].values
 
-    # Province dummies (drop first)
     prov_dummies = pd.get_dummies(data["_Province"], prefix="prov",
                                    drop_first=True)
-    # Design: [prov_dummies, ln N, u * ln N]
     X = np.column_stack([prov_dummies.values, log_N, u * log_N])
 
     model = sm.OLS(log_y, X)
@@ -754,14 +701,13 @@ def run_province_fe_interaction(df: pd.DataFrame,
     fit = model.fit(cov_type="cluster", cov_kwds={"groups": groups})
 
     n_prov_cols = prov_dummies.shape[1]
-    beta0 = fit.params[n_prov_cols]      # ln N coefficient
-    beta1 = fit.params[n_prov_cols + 1]  # u * ln N coefficient
+    beta0 = fit.params[n_prov_cols]
+    beta1 = fit.params[n_prov_cols + 1]
     se_beta0 = fit.bse[n_prov_cols]
     se_beta1 = fit.bse[n_prov_cols + 1]
 
     crossover_u = (1 - beta0) / beta1 if abs(beta1) > 1e-10 else np.nan
 
-    # Extract 2x2 covariance for beta0, beta1
     idx0, idx1 = n_prov_cols, n_prov_cols + 1
     full_cov = fit.cov_params()
     cov_sub = full_cov[np.ix_([idx0, idx1], [idx0, idx1])]
@@ -817,7 +763,6 @@ def run_interaction_regression_controlled(df: pd.DataFrame,
     log_N = np.log(data[x_pop].values)
     u = data["_u"].values
 
-    # Design: [const, ln N, u·ln N, (ln N)²]
     X = np.column_stack([np.ones(len(data)), log_N, u * log_N, log_N**2])
     model = sm.OLS(log_y, X)
     fit = model.fit(cov_type="HC1")
@@ -880,7 +825,6 @@ def fit_sigmoid_crossover(u: np.ndarray, beta_local: np.ndarray,
         ss = np.sum(resid ** 2)
         return n * np.log(ss / n) + 2 * k_params
 
-    # --- Sigmoid ---
     def sigmoid(u_arr, b_min, b_max, k, u_star):
         return b_min + (b_max - b_min) / (1 + np.exp(-k * (u_arr - u_star)))
 
@@ -902,7 +846,6 @@ def fit_sigmoid_crossover(u: np.ndarray, beta_local: np.ndarray,
     except RuntimeError:
         sig_result = {"status": "fit_failed"}
 
-    # --- Tanh ---
     def tanh_model(u_arr, b_mid, delta_b, k, u_star):
         return b_mid + delta_b * np.tanh(k * (u_arr - u_star))
 
@@ -916,8 +859,6 @@ def fit_sigmoid_crossover(u: np.ndarray, beta_local: np.ndarray,
                                           maxfev=10000)
         resid_tanh = beta_local - tanh_model(u, *popt_tanh)
         aic_tanh = _aic(resid_tanh, 4)
-        # u* where beta_eff = 1: solve b_mid + delta_b * tanh(k*(u-u*)) = 1
-        # tanh(k*(u-u*)) = (1 - b_mid) / delta_b
         arg = (1 - popt_tanh[0]) / popt_tanh[1]
         u_cross_tanh = popt_tanh[3] + np.arctanh(np.clip(arg, -0.999, 0.999)) / popt_tanh[2]
         tanh_result = {
@@ -930,7 +871,6 @@ def fit_sigmoid_crossover(u: np.ndarray, beta_local: np.ndarray,
     except RuntimeError:
         tanh_result = {"status": "fit_failed"}
 
-    # --- Linear ---
     slope, intercept, r_val, p_val, se_slope = stats.linregress(u, beta_local)
     resid_lin = beta_local - (intercept + slope * u)
     aic_lin = _aic(resid_lin, 2)
@@ -977,7 +917,6 @@ def bootstrap_crossover_ci(df: pd.DataFrame,
     u_stars = []
 
     for _ in range(n_boot):
-        # Resample provinces with replacement
         boot_provs = rng.choice(provinces, size=len(provinces), replace=True)
         boot_dfs = []
         for p in boot_provs:

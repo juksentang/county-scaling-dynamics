@@ -1,0 +1,88 @@
+{
+ "cells": {
+  "23": "v_posctrl x (a), no-exit null of K1c, gated",
+  "24": "v_posctrl x (d)",
+  "25": "v_posctrl x (e)"
+ },
+ "R": 500,
+ "B": 200,
+ "replicates": "0..499 per cell",
+ "pipelines": [
+  "saai",
+  "direct"
+ ],
+ "array": "0-299 (300 tasks x 5 replicates)",
+ "failed_replicates": 0,
+ "core_hours_wall": 50.03,
+ "core_hours_in_replicates": 35.92,
+ "n_est_nan_xi_shift_V1": 0,
+ "n_ci_failed_xi_shift_V1": 0,
+ "K1c_gating_rows": [
+  {
+   "rule_set": "limit/tol0",
+   "cell_index": 23.0,
+   "mechanism": "a",
+   "pipeline": "saai",
+   "statistic": "V1_relative_bias_xi_shift",
+   "value": 0.0038498631111662,
+   "threshold": 0.3,
+   "status": "pass"
+  },
+  {
+   "rule_set": "limit/tol0",
+   "cell_index": 23.0,
+   "mechanism": "a",
+   "pipeline": "saai",
+   "statistic": "V1_ci95_coverage_xi_shift",
+   "value": 0.948,
+   "threshold": 0.9,
+   "status": "pass"
+  },
+  {
+   "rule_set": "limit/tol0",
+   "cell_index": 24.0,
+   "mechanism": "d",
+   "pipeline": "saai",
+   "statistic": "V1_relative_bias_xi_shift",
+   "value": 0.060757908774127,
+   "threshold": 0.3,
+   "status": "pass"
+  },
+  {
+   "rule_set": "limit/tol0",
+   "cell_index": 24.0,
+   "mechanism": "d",
+   "pipeline": "saai",
+   "statistic": "V1_ci95_coverage_xi_shift",
+   "value": 0.95,
+   "threshold": 0.9,
+   "status": "pass"
+  },
+  {
+   "rule_set": "limit/tol0",
+   "cell_index": 25.0,
+   "mechanism": "e",
+   "pipeline": "saai",
+   "statistic": "V1_relative_bias_xi_shift",
+   "value": 0.0051662465019103,
+   "threshold": 0.3,
+   "status": "pass"
+  },
+  {
+   "rule_set": "limit/tol0",
+   "cell_index": 25.0,
+   "mechanism": "e",
+   "pipeline": "saai",
+   "statistic": "V1_ci95_coverage_xi_shift",
+   "value": 0.976,
+   "threshold": 0.9,
+   "status": "pass"
+  }
+ ],
+ "K1c_verdict_primary": "pass",
+ "thresholds": {
+  "relative_bias_xi_shift_max": 0.3,
+  "coverage_min": 0.9
+ },
+ "thresholds_changed": false
+}

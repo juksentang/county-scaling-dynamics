@@ -1,0 +1,23 @@
+cell_index,process,quantity,period,coverage,R,in_band,band,read_by_gates
+0,i_ou,xi_trap,contrast,0.998,500,False,"[0.92, 0.98]",K1b;K1c
+5,ii_cubic,xi_trap,contrast,0.996,500,False,"[0.92, 0.98]",K1b;K1c
+10,iii_mult,xi_trap,contrast,0.974,500,True,"[0.92, 0.98]",K1b;K1c
+15,iv_bistable_0,xi_trap,contrast,0.994,500,False,"[0.92, 0.98]",K1b;K1c
+17,iv_bistable_1,xi_trap,contrast,0.816,500,False,"[0.92, 0.98]",K1b;K1c
+19,iv_bistable_2,xi_trap,contrast,0.782,500,False,"[0.92, 0.98]",K1b;K1c
+21,iv_bistable_4,xi_trap,contrast,0.79,500,False,"[0.92, 0.98]",K1b;K1c
+23,v_posctrl,xi_trap,contrast,0.986,500,False,"[0.92, 0.98]",K1b;K1c
+0,i_ou,tau_mfpt,contrast,0.992,500,False,"[0.92, 0.98]",K1b;K1c
+5,ii_cubic,tau_mfpt,contrast,0.994,500,False,"[0.92, 0.98]",K1b;K1c
+10,iii_mult,tau_mfpt,contrast,0.986,500,False,"[0.92, 0.98]",K1b;K1c
+15,iv_bistable_0,tau_mfpt,contrast,0.934,500,True,"[0.92, 0.98]",K1b;K1c
+17,iv_bistable_1,tau_mfpt,contrast,0.796,500,False,"[0.92, 0.98]",K1b;K1c
+19,iv_bistable_2,tau_mfpt,contrast,0.764,500,False,"[0.92, 0.98]",K1b;K1c
+21,iv_bistable_4,tau_mfpt,contrast,0.726,500,False,"[0.92, 0.98]",K1b;K1c
+23,v_posctrl,tau_mfpt,contrast,0.992,500,False,"[0.92, 0.98]",K1b;K1c
+17,iv_bistable_1,two_delta_V,pre,0.654,500,False,"[0.92, 0.98]",K2
+17,iv_bistable_1,two_delta_V,during,0.85,500,False,"[0.92, 0.98]",K2
+19,iv_bistable_2,two_delta_V,pre,0.61,500,False,"[0.92, 0.98]",K2
+19,iv_bistable_2,two_delta_V,during,0.83,500,False,"[0.92, 0.98]",K2
+21,iv_bistable_4,two_delta_V,pre,0.582,500,False,"[0.92, 0.98]",K2
+21,iv_bistable_4,two_delta_V,during,0.76,500,False,"[0.92, 0.98]",K2

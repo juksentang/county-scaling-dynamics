@@ -41,7 +41,6 @@ def load_themed_file(dataset_key: str, columns: list[str] | None = None) -> pd.D
         dtype=str,
     )
 
-    # Standardize year column → Year
     year_col = cfg["year_col"]
     if year_col in df.columns:
         df = df.rename(columns={year_col: "Year"})
@@ -49,7 +48,6 @@ def load_themed_file(dataset_key: str, columns: list[str] | None = None) -> pd.D
         raise KeyError(f"Year column '{year_col}' not found in {cfg['file']}. "
                        f"Columns: {df.columns.tolist()}")
 
-    # Select columns to keep
     id_cols = ["Year", "CountyCode"]
     optional_id = ["CountyName", "PrefLevCity", "Province", "AreaID"]
     keep_ids = [c for c in id_cols + optional_id if c in df.columns]
@@ -61,7 +59,6 @@ def load_themed_file(dataset_key: str, columns: list[str] | None = None) -> pd.D
 
     df = df[keep_ids + val_cols].copy()
 
-    # Drop year_id if it leaked in
     if "year_id" in df.columns:
         df = df.drop(columns=["year_id"])
 
@@ -91,7 +88,6 @@ def load_long_format_file(dataset_key: str) -> pd.DataFrame:
         dtype=str,
     )
 
-    # Standardize year column
     year_col = cfg["year_col"]
     if year_col in df.columns and year_col != "Year":
         df = df.rename(columns={year_col: "Year"})
@@ -99,7 +95,6 @@ def load_long_format_file(dataset_key: str) -> pd.DataFrame:
     type_col = cfg["type_col"]
     value_col = cfg["value_col"]
 
-    # Ensure CountyCode exists
     if "CountyCode" not in df.columns:
         raise KeyError(f"CountyCode not found in {cfg['file']}. Columns: {df.columns.tolist()}")
 
@@ -113,7 +108,6 @@ def load_long_format_file(dataset_key: str) -> pd.DataFrame:
     if len(pieces) == 1:
         return pieces[0]
 
-    # Merge all filtered subsets on Year + CountyCode
     result = pieces[0]
     for p in pieces[1:]:
         result = result.merge(p, on=["Year", "CountyCode"], how="outer")
@@ -134,17 +128,13 @@ def load_poverty_list() -> pd.DataFrame:
 
     df = pd.read_excel(fpath, sheet_name=cfg["sheet"], dtype=str)
 
-    # Rename columns
     df = df.rename(columns=cfg["col_map"])
 
-    # Drop any unnamed/extra columns
     df = df[[c for c in cfg["col_map"].values() if c in df.columns]].copy()
 
-    # Convert types
     df["CountyCode"] = pd.to_numeric(df["CountyCode"], errors="coerce").astype("Int64")
     df["ExitYear"] = pd.to_numeric(df["ExitYear"], errors="coerce").astype("Int64")
 
-    # Validate
     n = len(df)
     if n != cfg["expected_rows"]:
         print(f"WARNING: Expected {cfg['expected_rows']} poverty counties, got {n}")
@@ -185,11 +175,7 @@ def load_main_database(columns: list[str] | None = None,
 
 
 def load_spatial_coordinates() -> pd.DataFrame:
-    """
-    Load county longitude/latitude from the county spatial-linkage file.
-    Available for 2017-2023 only.
-
-    Returns
+    """Returns
     -------
     DataFrame with Year, CountyCode, CountyLng, CountyLat.
     """

@@ -1,0 +1,63 @@
+code6,name,parent_raw,problem
+110020,Porto Velho,Humaitá,unresolved
+140010,Boa Vista,Moura,unresolved
+170230,Arapoema,Arguacema,fuzzy 'Arguacema' -> 'araguacema'
+170700,Dianópolis,Conceição,unresolved
+210240,Cajapió,São Bento de Perizes,unresolved
+210637,Maranhãozinho,Cânddo Mendes,fuzzy 'Cânddo Mendes' -> 'candido mendes'
+210667,Milagres do Maranhão,Santa Quitéira do Maranhão,fuzzy 'Santa Quitéira do Maranhão' -> 'santa quiteria do maranhao'
+211010,Santa Quitéria do Maranhão,São Bernardo do Paranahyba,unresolved
+230670,Jaguaretama,Jaguaribe-mirirm,unresolved
+231270,Senador Pompeu,Benjamim Constant,unresolved
+231300,Solonópole,Jaguraibe-mirim,unresolved
+250490,Cruz do Espírito Santo,Pedras do Fogo,fuzzy 'Pedras do Fogo' -> 'pedras de fogo'
+260100,Angelim,Garanhus,fuzzy 'Garanhus' -> 'garanhuns'
+260470,Correntes,Garanhus,fuzzy 'Garanhus' -> 'garanhuns'
+261540,Toritama,Carauaru,fuzzy 'Carauaru' -> 'caruaru'
+280450,Nossa Senhora da Glória,Guraru,unresolved
+280760,Umbaúba,Cristianápolis,fuzzy 'Cristianápolis' -> 'cristinapolis'
+290720,Casa Nova,Remanso do Pilão Arcado,unresolved
+290880,Contendas do Sincorá,Itauçu,unresolved
+291570,Itamari,Guandu,fuzzy 'Guandu' -> 'gandu'
+310590,Barroso,Dores de Campo,fuzzy 'Dores de Campo' -> 'dores de campos'
+311400,Carmo da Mata,Oliveria,fuzzy 'Oliveria' -> 'oliveira'
+311450,Carmópolis de Minas,Oliveria,fuzzy 'Oliveria' -> 'oliveira'
+312430,Espinosa,Bôa Vista do Tremendal,unresolved
+313005,Icaraí de Minas,São Franncisco,fuzzy 'São Franncisco' -> 'sao francisco'
+313600,Joaíma,Jequtinhonha,fuzzy 'Jequtinhonha' -> 'jequitinhonha'
+315100,Piranguinho,São José de Alegre,fuzzy 'São José de Alegre' -> 'sao jose do alegre'
+315960,Santa Rita do Sapucaí,São Gonçalo,unresolved
+350510,Barbosa,Avanhadava,fuzzy 'Avanhadava' -> 'avanhandava'
+350745,Borebi,Lençóis Paulistas,fuzzy 'Lençóis Paulistas' -> 'lencois paulista'
+350880,Cafelândia,Parajuí,fuzzy 'Parajuí' -> 'pirajui'
+351450,Duartina,Piratiniga,fuzzy 'Piratiniga' -> 'piratininga'
+351518,Espírito Santo do Pinhal,Mogy-mirirm,unresolved
+352320,Itararé,Itapeva de Faxina,unresolved
+354300,Ribeirão Branco,Itapeva de Faxina,unresolved
+410340,Cafeara,Lupinópolis,fuzzy 'Lupinópolis' -> 'lupionopolis'
+410395,Campina do Simão,Gurapuava,fuzzy 'Gurapuava' -> 'guarapuava'
+411700,Nova Fátima,Congoninhas,fuzzy 'Congoninhas' -> 'congonhinhas'
+412540,São José da Boa Vista,São José do Cristianismo,unresolved
+412560,São Mateus do Sul,São José do Triumpho,unresolved
+412630,Sengés,Jaguarahyva,unresolved
+420380,Canoinhas,Curytibanos,fuzzy 'Curytibanos' -> 'curitibanos'
+421185,Ouro Verde,Aberlardo Luz,fuzzy 'Aberlardo Luz' -> 'abelardo luz'
+431113,Jari,Tupaciretã,fuzzy 'Tupaciretã' -> 'tupancireta'
+431115,Jóia,Tupaciretã,fuzzy 'Tupaciretã' -> 'tupancireta'
+431643,Saldanha Marinho,Santa Bárabara do Sul,fuzzy 'Santa Bárabara do Sul' -> 'santa barbara do sul'
+432280,Veranópolis,Lagoa Vermenlha,fuzzy 'Lagoa Vermenlha' -> 'lagoa vermelha'
+510040,Alto Garças,Poxoréu,fuzzy 'Poxoréu' -> 'poxoreo'
+510267,Campo Verde,Poxoréu,fuzzy 'Poxoréu' -> 'poxoreo'
+510360,Dom Aquino,Poxoréu,fuzzy 'Poxoréu' -> 'poxoreo'
+510460,Itiquira,Poxoréu,fuzzy 'Poxoréu' -> 'poxoreo'
+510480,Jaciara,Poxoréu,fuzzy 'Poxoréu' -> 'poxoreo'
+510704,Primavera do Leste,Poxoréu,fuzzy 'Poxoréu' -> 'poxoreo'
+510760,Rondonópolis,Poxoréu,fuzzy 'Poxoréu' -> 'poxoreo'
+510787,Sapezal,Campo Novo dos Parecis,fuzzy 'Campo Novo dos Parecis' -> 'campo novo do parecis'
+520355,Bonfinópolis,Leopoldo Bulhões,fuzzy 'Leopoldo Bulhões' -> 'leopoldo de bulhoes'
+521350,Monte Alegre de Goiás,Arrayas,unresolved
+521839,Professor Jamil,Pirancajuba,fuzzy 'Pirancajuba' -> 'piracanjuba'
+530010,Brasília,Formosa,unresolved
+530010,Brasília,Planaltina,unresolved
+530010,Brasília,Luziânia,unresolved
+530010,Brasília,Cristalina,unresolved

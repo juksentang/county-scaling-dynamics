@@ -44,14 +44,12 @@ def merge_core_panel() -> pd.DataFrame:
     """
     merge_on = ["Year", "CountyCode"]
 
-    # 1. Population (base table)
     print("Loading population...")
     pop = _load_and_clean("population")
     base = pop[merge_on + ["CountyName", "PrefLevCity", "Province", "PopNum"]].copy()
     base = deduplicate_panel(base)
     print(f"  Base: {len(base):,} rows")
 
-    # 2. GDP
     print("Loading GDP...")
     gdp = _load_and_clean("gdp")
     gdp_cols = merge_on + [c for c in gdp.columns
@@ -63,7 +61,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(gdp, on=merge_on, how="left")
     print(f"  After GDP merge: {len(base):,} rows")
 
-    # 3. Agricultural output
     print("Loading agricultural output...")
     agri = _load_and_clean("agri_output")
     agri_keep = merge_on + ["GrossOutputValue", "Farming", "Forestry",
@@ -74,7 +71,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(agri, on=merge_on, how="left")
     print(f"  After agri merge: {len(base):,} rows")
 
-    # 4. Land area
     print("Loading land area...")
     land = _load_and_clean("land_area")
     land_keep = merge_on + ["AdmArea", "CultivateArea"]
@@ -84,7 +80,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(land, on=merge_on, how="left")
     print(f"  After land merge: {len(base):,} rows")
 
-    # 5. Agricultural conditions
     print("Loading agricultural conditions...")
     cond = _load_and_clean("agri_conditions")
     cond_keep = merge_on + ["AgrMachPower", "FertilizerConsm",
@@ -95,7 +90,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(cond, on=merge_on, how="left")
     print(f"  After conditions merge: {len(base):,} rows")
 
-    # 6. Crop area — total sown area
     print("Loading crop area (total)...")
     crop_area = _load_and_clean("crop_area", long_format=True)
     crop_area_keep = merge_on + ["TotalSownArea"]
@@ -105,7 +99,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(crop_area, on=merge_on, how="left")
     print(f"  After crop area merge: {len(base):,} rows")
 
-    # 6b. Grain sown area (separate sheet)
     print("Loading grain sown area...")
     grain_area = _load_and_clean("grain_area", long_format=True)
     grain_area_keep = merge_on + ["GrainSownArea"]
@@ -115,7 +108,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(grain_area, on=merge_on, how="left")
     print(f"  After grain area merge: {len(base):,} rows")
 
-    # 7. Crop yield (long format)
     print("Loading crop yield...")
     crop_yield = _load_and_clean("crop_yield", long_format=True)
     crop_yield_keep = merge_on + ["GrainOutput"]
@@ -125,7 +117,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(crop_yield, on=merge_on, how="left")
     print(f"  After crop yield merge: {len(base):,} rows")
 
-    # 8. Income
     print("Loading income...")
     income = _load_and_clean("income")
     income_keep = merge_on + ["RurPerNetInc", "RurPerDisposableInc"]
@@ -135,7 +126,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(income, on=merge_on, how="left")
     print(f"  After income merge: {len(base):,} rows")
 
-    # 9. Finance
     print("Loading finance...")
     fin = _load_and_clean("finance")
     fin_keep = merge_on + ["Loan", "Deposit"]
@@ -145,7 +135,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(fin, on=merge_on, how="left")
     print(f"  After finance merge: {len(base):,} rows")
 
-    # 10. Employment
     print("Loading employment...")
     emp = _load_and_clean("employment")
     emp_keep = merge_on + ["EmployeeNum", "RuralEmployeeNum", "FFAFEmployeeNum"]
@@ -155,7 +144,6 @@ def merge_core_panel() -> pd.DataFrame:
     base = base.merge(emp, on=merge_on, how="left")
     print(f"  After employment merge: {len(base):,} rows")
 
-    # 11. Fixed assets
     print("Loading fixed assets...")
     fix = _load_and_clean("fixed_assets")
     fix_keep = merge_on + ["FixAst"]
@@ -188,7 +176,6 @@ def add_poverty_status(panel: pd.DataFrame) -> pd.DataFrame:
     panel["PreExit"] = panel["Year"] < panel["ExitYear"]
     panel["PostExit"] = panel["Year"] >= panel["ExitYear"]
 
-    # For non-poverty counties, PreExit and PostExit are False
     panel.loc[~panel["IsPoverty"], "PreExit"] = False
     panel.loc[~panel["IsPoverty"], "PostExit"] = False
 
@@ -208,7 +195,6 @@ def add_spatial_info(panel: pd.DataFrame) -> pd.DataFrame:
     spatial = standardize_county_code(spatial)
     spatial["Year"] = spatial["Year"].astype("Int64")
 
-    # Get the earliest available coordinate for each county
     earliest = (
         spatial.sort_values("Year")
         .drop_duplicates(subset=["CountyCode"], keep="first")
@@ -217,12 +203,10 @@ def add_spatial_info(panel: pd.DataFrame) -> pd.DataFrame:
 
     panel = panel.copy()
 
-    # First try year-matched merge
     spatial_slim = spatial[["Year", "CountyCode", "CountyLng", "CountyLat"]].copy()
     spatial_slim = deduplicate_panel(spatial_slim)
     panel = panel.merge(spatial_slim, on=["Year", "CountyCode"], how="left")
 
-    # Fill missing with earliest available coordinates
     missing_lng = panel["CountyLng"].isna()
     if missing_lng.any():
         fill = panel.loc[missing_lng, ["CountyCode"]].merge(
@@ -241,21 +225,17 @@ def add_derived_variables(panel: pd.DataFrame) -> pd.DataFrame:
     """Add derived variables needed for analysis."""
     panel = panel.copy()
 
-    # Non-agricultural GDP = Secondary + Tertiary
     if "RegGDP_Secondary" in panel.columns and "RegGDP_Tertiary" in panel.columns:
         panel["NonAgriGDP"] = (
             panel["RegGDP_Secondary"].fillna(0) + panel["RegGDP_Tertiary"].fillna(0)
         )
-        # Set to NaN where both components are missing
         both_missing = (
             panel["RegGDP_Secondary"].isna() & panel["RegGDP_Tertiary"].isna()
         )
         panel.loc[both_missing, "NonAgriGDP"] = np.nan
 
-    # Province from CountyCode
     panel = add_province_from_code(panel)
 
-    # Region
     panel = add_region(panel)
 
     return panel
@@ -267,11 +247,9 @@ def apply_deflation(panel: pd.DataFrame) -> pd.DataFrame:
 
     deflator = build_province_gdp_deflator(panel)
 
-    # Check deflator quality
     print(f"  Deflator coverage: {len(deflator):,} province-year combinations")
     print(f"  Deflator range: {deflator['Deflator'].min():.2f} - {deflator['Deflator'].max():.2f}")
 
-    # Collect all variables to deflate at once
     vars_to_deflate = [v for v in DEFLATE_VARS if v in panel.columns]
     if "NonAgriGDP" in panel.columns:
         vars_to_deflate.append("NonAgriGDP")
@@ -349,37 +327,28 @@ def run_full_pipeline() -> pd.DataFrame:
     print("RUNNING FULL DATA PIPELINE")
     print("=" * 60)
 
-    # Step 1: Merge
     panel = merge_core_panel()
 
-    # Step 2: Filter municipal districts
     print("\nFiltering municipal districts...")
     panel = filter_county_type(panel)
 
-    # Step 3: Add derived variables (Province, Region, NonAgriGDP)
     print("\nAdding derived variables...")
     panel = add_derived_variables(panel)
 
-    # Step 4: Apply deflation
     print("\nApplying deflation...")
     panel = apply_deflation(panel)
 
-    # Step 5: Add poverty status
     print("\nAdding poverty status...")
     panel = add_poverty_status(panel)
 
-    # Step 6: Add spatial info
     print("\nAdding spatial info...")
     panel = add_spatial_info(panel)
 
-    # Step 7: Validate
     print("\n")
     validate_panel(panel, "Full Panel")
 
-    # Step 8: Save full panel
     save_panel(panel, "panel_full")
 
-    # Step 9: Build and save scaling panel (filtered)
     print("\nBuilding scaling panel...")
     scaling = build_scaling_panel(panel)
     validate_panel(scaling, "Scaling Panel")

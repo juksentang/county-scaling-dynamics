@@ -1,0 +1,25 @@
+process,pipeline,quantity,effect,status,median_ou-d,median_ou-e,n_nonfinite_ou-d,n_nonfinite_ou-e,n_total_ou-d,n_total_ou-e,row,design,median_cubic-d,median_cubic-e,n_nonfinite_cubic-d,n_nonfinite_cubic-e,n_total_cubic-d,n_total_cubic-e
+ou,saai,xi_trap,0.5892634318127815,predicted,-0.5892634318127815,-0.629023107982725,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+ou,saai,two_delta_V,0.1974111377610277,predicted,0.19751043922189637,0.1974111377610277,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+ou,saai,tau_mfpt,9.42233761284368,predicted,10.434293692163209,9.42233761284368,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+ou,saai,mean_diffusion,0.029741820821891418,predicted,0.029741820821891418,0.03369403077981718,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+ou,saai,B_ratio_w,,simulation only,,,,,,,projection,observed,,,,,,
+ou,saai,rho1,0.0075161678772131535,predicted,-0.01515098105710777,-0.0075161678772131535,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+ou,direct,xi_trap,0.5883996652698893,predicted,-0.5883996652698893,-0.634434584665239,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+ou,direct,two_delta_V,0.19710928812860806,predicted,0.19710928812860806,0.19876439566611276,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+ou,direct,tau_mfpt,9.414829574867529,predicted,10.425864778217584,9.414829574867529,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+ou,direct,mean_diffusion,0.030036893252794947,predicted,0.030036893252794947,0.03406778129996871,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+ou,direct,B_ratio_w,,simulation only,,,,,,,projection,observed,,,,,,
+ou,direct,rho1,0.007628381368344206,predicted,-0.015409401272975465,-0.007628381368344206,0.0,0.0,500.0,500.0,projection,observed,,,,,,
+cubic,saai,xi_trap,0.5146038700456879,predicted,,,,,,,projection,observed,-0.5146038700456879,-0.5994514279499557,0.0,0.0,500.0,500.0
+cubic,saai,two_delta_V,0.13925881288018327,predicted,,,,,,,projection,observed,0.20622747924868814,0.13925881288018327,0.0,0.0,500.0,500.0
+cubic,saai,tau_mfpt,6.371079940820806,predicted,,,,,,,projection,observed,8.63095533697979,6.371079940820806,0.0,0.0,500.0,500.0
+cubic,saai,mean_diffusion,0.02128717844775911,predicted,,,,,,,projection,observed,0.028418882159485737,0.02128717844775911,0.0,0.0,500.0,500.0
+cubic,saai,B_ratio_w,,simulation only,,,,,,,projection,observed,,,,,,
+cubic,saai,rho1,0.006547780809115389,predicted,,,,,,,projection,observed,-0.014712638594113814,-0.006547780809115389,0.0,0.0,500.0,500.0
+cubic,direct,xi_trap,0.514780668301716,predicted,,,,,,,projection,observed,-0.514780668301716,-0.6010759539569637,0.0,0.0,500.0,500.0
+cubic,direct,two_delta_V,0.14073854626870164,predicted,,,,,,,projection,observed,0.20630643316533953,0.14073854626870164,0.0,0.0,500.0,500.0
+cubic,direct,tau_mfpt,6.333322102944322,predicted,,,,,,,projection,observed,8.632478755776969,6.333322102944322,0.0,0.0,500.0,500.0
+cubic,direct,mean_diffusion,0.021357986782115437,predicted,,,,,,,projection,observed,0.0286165924849901,0.021357986782115437,0.0,0.0,500.0,500.0
+cubic,direct,B_ratio_w,,simulation only,,,,,,,projection,observed,,,,,,
+cubic,direct,rho1,0.006689387818059334,predicted,,,,,,,projection,observed,-0.014699926893817827,-0.006689387818059334,0.0,0.0,500.0,500.0

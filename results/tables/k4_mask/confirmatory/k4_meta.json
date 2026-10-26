@@ -1,0 +1,129 @@
+{
+ "stage": "confirmatory",
+ "status": "completed",
+ "criteria_sets": [
+  "frozen",
+  "provisional"
+ ],
+ "entropy": "1141526320125839785483032026923951800366988572791",
+ "n_boot": 200,
+ "n_rep": 10,
+ "guards": [
+  [
+   [
+    0.5,
+    99.5
+   ],
+   1.0
+  ],
+  [
+   [
+    0.5,
+    99.5
+   ],
+   0.5
+  ],
+  [
+   [
+    0.5,
+    99.5
+   ],
+   2.0
+  ],
+  [
+   [
+    1.0,
+    99.0
+   ],
+   1.0
+  ],
+  [
+   [
+    1.0,
+    99.0
+   ],
+   0.5
+  ],
+  [
+   [
+    1.0,
+    99.0
+   ],
+   2.0
+  ],
+  [
+   [
+    2.5,
+    97.5
+   ],
+   1.0
+  ],
+  [
+   [
+    2.5,
+    97.5
+   ],
+   0.5
+  ],
+  [
+   [
+    2.5,
+    97.5
+   ],
+   2.0
+  ],
+  [
+   [
+    5.0,
+    95.0
+   ],
+   1.0
+  ],
+  [
+   [
+    5.0,
+    95.0
+   ],
+   0.5
+  ],
+  [
+   [
+    5.0,
+    95.0
+   ],
+   2.0
+  ]
+ ],
+ "point_guard": [
+  [
+   1.0,
+   99.0
+  ],
+  1.0
+ ],
+ "criteria": {
+  "point_availability_min": 0.8,
+  "slope_band": [
+   0.7,
+   1.3
+  ],
+  "intercept_band_rel": 0.25,
+  "sign_agreement_min": 0.9,
+  "level_abs_error_rel": 0.3,
+  "level_min_masks": 10,
+  "range_availability_min": 0.8,
+  "range_coverage_min": 0.8,
+  "range_width_rel_max": 1.0,
+  "recovery_share_min": 0.8,
+  "recovery_share_ci_lo_min": 0.5,
+  "recovery_median_ratio_max": 0.5,
+  "gate_factor": 0.5,
+  "power_factor": 2.0,
+  "gate_availability_min": 0.8,
+  "null_rel_max": 0.25,
+  "comparator_share_ci_lo_min": 0.5
+ },
+ "cluster_R": 2000,
+ "workers": 32,
+ "seconds": 5139.4
+}

@@ -1,85 +1,35 @@
-# One-command reproduction of every reported statistic and figure.
-#
-#   make numbers          regenerate all analysis tables  -> results/tables/
-#   make figures          regenerate all figures          -> results/figures/
-#   make check            figures carry no withdrawn or superseded value
-#   QUICK=1 make numbers  reduced bootstrap sizes (smoke run)
-#
-# Inputs: the analysis panels in data_clean/ (built by
-# notebooks/01_panel_construction.ipynb).  The urbanisation stage
-# additionally needs the Earth Engine exports in data/gee_exports/
-# (scripts/gee_export_urbanization.py, scripts/download_gee_urbanization.py).
-# See DATA_SOURCES.md for how to obtain the primary data.
+PY ?= python3
 
-PY := python3
-QUICKFLAG := $(if $(QUICK),--quick,)
+# LaTeX macro and table files of the numbers script go to build/tex/;
+# the figures are written to results/figures/.
+export PAPER_K1_TEX_DIR := build/tex
+export PAPER_K1_FIG_DIR := results/figures
 
-.PHONY: all numbers figures check \
-        core escape attribution multifractal io urbanisation textables
+.PHONY: numbers figures verify test us brazil china-panel
 
-all: numbers figures
+## numbers: every printed value -> results/tables/paper_k1_values.csv (+ build/tex/)
+numbers:
+	$(PY) scripts/paper_k1_numbers.py
 
-numbers: core escape attribution multifractal io urbanisation textables
-	@echo "== all analysis tables regenerated in results/tables/ =="
-
-# Scaling regressions, SAAI variants and group statistics, mixture models,
-# crossover fits with bootstrap intervals, descriptive statistics.
-core:
-	$(PY) scripts/run_core_statistics.py
-
-# Kramers-Moyal drift and diffusion estimation: transition-pair counts,
-# escape observables with county-block bootstrap intervals, the
-# physical-tonnage diffusion check, and the quasi difference-in-differences
-# estimate.
-escape:
-	$(PY) scripts/run_escape_dynamics.py --steps counts,km,grain,did $(QUICKFLAG)
-	$(PY) scripts/decompose_escape_time.py
-
-# Attribution designs: state-conditioned regressions, pre-period placebo,
-# endogenous break search, event-time coefficients.
-attribution:
-	$(PY) scripts/run_attribution_designs.py
-	$(PY) scripts/run_attribution_extras.py
-
-# Multifractal analysis: per-year MFDFA, phase-randomised surrogate tests,
-# fixed-sample-size resampling.
-multifractal:
-	$(PY) scripts/run_mfdfa_surrogates.py
-	$(PY) scripts/run_mfdfa_fixedn.py
-
-# Sector interaction-intensity measures from national input-output tables.
-io:
-	@$(PY) -c "import sys; sys.path.insert(0,'.'); from src.io_linkage import IO_DIR; sys.exit(0 if IO_DIR.exists() else 1)" 2>/dev/null || \
-	  { echo "SKIP io: input-output workbooks not found - see DATA_SOURCES.md"; exit 0; }
-	$(PY) scripts/run_io_linkage.py
-
-# GDP-independent urbanisation measure from night-time lights.
-urbanisation:
-	@test -e data/gee_exports/econp_ntl_chunk0.csv || \
-	  { echo "SKIP urbanisation: data/gee_exports missing — see DATA_SOURCES.md"; exit 0; }
-	$(PY) scripts/build_county_boundaries.py
-	$(PY) scripts/run_crossover_nightlights.py
-
-# LaTeX table bodies for the manuscript tables (results/tex_tables/*.tex).
-textables:
-	$(PY) scripts/compare_panels.py
-	$(PY) scripts/make_headline_values.py
-	$(PY) scripts/make_grouped_attractors.py
-	$(PY) scripts/make_tex_tables.py
-
-# Ownership is checked before and after. Two generators writing one figure is
-# how a superseded figure survived a rebuild in an earlier version of this
-# archive, so the build now refuses to complete when that happens.
+## figures: the thirteen figures -> results/figures/*.pdf
 figures:
-	$(PY) scripts/check_figure_owners.py
-	@date +%s > .figbuild.stamp
-	$(PY) scripts/generate_figures.py
-	$(PY) scripts/make_fig_kramers.py
-	$(PY) scripts/make_si_figures.py
-	$(PY) scripts/check_figure_owners.py --since $$(cat .figbuild.stamp)
-	@rm -f .figbuild.stamp
-	@echo "== figures regenerated in results/figures/ =="
+	PAPER_K1_FIG_OUTDIR=results/figures $(PY) scripts/paper_k1_figures.py
 
-# Figures must not carry a value the analysis has withdrawn or superseded.
-check:
-	$(PY) scripts/audit_figure_text.py
+## verify: regenerate both, then compare every output with expected_outputs.sha256
+verify: numbers figures
+	$(PY) scripts/verify_outputs.py
+
+## test: numbers and figure tests (regeneration vs expected_outputs.sha256) and the tests of the estimation code
+test:
+	$(PY) -m pytest -q tests
+
+## us / brazil: download the public inputs into data/ and verify their sha256
+us:
+	$(PY) scripts/fetch_public_data.py us
+
+brazil:
+	$(PY) scripts/fetch_public_data.py brazil
+
+## china-panel: data_clean/panel_full.parquet and panel_scaling.parquet from the CSMAR files under data/ (licensed)
+china-panel:
+	$(PY) -c "from src.data_merger import run_full_pipeline; run_full_pipeline()"

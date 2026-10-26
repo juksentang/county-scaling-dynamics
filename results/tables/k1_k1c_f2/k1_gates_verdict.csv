@@ -1,0 +1,19 @@
+run_label,gate,rule_set,primary,verdict,n_gating_rows,n_pass,n_fail,n_fail_R,n_fail_nan,n_undefined,n_not_evaluable,n_indistinguishable_from_null,n_blocked,n_missing,verdict_unblocked,gated
+registered,S0,limit,True,fail,192,183,1,0,0,0,6,0,0,0,fail,True
+registered,S0_neural,limit,True,not_evaluable,2,0,0,0,0,0,2,0,0,0,not_evaluable,True
+registered,K1a,limit,True,blocked_by_S0,4,0,0,0,0,0,0,0,0,4,not_run,True
+registered,K1b,limit/tol0,True,blocked_by_S0,12,0,0,0,0,0,0,0,0,12,not_run,True
+registered,K1b,limit/tol5,False,blocked_by_S0,12,0,0,0,0,0,0,0,0,12,not_run,True
+registered,K1b,limit/literal,False,blocked_by_S0,12,0,0,0,0,0,0,0,0,12,not_run,True
+registered,K1c,limit/tol0,True,pass,6,6,0,0,0,0,0,0,0,0,pass,True
+registered,K1c,limit/tol5,False,not_run,0,0,0,0,0,0,0,0,0,0,not_run,True
+registered,K1c,limit/literal,False,not_run,0,0,0,0,0,0,0,0,0,0,not_run,True
+registered,K2,limit/tol0/V1,True,report-only (amendment 10),0,0,0,0,0,0,0,0,0,0,report-only (amendment 10),False
+registered,K2,limit/tol0/V0,False,report-only (amendment 10),0,0,0,0,0,0,0,0,0,0,report-only (amendment 10),False
+registered,K2,limit/tol5/V1,False,report-only (amendment 10),0,0,0,0,0,0,0,0,0,0,report-only (amendment 10),False
+registered,K2,limit/tol5/V0,False,report-only (amendment 10),0,0,0,0,0,0,0,0,0,0,report-only (amendment 10),False
+registered,K2,limit/literal/V1,False,report-only (amendment 10),0,0,0,0,0,0,0,0,0,0,report-only (amendment 10),False
+registered,K2,limit/literal/V0,False,report-only (amendment 10),0,0,0,0,0,0,0,0,0,0,report-only (amendment 10),False
+registered,K3,limit,True,blocked_by_S0,4,0,0,0,0,0,0,0,0,4,not_run,True
+registered,K3_diag,limit,True,blocked_by_S0,0,0,0,0,0,0,0,0,0,0,not_run,True
+registered,shocked_null,limit,False,blocked_by_S0,0,0,0,0,0,0,0,0,0,0,not_run,True

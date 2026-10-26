@@ -1,0 +1,210 @@
+path,bytes,sha256,reason
+.gitattributes,183,89084a85fb20c32219ec96d738e480c1a8f9d35cc86ff998d2626e2794bba216,git archive writes the archived commit into src/k1_archive_commit.txt (binds truth-check records outside a checkout)
+.gitignore,105,d28cec38a901ca38ab698e8c60694d1700e33827d572ff25a5ac131bb75296f1,build outputs and downloaded data
+CITATION.cff,2169,e3e4d33f675cab414d21dd8e23753e47436f0bc1635753ff1b2b2e2da5f1711f,citation metadata
+DATA_ACCESS.md,18505,b51ac69c89bf27cafd99d71b39b544b9380b3721f5305c96b71187356f8c6edf,"how to obtain each input, with sha256"
+LICENSE,1105,7238b253c061690c31659d3e142c29a349ca2a620cc21b1def49944e247e9b90,MIT licence for the code
+LICENSE-data,778,57f8e499915fbec5fad356f1104969bf7a77247f08f4fb34aa11e9232f1e1039,CC-BY-4.0 for tables and figures
+Makefile,1210,9214a49406d30cddba674d8a559b6e27e6265955b8cc9d7ddae6148cbe5d2159,"numbers, figures, verify, test, us, brazil, china-panel targets"
+README.md,22735,24263bb5ce1803cac1cb77921684ab8f2d50c29b7abdebd04d0a5f761fa37d05,what the archive is and how each figure and number is produced
+expected_outputs.sha256,5030,7b65fc518912b1caa514b809840c5cdfa7f08eab9db950d6cf059084df8e8b64,sha256 of every output of make numbers and make figures (make verify)
+requirements.txt,740,85bdac9f82cbeaf721fcf440631b20b66e76aa400b38a8bc6bc4822381e4cc06,pinned versions used to produce the shipped outputs
+results/figures/fig1_mechanism.pdf,136049,8903b569f0ccc67b932e87131ace65de4a9e37d9d691ad38924de4245533a9fb,Fig. 1
+results/figures/fig2_simulation.pdf,76705,0751014f810bee57cf06c34dc0e1d39a3d96c563e2c92eada98fa9833df18ce6,Fig. 2
+results/figures/fig3_dose_ladder.pdf,74400,da7c6273df6d46a9ca518d2f1e10fcc69292ba2481ba46c20aca8d5127642373,Fig. 3
+results/figures/fig4_china_coverage.pdf,81982,ac059d3d19e6ebaadfe56e2cb7abb2a3cbc5842c077d604c59e0fe64de043fa1,Fig. 4
+results/figures/fig5_masking.pdf,98303,fda0cf5f6a9d877ea5211b2e749e0afb8d78150ae03e7492f2124ec6e524a6d7,Fig. 5
+results/figures/figS1_k1a_exploratory.pdf,58777,ca080a4c2e8b1cda9570a40f733a18b6f0ca9196dec54abfaa685113d2a3032a,Supplementary Fig. S1
+results/figures/figS2_k1b_controls.pdf,54987,0d2a252bfa34a41841b72dd1c94b82f3e3a6b8c1e78b5adba17c67f7bf81afdd,Supplementary Fig. S2
+results/figures/figS3_china_ci.pdf,49874,b26ef3e9643e428955fde258d6192484e1fdc7f9f397c1cc3ff5e21b7a401ae0,Supplementary Fig. S3
+results/figures/figS4_us_detail.pdf,62096,06626ce95783c1007c69883ba96ab76d4d8c1c1d544e99cb2ad2c8bdc15d7d75,Supplementary Fig. S4
+results/figures/figS5_guarded.pdf,43305,89e3476477e6621119ef8cb632095ddf17b5d9e5521898e8d39a5dbd8f8d4cbd,Supplementary Fig. S5
+results/figures/figS6_brazil_detail.pdf,54660,f789804c0390a9fe32e7051bc68a888aac12ec2da870f5cd3756dc7dbec1c659,Supplementary Fig. S6
+results/figures/figS7_mask_cells.pdf,81999,8e9a7fead9fb8b5fcf2703a5490f0ff2defa06fabd2ec585bcc161b878822e4c,Supplementary Fig. S7
+results/figures/figS8_mask_guards.pdf,52941,be0472c9991f8e9a4234a31f7b499c723ae159a0bf0fd3afe6145377b4d1f198,Supplementary Fig. S8
+results/records/README.md,597,3560633d5edf77da09a86e8440ed94bdc48f9430e4568c6f10c9320f22e2b1d8,where the estimation scripts write their run records
+results/tables/expi_attrition_by_period.csv,470,d7a6cec9b51a14aa25d398fd9a54e415a5e77a3f0a006d57dcae35bffa613f13,"window totals (counts, n-weighted means over >=1,000 counties) [china-csmar-aggregate; read by numbers script]"
+results/tables/expi_attrition_by_year.csv,9014,bdd575641d152b508c062f325ceb6b0d4635c7c508c7f703ccc5e5ed1af97788,"national transition-year counts and means (smallest group 2 counties; the same cells are printed in the SI table of transition years) [china-csmar-aggregate; read by numbers script, figures script]"
+results/tables/expi_attrition_variant_levels.csv,2395,5b977bf61b69dcc751f56f66449e6f4acd3763ea206c4c5ac5f201eec8be1e2b,"window levels per variant, county-block bootstrap (written by run_attrition_diagnostic.py) [china-csmar-aggregate; read by estimation scripts]"
+results/tables/expi_attrition_variant_levels_limit.csv,2574,0a1d57476350e9cc3a07012aacdcf55602ec547cff7dbbc15c7f6bcd51358ba9,"window levels per variant, limit convention (written by run_attrition_diagnostic.py --degenerate limit) [china-csmar-aggregate; read by estimation scripts]"
+results/tables/expi_attrition_variants.csv,5502,6546892e2239a4faff32305a80f491c9ed6f9546100b7c72184d6db202ca183a,"window contrasts per variant, county-block bootstrap (written by run_attrition_diagnostic.py) [china-csmar-aggregate; read by estimation scripts]"
+results/tables/expi_attrition_variants_limit.csv,5359,4af129057b978692236a9ed675399f0af7247e2789310196a51f970b4aef36b2,county-block bootstrap summary statistics per window [china-csmar-aggregate; read by numbers script]
+results/tables/expi_attrition_variants_limit_meta.json,108,7e3963882a484049121cb359ca50def5ef572f42185eec4d8ced3ab76810a44f,run settings of run_attrition_diagnostic.py --degenerate limit [china-csmar-aggregate; read by estimation scripts]
+results/tables/expi_attrition_variants_meta.json,84,b9f10f6cd39bfcf0eb8b4493bc2de04f81554421848ea11410bbf410939748e2,run settings of run_attrition_diagnostic.py [china-csmar-aggregate; read by estimation scripts]
+results/tables/expi_identify.meta.json,345,288540b31bbad0b650cbb018845488466cdff772a8b65cc83bfa90d78a283aa0,"run settings of run_expi_identify.py (seed, draws, province counts, run time) [china-csmar-aggregate; read by estimation scripts]"
+results/tables/expi_identify_consistency.csv,10258,7929b78726b192dd0d4b5d6607a7a36419a02974231d575fe9991a08306b3d27,comparison of the rebuilt draws with expi_paired_draws.csv.gz (written by run_expi_identify.py) [china-csmar-aggregate; read by estimation scripts]
+results/tables/expi_identify_conventions.csv,5998,9f93c7d485413128d2645db3a88978ad2235d47e04268681b6f5f1bc08c8bdd0,bootstrap interval summaries [china-csmar-aggregate; read by numbers script]
+results/tables/expi_identify_draws.csv.gz,600030,1f561fd0d838fe024ea71d4b782584fae5e9f32f0b84139629c5556b61792531,"per-draw window-level estimates (1,000 province-block draws); no county rows [china-csmar-aggregate; read by numbers script]"
+results/tables/expi_identify_fractions.csv,664,bfb3249f853afef06c747adf67d9921ab4a45cc90f085fe919245d3587185f5f,counts of bootstrap draws [china-csmar-aggregate; read by numbers script]
+results/tables/expi_identify_intervals.csv,28039,8726608c4473350bb4a712cb62ad303dab1a1ecc49c6feec6af024efedf4812d,bootstrap interval summaries [china-csmar-aggregate; read by numbers script]
+results/tables/expi_paired.meta.json,305,89fe2ecb77e130473736172da4ed9de2547bd2187b0c5654928b746259678b88,"run settings of run_expi_paired.py (seed, draws, province and county counts, run time) [china-csmar-aggregate; read by estimation scripts]"
+results/tables/expi_paired_consistency.csv,88662,8366dc7136dbf292e7d96963917e16e8c1dea32c2c39dd0f40a195f3e4ea1dbc,comparison of the paired run with the earlier tables (written by run_expi_paired.py) [china-csmar-aggregate; read by estimation scripts]
+results/tables/expi_paired_draws.csv.gz,454883,5bc7009f4e0ae8ec1662c7124433ba551b0c42b6ecaf90b1b5dc9d11d747a471,"per-draw window-level estimates (1,000 province-block draws; written by run_expi_paired.py, read by run_expi_identify.py); no county rows [china-csmar-aggregate; read by estimation scripts]"
+results/tables/expi_paired_estimands.csv,8681,cc2dcbf7e381355357f31d1c00e802ef09303ee9e93aa685401f5a9271bd2422,"window-level estimates and bootstrap intervals [china-csmar-aggregate; read by numbers script, figures script]"
+results/tables/expi_rerun_ci_levels.csv,5926,b75db26de1bf6d5089c41f09ec7be76e3d3e504114f7f762e1588b2c619d87e1,window-level estimates and bootstrap intervals [china-csmar-aggregate; read by numbers script]
+results/tables/expi_rerun_ci_side_by_side.csv,4396,8b0b42e8b7dbcdd171be357d638276e242590e42148776a013cff625f05a47fd,"window-level estimates and bootstrap intervals [china-csmar-aggregate; read by numbers script, figures script]"
+results/tables/expi_rerun_ci_variants.csv,7937,f6362e7e3ed18c3a18c473359a67aca6431b9f8e6f341b001d167a38c3aefdef,"window contrasts per variant and convention, full pipeline re-run per province-block draw (written by run_expi_rerun_ci.py; read by run_expi_paired.py) [china-csmar-aggregate; read by estimation scripts]"
+results/tables/expi_rerun_ci_variants.meta.json,373,7ce7867c16d79da4f99d1d9b24045dbff9b2bb24ad931ecd779ac802d67f374f,run settings; province and county counts [china-csmar-aggregate; read by numbers script]
+results/tables/k1_coverage_meta.json,81,0855826d12d26f98245ab93563cb910f2a3533a1fe7565f6a00aeafb832ac553,"run settings of run_coverage_breaks.py (seed, draws, mask size) [china-csmar-aggregate; read by estimation scripts]"
+results/tables/k1_coverage_province_year.csv,21758,c732d2b733455f405e48e637897cefb556724218486e8be19cdc601c13e7b650,province-year counts of non-missing county values (no values) [china-csmar-aggregate; read by figures script]
+results/tables/k1_exploratory/k1_exploratory_controls_k1a.csv,67755,0ac3e5500bf04b88978decdcd99a80983d6637dc5335c0347bddbfe38d3ce93f,"simulation summary rows [simulation; read by numbers script, figures script]"
+results/tables/k1_exploratory/k1_exploratory_controls_run_record.json,573,90ff9b184128dd9eca934d8e2f3bb1566ff628e9c81e001b466a9ce19b4d497e,"run settings and compute of the report-only control cells (cells, R, B, seeds, core-hours) [simulation; read by estimation scripts]"
+results/tables/k1_exploratory/k1_exploratory_controls_sim_bias.csv,250917,0675ab7d362cc4918d5d13f1c4192bf12f82b19e77040e61fcfa537f1321d595,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_exploratory/k1_exploratory_k1a.csv,86304,878857c2674b7a007f56d144de1c3dd394f259de1ec0537831d7e54f7690db0d,"simulation summary rows [simulation; read by numbers script, figures script]"
+results/tables/k1_exploratory/k1_exploratory_k1b.csv,20716,471dd37879a8160eeb76bd7b54dd9cf005bf338d022f6e9f4a43b0b10e5d973b,"simulation summary rows [simulation; read by numbers script, figures script]"
+results/tables/k1_exploratory/k1_exploratory_run_record.json,577,8247a2ffa38b93447c360fb3bce5eb37bef6e41f1fe618e86f17c492e2571c16,"run settings and compute of the exploratory K1a/K1b run (cells, R, B, seeds, core-hours) [simulation; read by estimation scripts]"
+results/tables/k1_exploratory/k1_exploratory_shocked_null.csv,19152,9b07f6026a875e2b9f0b6f1e97d614d07da8e700f822323668d96902cfefe5f6,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_exploratory/k1_exploratory_sim_bias.csv,411318,282331c6fc6e7ba1413d581555403c814b1f4b0d5933147d8f6586d8586d6a7c,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_guard_sensitivity.csv,18629,d068d30118dd467e38dcc9070184d347220496a21c740d1d8b9190713e4ed9f0,cell summaries [us-brazil-public; read by numbers script]
+results/tables/k1_guard_sensitivity_check.csv,5029,7615ca66d195141b318ea3def154003feeb38727b2e69fc75f00bd0c3cb0b176,reproduction check of the registered guard (written by k1_guard_sensitivity.py) [us-public; read by estimation scripts]
+results/tables/k1_guard_sensitivity_integrity.csv,4045,d3926e376a7a11dcab607041f82c5f4c2f3cbb40508c54bb38f7233b23cc2647,input sha256 check (written by k1_guard_sensitivity.py) [us-public; read by estimation scripts]
+results/tables/k1_k1c_f2/k1_gates.csv,73871,d7e1230d5db72238755d736fe872f34b4b1aa3739ba4c293ca30a29e4578a719,"simulation summary rows [simulation; read by numbers script, figures script]"
+results/tables/k1_k1c_f2/k1_gates_verdict.csv,1793,bccc32df50ce83202da07b1a700c83b51a557c56e2e58b8c63a9a3f68d629ec2,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_k1c_f2/k1_k1c_run_record.json,1882,94177b01fec8ac9f7116d28afcb817c3746116a278f0bbf0eb3df3c3c68c6ec6,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_k1c_f2/k1_power.csv,147006,a8c4b6de0fbc2528e21196e8a20a75ad7bc0eb6b00953c39b1a96923c41d54dc,"simulation summary rows [simulation; read by numbers script, figures script]"
+results/tables/k1_k1c_f2/k1_sim_bias.csv,63492,81fd8e336d721a1de56133aa23ce03fa3464be7b5822762dd05b1cc5228b5c03,"simulation summary rows [simulation; read by numbers script, figures script]"
+results/tables/k1_k1c_f2/k1_sim_coverage.csv,377169,42998906879f33328ea7400048d9981e60018864a5ab521cebf8dd5005afa847,simulation summary rows [simulation; read by figures script]
+results/tables/k1_leaver_provinces.csv,9724,a6de9264bd59a60bd6040df84e1563bf41707a83203daf727074acec847a1339,province-year leaver counts; mean_xi_leave dropped (cells with 1 county would expose a single county index value) [china-csmar-aggregate; read by numbers script]
+results/tables/k1_predicted_effects_f2/k1_predicted_effect_sizes.csv,3233,f0ab8be8d1d5144f6153a71d7276683bd2fe913e892ff177eff1ff65c92692a6,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_rho1_term_share.csv,2293,06d1115d10aeb2d63cf9edaf2c40ec90c6dc762a118b5fa42733377a56a2183a,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_s0_scope.csv,798,8813320487f1cb6c23e94b5741ef08ba9de6161fd4fe8841b9a0aa22121a7bb1,"truth-check and precheck scope per gate, first freeze (written by k1_s0_scope.py) [simulation; read by estimation scripts]"
+results/tables/k1_s0_scope_f2/k1_s0_scope.csv,1281,202497086c1bc946b8317fe22b48e2a4bf51b44f0abcac60a8c3a9861923cf8a,"truth-check and precheck scope per gate, second freeze (written by k1_s0_scope.py) [simulation; read by estimation scripts]"
+results/tables/k1_s0_scope_f2/k1_s0_scope_precheck_units.csv,1688,65d38da74b6f96df854c97b81361d1c62fd3a678585093036301aea7858031a4,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_s0_scope_f2/k1_s0_scope_s0_rows.csv,18304,5c020124d852899f5865b109ea2d5e1946438a78c459d0713bc531bc8071a80b,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_s0_scope_precheck_units.csv,1603,e54346d0838c2c2d33b5fd91bfe287551354a21dbf59a9cbd760fbfd731b1f45,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_s0_scope_s0_rows.csv,18114,8e78aecf8cbb9a98fa2bf4a0c5914c4e703d9f4f12a53e7669510556b8af68d1,simulation summary rows [simulation; read by numbers script]
+results/tables/k1_theory_constants.json,180,68dc07a42fd79f7e0f251118db8f760ade5f693f628a4c9efd12db102c8424a8,theory version and guard constants of the frozen projection code [simulation; read by numbers script]
+results/tables/k1_zeroth_order_noexit_offset.csv,52570,dcdd18be5ac12f96fa42832ee4899c25bfb977af992cae4afc0f3c214647dd82,no-exit offsets of the zeroth-order row (theory values; written by k1_zeroth_order_offset.py) [simulation; read by estimation scripts]
+results/tables/k2/k2_aggregation_missing.csv,61544,60e2b5ef9bfb3bcd0c7f98a1fce8d9f6e704eb72091ab9c40232c411a2ab3d80,county-years missing in the aggregation (written by run_k2.py) [us-public; read by estimation scripts]
+results/tables/k2/k2_beta_by_year.csv,17273,61dca1002024e1f07f9f789051c155efa82ae9cbf0ef8e0be689d079f0d71ec4,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script]"
+results/tables/k2/k2_boot_draws.csv.gz,10627159,049e5ecbe342d86cb435d6e6f87d48624a0d98cd8093617607205bb522f0fd74,per-draw bootstrap estimates (written by run_k2.py) [us-public; read by estimation scripts]
+results/tables/k2/k2_decomposition.csv,106694,5019c6adbb42adc5bd276c65343dd2ec49eff86537fa6d21e0daf1057a0462d9,"metropolitan-area, transition and summary rows of public data [us-public; read by figures script]"
+results/tables/k2/k2_h1.csv,880,8e06697b0396fc849738261a73cfa2615e2b1fed43cda6e4694735b0760f54b0,H1 rows (written by run_k2.py) [us-public; read by estimation scripts]
+results/tables/k2/k2_h2.csv,376,764f30423a8b7096073769de47744f2461ea18afa34a9ebda3dfb0a000fb520a,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script]"
+results/tables/k2/k2_h3a.csv,43847,727843e1b1860e6c0aeede7758367019ac362b4ab4abd6eef7a443afbdaeeb7b,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script]"
+results/tables/k2/k2_h3b.csv,6335,2222f2576c2a32cc550ab256e208838edd20a24dfc0388dbae9531485bc72542,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script, figures script]"
+results/tables/k2/k2_lineage_summary.csv,293,7bd14ba8f1f26478450407983cd681f892278750aaf7c5136dbd40083d64a2ec,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script]"
+results/tables/k2/k2_lineages.csv,28267,09e19b8a2ff103ebfb99f8ee3d396963d1ea794d4af395d8ab1ffcd8c14a4689,metropolitan lineages (written by run_k2.py) [us-public; read by estimation scripts]
+results/tables/k2/k2_literal_draw_check.csv,755722,95314e35b4e787e5a6720bd0dc13a8fae98a9b7d6454e413ab8a7ce92a432bd5,literal-draw check per draw (written by run_k2.py; read by k2_literal_noise_summary.py) [us-public; read by estimation scripts]
+results/tables/k2/k2_meta.json,2535,1f9e55fb1268ebb30bcaf4d6821581119436d38828463d471203c787214bb827,"run settings and input sha256 (registration.seed: the bootstrap seed fixed before the run) [us-public; read by numbers script, download script]"
+results/tables/k2/k2_n_min.csv,2668,c36d0da1d3808e410036f78b12aa3c6135e6a56a61869b5c5365cd7847d9fafa,minimum-size sensitivity (written by run_k2.py) [us-public; read by estimation scripts]
+results/tables/k2/k2_observables.csv,337936,a86c20da5dbde8c85617b98de28ee123884eb0884efdf9972a95bd865d5039da,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script]"
+results/tables/k2/k2_paired_differences.csv,85102,692f8e1070cfd510766562bf7c7fb265e0b44901025a4bc9e14ed55d67b64b1a,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script, figures script]"
+results/tables/k2/k2_verdicts.csv,11030,b15bdd05398a82e5e7ceed43b6cedc181d318a49d7b2a22497273ce2dea1103a,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script]"
+results/tables/k2_coverage_crosswalk_issues.csv,26,131b5d7c6ba0883c56a93639a882d114ea6420168196dd0840b27da242e23738,crosswalk issues (written by k2_coverage.py; compared by run_k2.py) [us-public; read by estimation scripts]
+results/tables/k2_coverage_meta.json,479,8f5c6c035d6ded01668d1a99d7703627dca7481229d96c1416e7c2df06c93105,settings of k2_coverage.py [us-public; read by estimation scripts]
+results/tables/k2_coverage_panelA_by_year.csv,3969,8903515fbfa89a2ef652178e5354e0efad128b8ec40bb3367b2eade0c9d317a8,Panel A coverage by year (written by k2_coverage.py; compared by run_k2.py) [us-public; read by estimation scripts]
+results/tables/k2_coverage_panelB_by_year.csv,18269,65e94116df3d5a87252f53342da1a7b72167b0823e8c50abcdd2f40df69818c9,"metropolitan-area, transition and summary rows of public data [us-public; read by figures script]"
+results/tables/k2_coverage_panelB_summary.csv,1012,dcd22391d69f8a774c4aebf7ef21a2f72ed2466d06d4a2791530efc2338bd0fb,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script, figures script]"
+results/tables/k2_coverage_sources.csv,1847,933d47cb22ad3261fb809bcf7b3dc23338bb2c349b44d25225ef7cc02a0f1cbf,"file names, URLs and sha256 of the public inputs [us-public; read by download script]"
+results/tables/k2_coverage_vintages.csv,1310,8835d01a68830cb681a3253ba55c6ca98f6080a8f3fbf18027eb5df081f90295,delineation vintages in force (written by k2_coverage.py; compared by run_k2.py) [us-public; read by estimation scripts]
+results/tables/k2_lineage_summary.csv,293,7bd14ba8f1f26478450407983cd681f892278750aaf7c5136dbd40083d64a2ec,lineage summary (written by run_k2.py --preflight) [us-public; read by estimation scripts]
+results/tables/k2_lineages.csv,28267,09e19b8a2ff103ebfb99f8ee3d396963d1ea794d4af395d8ab1ffcd8c14a4689,lineages (written by run_k2.py --preflight) [us-public; read by estimation scripts]
+results/tables/k2_literal_noise_summary.csv,17078,cdf34aba20d8a7bf64bc23e635585bf7c4dbb2f27bf86469ad5c84ccc24f18fd,"metropolitan-area, transition and summary rows of public data [us-public; read by numbers script]"
+results/tables/k2br_bootstrap_draws.csv.gz,8291782,ef5e3390a6222b47622dc1dd42d443258e5ea371451080c70d6c979291356008,per-draw bootstrap estimates (written by run_k2br.py; read by k2br_optimizer_noise.py) [brazil-public; read by estimation scripts]
+results/tables/k2br_checks.csv,1145,66fc5088287b5ef4c9b089d6b87f85ea3bad089944ff32b24e350ba7f5f3a716,pipeline checks (written by run_k2br.py) [brazil-public; read by estimation scripts]
+results/tables/k2br_contrasts.csv,68527,731db5152c4a91f928a9b25860dc52ec6e0b82945b767c2d328b999d436c2ed3,"municipal-area, transition and summary rows of public data [brazil-public; read by numbers script, figures script]"
+results/tables/k2br_coverage_blocks.csv,395,41bc84b06c7130989cec47c2c75abcc46289941c964f9c24d8a9e4932cd323e4,"municipal-area, transition and summary rows of public data [brazil-public; read by numbers script]"
+results/tables/k2br_coverage_entrants.csv,120723,f51b149e2309fbf257a061f18509c25b978f2a0017cbb0aaf1da673ffde06a76,entrant municipalities (written by k2br_coverage.py; compared by run_k2br.py) [brazil-public; read by estimation scripts]
+results/tables/k2br_coverage_issues.csv,3871,9d72e4772a6fc6a8b97209972324c544144da510b67df584752c6924bbbcd4a9,coverage issues (written by k2br_coverage.py; compared by run_k2br.py) [brazil-public; read by estimation scripts]
+results/tables/k2br_coverage_meta.json,1101,3a6a7ee3e2f5ec7cb778aa4967b405c4140b1932e5b9d0fb2a30dffdc9775553,settings of k2br_coverage.py (compared by run_k2br.py without its git hash) [brazil-public; read by estimation scripts]
+results/tables/k2br_coverage_panelA_by_year.csv,6165,5ae988b43590272eec087c0fbed8775b027036e420288aab7591aecb37157b36,Panel A coverage by year (written by k2br_coverage.py; compared by run_k2br.py) [brazil-public; read by estimation scripts]
+results/tables/k2br_coverage_panelB_by_transition.csv,4864,08cd831cdfb3fb37e10213eb55106d7d19b5e15164389de3a1e37053e2666235,"municipal-area, transition and summary rows of public data [brazil-public; read by figures script]"
+results/tables/k2br_coverage_sources.csv,15189,e55d15ec0cce7a47a5e7393d2f4b8698a811240d92faba221e0baee7178e6c1b,"file names, URLs and sha256 of the public inputs [brazil-public; read by download script]"
+results/tables/k2br_coverage_summary.csv,1157,258a5c5ed21401e8766d9db9cd7d7f904b4322d4cd367399ec1a56876ff1a1c0,"municipal-area, transition and summary rows of public data [brazil-public; read by numbers script]"
+results/tables/k2br_coverage_units_by_year.csv,1607,7ef9478f3dd13362796add534f88e7a53ba88f57068517328a291a43222d4cd3,units by year (written by k2br_coverage.py; compared by run_k2br.py) [brazil-public; read by estimation scripts]
+results/tables/k2br_decomposition.csv,78405,67116d6c22edf85654971227f80c2765833a62194e7d217e511e00be23e5c8bb,"municipal-area, transition and summary rows of public data [brazil-public; read by numbers script, figures script]"
+results/tables/k2br_existence.csv,4004738,c2b585af1f5d1e4cee73d9c048383bc39fe7c4f52867a57116a42b1963e0925f,"municipality-years with a published outcome record, codes and years only (kill rule 3 of run_k2br.py) [brazil-public; read by estimation scripts]"
+results/tables/k2br_existence_by_year.csv,1699,1179f4c75fb70824bf89383e4c583b9b94e18bafdbd039932901722a0e6cf9ca,existence records by year (written by k2br_pib.py --existence) [brazil-public; read by estimation scripts]
+results/tables/k2br_existence_discrepancies.csv,1136,c82e90f29bc5b14535f61de19d5a3383742f3fb462c7ff4e4d2feb7ab30bd846,existence vs coverage discrepancies (written by k2br_pib.py --existence) [brazil-public; read by estimation scripts]
+results/tables/k2br_existence_meta.json,742,aca6ca3960c1b44b0cb51e5086bcf0a88a53a36a81dfc6917ebab569010a1c58,settings of k2br_pib.py --existence [brazil-public; read by estimation scripts]
+results/tables/k2br_meta.json,910,4cb70ed2e9f284bd243b670071f51ac9328281fea01792623e08ff474960daba,"municipal-area, transition and summary rows of public data [brazil-public; read by numbers script]"
+results/tables/k2br_observables.csv,502501,38a9bffe00c7d1979d5d04dd0a5d83dca24ba5b5619e0e7ffbbaa8fff6983cba,observables per area window and variant (written by run_k2br.py) [brazil-public; read by estimation scripts]
+results/tables/k2br_optimizer_noise.csv,26920,05bd7af868c99092b8ae93323412fbfa97da52b6225844b936ce7e13fb1d7893,per-draw refits (written by k2br_optimizer_noise.py) [brazil-public; read by estimation scripts]
+results/tables/k2br_optimizer_noise_summary.csv,1311,bd753078ed6578eff164beb8d657adc582b480dae44e2787000c00a96cb5cf3e,"municipal-area, transition and summary rows of public data [brazil-public; read by numbers script]"
+results/tables/k2br_predictions.csv,1651,31103f849122145a04652d1aab910463fe76daa814cdebdf49f5f4593bc18c80,"municipal-area, transition and summary rows of public data [brazil-public; read by numbers script, figures script]"
+results/tables/k2br_units.csv,2881,0c6ef384f1801f02bd19b3cfe3168c07a1c00522000f39cad7cf56c98d876987,units per window (written by run_k2br.py) [brazil-public; read by estimation scripts]
+results/tables/k2br_verdicts.csv,2127,e337f95562f7b248e0de075f3aea4b2d1291180b7e3a4700d3d497f1337bec3c,"municipal-area, transition and summary rows of public data [brazil-public; read by numbers script, figures script]"
+results/tables/k2br_yearly.csv,22409,bfa45c8ca5f05367daf4f577fc26dfa4be2e6cffb922293efc68a52807034ce6,"municipal-area, transition and summary rows of public data [brazil-public; read by numbers script]"
+results/tables/k4_mask/confirmatory/k4_cells.csv,24967,b48e40c1026a5a8af9249bd0c3523f3ff2b414f1edd85594e4e20cb6c47b2eb7,cell summaries per system [us-brazil-public; read by numbers script]
+results/tables/k4_mask/confirmatory/k4_draws.csv.gz,3420533,80464d763e7daa015c2b657206ff932c52e344ebd1357dfb26fc332940e37495,"per-draw bootstrap attractors (reference, V0, V1) per mask [us-brazil-public; read by estimation scripts]"
+results/tables/k4_mask/confirmatory/k4_equivalence.csv,217,2ef16c9d254613d70165e5c62aa3d1576a86fbee80f9e2cc98a366771fdadf9f,stopping rule 4: no-mask V0 and V1 pairs and the pairs of the pipeline of each system [us-brazil-public; read by numbers script]
+results/tables/k4_mask/confirmatory/k4_evaluation.csv,71728,b3a9ba2cff4bbb945ad09f25c2cd06f95e15acd9e34022c00c8f166ad2d798ab,"every criterion and verdict per system, criteria set and stratum, with cluster-bootstrap intervals [us-brazil-public; read by numbers script]"
+results/tables/k4_mask/confirmatory/k4_integrity.csv,11057,e67f22fcedbf67b7694f638ca4dcfad7a9f40dd07f378b2d342495b5d7375b69,stopping rule 1: sha256 of every raw input against the shipped records [us-brazil-public; read by numbers script]
+results/tables/k4_mask/confirmatory/k4_masks.csv,6484453,8f834c048138f550bda87d2185d98befd2eb89462aa4fdde14af2c2df0a57560,"every mask: cell, replicate, attempt, achieved fraction, masked units and blocks, content hash [us-brazil-public; read by numbers script]"
+results/tables/k4_mask/confirmatory/k4_meta.json,1398,9f1cd6f6db0676cabb89ac81c05f2366d21f49cddcb4377f5953c615cdeb7f1a,"run settings: entropy of the seeds, frozen guards and criteria, B, replicates, workers, run time [us-brazil-public; read by numbers script, figures script, estimation scripts]"
+results/tables/k4_mask/confirmatory/k4_points.csv,7389696,c35786bcf8cb6ea6f6db92f16edb9bafc1d4bb01b3f8e2200ff8c6d5c9115adc,"one row per mask: masked-panel V0, V1, reference and comparator attractors, doses, tests and projections [us-brazil-public; read by numbers script, figures script]"
+results/tables/k4_mask/confirmatory/k4_projections.csv,2258575,17a9e8d884ae86fb97861382a1111682bbc27b03bdbc25da2cc7b4e9f0f997b5,"one row per mask and guard: guarded pooled projection, status and support checks [us-brazil-public; read by numbers script, figures script]"
+results/tables/k4_mask/confirmatory/k4_reproduction.csv,489,d021614866cff3c3648977ce5da5dd652b53058a41dc92b29c4600a4eccd3c8a,stopping rule 2: complete-panel estimates rebuilt against the shipped Panel A rows [us-brazil-public; read by numbers script]
+results/tables/k4_mask/pilot/k4_cells.csv,5527,7b5de4297c5ff97ec0bbbe3cd1a55294e8851daee7bf42e80ccd31c24e458ff6,pilot cell summaries [us-brazil-public; read by estimation scripts]
+results/tables/k4_mask/pilot/k4_draws.csv.gz,93356,32d49d4c8e424aebbc763370fba44dbb1dd7ee32dbfcb6e5b75816644a1dbba6,per-draw bootstrap attractors of the pilot [us-brazil-public; read by estimation scripts]
+results/tables/k4_mask/pilot/k4_equivalence.csv,122,604fbcaf926bd9767b4a6891a8322b0f4e1956f9c2be32af37a59c2bfee02d5c,stopping rule 4 of the pilot [us-brazil-public; read by estimation scripts]
+results/tables/k4_mask/pilot/k4_evaluation.csv,26588,cbfa3810ba69294327970bf8f9c5a864f0cc171d56c0a38f4e1c73e6361844a4,criteria and verdicts of the pilot (provisional criteria; exploratory) [us-brazil-public; read by estimation scripts]
+results/tables/k4_mask/pilot/k4_integrity.csv,3506,14afa3bb0d1d331021a089421c9e634221df198ba8f3d4b55d6b970b090d19f5,stopping rule 1 of the pilot [us-brazil-public; read by estimation scripts]
+results/tables/k4_mask/pilot/k4_masks.csv,28518,4dbe8590858d18bb1481dfed5f66953f64940acc0452f1f5a9b9bebf98524a3c,every pilot mask (content hashes: the confirmatory stage redraws a mask identical to one of them) [us-brazil-public; read by estimation scripts]
+results/tables/k4_mask/pilot/k4_meta.json,1335,65d3111b2abb43f263c86697eab2eeb307b0537267865ec76f635dfe12248f70,run settings of the pilot [us-brazil-public; read by estimation scripts]
+results/tables/k4_mask/pilot/k4_pilot_diagnostics.csv,5687,1a19b5e33059f1f6350c16ae88403349b806836e40c9f46a6b2a18f01d8a6537,"per pilot mask: projection against observed difference, guard definition and support checks [us-brazil-public; read by estimation scripts]"
+results/tables/k4_mask/pilot/k4_points.csv,53109,d86e93c878cc446b61191695df1bcd6f72f0ec4f9c210e2f40df1f0499116422,one row per pilot mask (as the confirmatory table) [us-brazil-public; read by numbers script]
+results/tables/k4_mask/pilot/k4_projections.csv,59094,9abe3e22c96f544fbb51d1654bf0939a3724f3285ac3af4f940baf9fe8fcb9b1,one row per pilot mask and guard [us-brazil-public; read by numbers script]
+results/tables/k4_mask/pilot/k4_reproduction.csv,259,ae0bbff8312f58de28c5ec4aa0bf130858e923dbe423f47f60ff72b929a1a3e1,stopping rule 2 of the pilot [us-brazil-public; read by estimation scripts]
+results/tables/paper_k1_si_tables_meta.json,4331,baa737a5ba737ab79881d0e4a559fde874bebee315f0cc3aea2581c316d3f4a7,written by make numbers (sha256 of the shipped inputs)
+results/tables/paper_k1_values.csv,251922,00ce6d325f2546ec31e441caa1641dff42ee1978ae4c937f8a09384fe3e0b59d,one row per printed value [paper-values; read by figures script]
+results/tables/paper_k1_values_meta.json,6428,5259fd6be772b6cda397a29cdfa7d8c26eae5a7a59c78344958c0cd12c099dcc,written by make numbers (sha256 of the shipped inputs)
+scripts/fetch_public_data.py,7075,7d551b8a8a71dbf83d2f6fbe301a2f26c9cc8df4e1b0aeb000317d245d9329cc,downloads the public US and Brazilian inputs and checks their sha256
+scripts/k1_calibrate.py,6920,b84d49e9778852a9958dfc0dd0b8253b84fcef339a648e48ce822fa50f43250a,simulation study: calibration constants from the Chinese panel (src/k1_sim_calibration.json; needs CSMAR)
+scripts/k1_exploratory.py,43123,4eb73c951ecb421afe492e85df7e5f38cffd75466bc04a7204a79de25bc6a3f6,simulation study: exploratory K1a/K1b driver (results/tables/k1_exploratory/)
+scripts/k1_gates.py,50502,0d95e713c6ae759a09f3f4e436072addf081019c96872719197ff75a552c12e6,"simulation study: gate evaluation (k1_gates.csv, k1_gates_verdict.csv)"
+scripts/k1_guard_sensitivity.py,17128,68c73f95b8467309b67f918e2fad88bd28cd5320bed9102b7bc2e1e70485b309,US and Brazil: post-hoc sensitivity of the guarded projection (k1_guard_sensitivity*)
+scripts/k1_predicted_effects.py,5538,086b3cf6c2b35f127e591cfcae74780d18617e1d049960e6f042da0236450a52,simulation study: predicted effect sizes from the composition-only aggregate (k1_predicted_effect_sizes.csv)
+scripts/k1_rho1_term_share.py,2005,66c83520a125ed949534d9a6dc52de51f52a6abfee4047acd4837283b9647ac0,simulation study: complete-panel rho1 term share (k1_rho1_term_share.csv)
+scripts/k1_run_cells.py,46703,11a134fc67eb3289eaf65d0871623b8545fe2c9fb5e452d4a46f6fe78bd91e86,"simulation study: runs cells in chunks and aggregates them (k1_sim_bias, k1_sim_coverage, k1_power)"
+scripts/k1_s0.py,24197,f85527c938fbf3fec1146e45bf75ae9cee9df83d34983f80bf0913012870a9c1,"simulation study: truth checks (S0), one record per process and pipeline"
+scripts/k1_s0_scope.py,5425,5c41baaace997ed931987f924b3d678bb953fd566dd94573cee31b3dc002eacc,simulation study: truth-check and precheck scope per gate (k1_s0_scope_*)
+scripts/k1_zeroth_order_offset.py,5797,a5bc3601918a6acf06b2298e17e694c31e05608c6091591ac998ec5fad193d68,simulation study: no-exit offset of the zeroth-order row on the registered processes (k1_zeroth_order_noexit_offset.csv)
+scripts/k2_coverage.py,18434,ebbe27311683b138d07b897b3cbc886a43f637305bedf80127760bfe361d7730,US: OMB delineations and BEA population -> Panel A/B coverage and lineage tables (k2_coverage_*)
+scripts/k2_literal_noise_summary.py,3014,0f4086b7f25c01e1b958f0534271c6594750940bce309ec9ca86c702f648e797,US: summary of the literal-draw check (k2_literal_noise_summary.csv)
+scripts/k2br_coverage.py,26922,4071c994d68a27320768f08716302194e5d64587389fba959128e3613bf39191,"Brazil: IBGE population, territorial division and genealogy -> minimum comparable areas and coverage tables (k2br_coverage_*)"
+scripts/k2br_optimizer_noise.py,8227,816044b417fdd2de28c279d9a183ba87f2405276022d8d1b80b5f37232b0e571,Brazil: optimiser-noise refits of fixed bootstrap draws (k2br_optimizer_noise*)
+scripts/k2br_pib.py,16544,c1f52b5baefcdab1c251df49643d7fd0d757f5bfaf6e51e1e63dd8c41fb3d634,"Brazil: reader of the PIB dos Municipios files (outcome values, existence table)"
+scripts/paper_k1_figures.py,94520,bc923589a896edfad4495f64d67dcbfbd4b2f3aae5ca3caa5644909ef784d38a,draws the 13 figures (results/figures/*.pdf) from results/tables/
+scripts/paper_k1_numbers.py,149597,992e1d47007c19a82b1babae0689cd164a661809d1edbe07b6a76fb5872a41d7,"writes every number of the paper (results/tables/paper_k1_values.csv, values.tex, SI tables) from results/tables/"
+scripts/run_attrition_diagnostic.py,12326,483558d911c98ea624b96d7fc06e84ebed701ec09e30238d228cb91c0baa7aea,China: composition decomposition by transition year and window (expi_attrition_*)
+scripts/run_coverage_breaks.py,7055,98a431bc7864862cf627c52fa61628fbb489f5a0d3e1e9d5f15f98d9d7cdb2b0,"China: coverage by province and year, leaver provinces, balanced cohort (k1_coverage_province_year, k1_leaver_provinces)"
+scripts/run_expi_identify.py,29727,ef6eb4c0330acc15ddf7238ac81026df555a4bf30dcc6c6550474c75cbdbae74,China: identifiability diagnostic (expi_identify_*)
+scripts/run_expi_paired.py,23403,62f25b32b1fde04085bcbac8f3fabbc5684355dc0ce89ca4bd419178ef7c5c8a,"China: paired V0-V1 estimands, pooled slope and dose (expi_paired_estimands.csv)"
+scripts/run_expi_rerun_ci.py,14194,6b1b8dfb2561df8907b673365f8360dcd1b8b3473cbe8df3cddd6df5dcd4f8fb,China: V0/V1 intervals with the full pipeline re-run per province-block draw (expi_rerun_ci_*)
+scripts/run_k2.py,66253,961c89b82a326b96645162ba104b30fffc80978568b86fc230d69e90585343e6,"US: V0/V1 attractor contrasts, lineage bootstrap and K1 predictions (results/tables/k2/)"
+scripts/run_k2br.py,62037,b0b856ae8736faa70e17a30e40d142cd6de28044bd874abdb433dcd495c1d7da,"Brazil: V0/V1 attractor contrasts, bootstrap and K1 predictions (k2br_*)"
+scripts/run_k4_mask.py,82603,43b9b9dd67d9cdc501b5b236c8c87c77a2cefc8052e654f7a4fdd7facd15c767,US and Brazil: controlled masking of the complete panels (pilot and confirmatory stages; results/tables/k4_mask/)
+scripts/verify_outputs.py,1643,b7a5758d95d91b868a944699dc7f5312dfb00267101e9e4a626a9f377b03e0a5,make verify: compares the outputs of make numbers and make figures with expected_outputs.sha256
+src/__init__.py,115,65576b5704e27566e843ef27217b705c6b4eeed9dcd4e484a164d7c1dfd908c1,package marker
+src/config.py,11128,51ad840fc1f00a2eb3fcde9f7a2f0aad1f07a21b446da7b143c5519a2237563f,"China: paths, CSMAR file registry and column names, windows (CJK only in data-identifier string constants)"
+src/data_cleaner.py,5614,face5d567d7b4b7b029ecc3fb510b9d132e1ec887f0a55d100d41fb2fe3a4fe4,"China: county-code filter, cleaning"
+src/data_loader.py,5407,291c3c78609e1a29457cbff5ce8356b2ddcf91d6e9db652217d6263500155027,China: reads the CSMAR Excel files
+src/data_merger.py,12663,af5a763d892510c10d9aacb8fcf09f9f7d9ef747fa17657e0ea8ffdbfcd67767,China: builds data_clean/panel_full.parquet and panel_scaling.parquet (make china-panel)
+src/deflator.py,4412,dc266d74df80a75ae83453a76d3d0c6f43906526f9add7367805c7cb79d773dd,China: provincial GDP deflator
+src/fokker_planck.py,26185,d8acbce5d6a1b39634834361fe71e2e4271b1d5c8d143e03409817b65e27fc05,transition pairs per window
+src/k1_archive_commit.txt,16,52fb0a5bfec884d71b6ac842aacb75d69abe06ee9145e86c2ee120f44d6eed3b,placeholder expanded by git archive (see .gitattributes)
+src/k1_contract.py,69737,be30bc7b18162d1016b09b53c22ee5832d9cbe0c4903ebd90eb13e0df72dd9f0,"simulation study: cells, quantities, seeds, truth-check and gate rules (interface of simulator, theory and gates)"
+src/k1_design_processes.json,5323,36016f73dc201bb32f033f995e1ff88a53412bef5dd6fe3d057c69b61b038aa8,registered parameters of the bistable and positive-control processes
+src/k1_s0_backend.py,6959,042d54f49274bda92d40f4ea44dab2064a2ecaf80aabb7551fb84744bd3c0c0d,simulation study: truth-check (S0) backend
+src/k1_sim.py,80994,89c3f469595784b9cea5875d327ef36d9fd0a9f8ebf2920fde77cc2febee3896,"simulation study: latent processes, exit mechanisms, panel generation and the full pipeline per replicate"
+src/k1_sim_calibration.json,4576,d86d33d5a1aa037b1e324be798f5ddf42555be978d13c4690bd5cce95b7ff8d1,"calibration constants of the simulation (aggregates of the Chinese panel: fitted drift and diffusion coefficients, province shares)"
+src/k1_theory.py,50791,8f40afdbcfc2d3ffb3a747157c436f87079292d3eb247d89f756f7ee6e503ebe,"simulation study: projection of the composition term (predicted V0 bias), truths and guards"
+src/km_mle.py,14558,f4bf1ea72be331002788bde480f838ffa8fc6ce2f400c2915163696070c7b3ba,likelihood fit of the Langevin model on transition pairs and derived observables (all panels)
+src/paper_k1_style.py,19764,8ce8f452de0a1def07d55b5b38b41e7661c0de317c7647e38b3f1b9fe186d3eb,figure house style and lint used by paper_k1_figures.py and its test
+src/saai.py,8194,877ea0bdd446ffcf7503b1b871c205c0e1eb6bebc684347e64d4d24fed09c7c0,"scaling-adjusted index (yearly regression and standardisation, V0/V1) used on all panels"
+src/scaling.py,31552,b8c0ef6e9c27a3e5d180749672d9fb090af4386b34471a939079c990abc5e56f,China: scaling regressions
+tests/conftest.py,2314,2e05f015f4ea4e0a26496baab85a27379a042f02cf206157f4d0e733392701d3,puts the archive root on sys.path; leaves out the simulator tests and skips the other mask-dependent tests when the CSMAR-derived presence mask is absent; skips the tests that need a git checkout outside one
+tests/test_expi_paired.py,17833,cfd65588e59438f55188fa8bfd3a4fd1244ba1cdc2b5f43bca64fa949f28beca,paired-estimand tests on a synthetic panel
+tests/test_k1_algebra.py,130437,c92cef208f62e7c0029bea8fe34cb890230f009735b7edd3256f9aa12f654cc7,symbolic (sympy) and numeric checks of the composition algebra and the projection (cited in the SI)
+tests/test_k1_exploratory.py,20490,6c6897dbc988aba36b1b7ce2895568d8d1402901f6061847ea12f0c563ad795e,exploratory driver tests on synthetic data and the shipped tables
+tests/test_k1_posthoc.py,18093,f94f7324bd18e7e89e3af1f1fc5b722b38f8e2218a41cab7d927970d1eeb3b99,post-hoc diagnostics tests on a synthetic panel
+tests/test_k1_sim.py,82973,19483c0476e7aac3b7aaa9834faf4fafc33a7761e5fdaf5b99d8243413640901,"simulator, aggregation and gate tests on synthetic data; simulates on data_clean/k1_mask.* (CSMAR-derived, not shipped): collected only where the mask exists"
+tests/test_k2.py,16240,cc039ccfa71c3097b274f015656bda40f27978d33df7faa64e32019bc078c9b4,US pipeline tests on a synthetic world
+tests/test_k2br.py,34456,5cafb2661c878e919ed5362ce5226a9d527096abe9fb289b70bc7357b0c89e80,Brazilian pipeline tests on a synthetic panel
+tests/test_k2br_pib.py,11607,b22e4110e1e1682576c8c4426d10bb7926a6a042cfbf15514be8ff0d98a54028,PIB reader tests on synthetic files
+tests/test_k4_mask.py,36118,83aa5079afeb82ae32a6a814906af570dca800ebbcf7f4ea12ac763ea4384b96,"controlled-masking tests on synthetic panels (masks, seeds, stopping rules, projection API, evaluation)"
+tests/test_paper_k1_figures.py,5804,8ebd17f9651fa04bab2e148da7cbc2dc38892b348e939253e4f3883bf6348f89,figure lint and byte-for-byte regeneration of the shipped PDFs
+tests/test_paper_k1_numbers.py,9021,e32f4ccb5d5422fc399e200e0e81408699000c1924e1675cc193e383fbe8cb53,re-runs the numbers script and checks key values against their tables
+release_manifest.csv,,,this list

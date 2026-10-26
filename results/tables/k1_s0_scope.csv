@@ -1,0 +1,6 @@
+gate,s0_scope_mle,s0_scope_neural,s0_not_passed_mle,s0_not_passed_neural,s0_scope_ok,precheck_pass,unlocked,why
+K1a,ou;cubic,,ou;cubic,,False,False,False,"S0 not passed: ou;cubic; precheck: 20 of 22 (a) coverage units outside [0.92, 0.98]"
+K1b,ou;cubic;cubic_mult,,ou;cubic,,False,False,False,"S0 not passed: ou;cubic; precheck: 20 of 22 (a) coverage units outside [0.92, 0.98]"
+K1c,cubic_shift,,,,True,False,False,"precheck: 20 of 22 (a) coverage units outside [0.92, 0.98]"
+K2,cubic_bistable_0;cubic_bistable_1;cubic_bistable_2;cubic_bistable_4,,,,True,False,False,"precheck: 20 of 22 (a) coverage units outside [0.92, 0.98]"
+K3,ou;cubic,ou;cubic,ou;cubic,ou;cubic,False,False,False,"S0 not passed: ou;cubic;ou (neural);cubic (neural); precheck: 20 of 22 (a) coverage units outside [0.92, 0.98]"
