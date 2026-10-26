@@ -1,12 +1,13 @@
 path,bytes,sha256,reason
 .gitattributes,183,89084a85fb20c32219ec96d738e480c1a8f9d35cc86ff998d2626e2794bba216,git archive writes the archived commit into src/k1_archive_commit.txt (binds truth-check records outside a checkout)
 .gitignore,105,d28cec38a901ca38ab698e8c60694d1700e33827d572ff25a5ac131bb75296f1,build outputs and downloaded data
-CITATION.cff,2169,e3e4d33f675cab414d21dd8e23753e47436f0bc1635753ff1b2b2e2da5f1711f,citation metadata
+.zenodo.json,2107,4a84bd4a7d97b76ad7b28ddc78b713f27bbd7a51c1441cb076ba645a78d48be5,Zenodo deposit metadata (takes precedence over CITATION.cff)
+CITATION.cff,2082,7886b44ac695f9e74e5cb1ba68596c0ad4ecf804464bb92234adc9e43c721030,citation metadata
 DATA_ACCESS.md,18505,b51ac69c89bf27cafd99d71b39b544b9380b3721f5305c96b71187356f8c6edf,"how to obtain each input, with sha256"
 LICENSE,1105,7238b253c061690c31659d3e142c29a349ca2a620cc21b1def49944e247e9b90,MIT licence for the code
 LICENSE-data,778,57f8e499915fbec5fad356f1104969bf7a77247f08f4fb34aa11e9232f1e1039,CC-BY-4.0 for tables and figures
 Makefile,1210,9214a49406d30cddba674d8a559b6e27e6265955b8cc9d7ddae6148cbe5d2159,"numbers, figures, verify, test, us, brazil, china-panel targets"
-README.md,22735,24263bb5ce1803cac1cb77921684ab8f2d50c29b7abdebd04d0a5f761fa37d05,what the archive is and how each figure and number is produced
+README.md,22735,7864bc0f0992c717c275958e95b7a0d1bffc1c4c31976d52b6ecdda24ffb34cf,what the archive is and how each figure and number is produced
 expected_outputs.sha256,5030,7b65fc518912b1caa514b809840c5cdfa7f08eab9db950d6cf059084df8e8b64,sha256 of every output of make numbers and make figures (make verify)
 requirements.txt,740,85bdac9f82cbeaf721fcf440631b20b66e76aa400b38a8bc6bc4822381e4cc06,pinned versions used to produce the shipped outputs
 results/figures/fig1_mechanism.pdf,136049,8903b569f0ccc67b932e87131ace65de4a9e37d9d691ad38924de4245533a9fb,Fig. 1

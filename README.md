@@ -4,7 +4,7 @@ Code, result tables and figures for
 
 > Juk-Sen Tang, Jing Gong, Lingyi Wu and Junhong Chen,
 > *Unit turnover and yearly standardization create spurious attractor shifts
-> in Langevin inference on open panels* (version 2.0.0 of this archive).
+> in Langevin inference on open panels* (version 2.0.1 of this archive).
 
 When an index is standardized each year over the units observed that year,
 units entering and leaving the panel force a composition term on every unit
@@ -354,7 +354,7 @@ run (Supplementary Note S4; provenance in Supplementary Note S8): the
 uncorrected (V0) attractor shift is consistent with composition and
 disappears after restandardizing on the stayers (V1), and with
 province-clustered intervals neither the V0 shift nor the V0-V1 difference
-is resolved. Version 2.0.0 accompanies the paper above; its code,
+is resolved. Version 2.0.1 accompanies the paper above; its code,
 tables and figures do not depend on versions 1.x.
 
 ## Licence and citation

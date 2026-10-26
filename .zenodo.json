@@ -1,0 +1,15 @@
+{
+  "upload_type": "software",
+  "title": "county-scaling-dynamics: code, result tables and figures for 'Unit turnover and yearly standardization create spurious attractor shifts in Langevin inference on open panels'",
+  "version": "2.0.1",
+  "description": "<p>Code, tests, result tables and figures accompanying the paper <em>Unit turnover and yearly standardization create spurious attractor shifts in Langevin inference on open panels</em>.</p><p>The archive contains the analysis code (panel construction, scaling-adjusted indices, Kramers&ndash;Moyal/Langevin estimation, the composition theory and simulation study, the US metropolitan and Brazilian municipal analyses and the controlled-masking experiment), the tests, every result table read by the scripts that write the paper's numbers and figures, and the figures as vector PDFs. <code>make numbers</code> and <code>make figures</code> regenerate them and <code>make verify</code> checks them against <code>expected_outputs.sha256</code>. The US and Brazilian analyses run end to end from public downloads (DATA_ACCESS.md lists sources and checksums). The Chinese county data come from a licensed database and are not redistributed.</p><p>Earlier versions: versions 1.x of this archive accompanied an earlier analysis of the same Chinese county panel. Its headline conclusions (the attractor shift and slowing down, and the single-factor values &minus;0.46/+0.059) do not hold; the reasons are documented in the paper accompanying this version.</p>",
+  "creators": [
+    {"name": "Tang, Juk-Sen", "affiliation": "Beijing Academy of Agriculture and Forestry Sciences; McGill University"},
+    {"name": "Gong, Jing", "affiliation": "Beijing Academy of Agriculture and Forestry Sciences"},
+    {"name": "Wu, Lingyi", "affiliation": "Yongzhou No. 1 High School, Hunan"},
+    {"name": "Chen, Junhong", "affiliation": "Beijing Academy of Agriculture and Forestry Sciences"}
+  ],
+  "license": "mit",
+  "access_right": "open",
+  "keywords": ["Langevin inference", "Kramers-Moyal", "open panels", "composition bias", "standardization", "scaling laws"]
+}
